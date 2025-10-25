@@ -1,0 +1,65 @@
+/* Core @socketry/syntax theme (base)
+   This file provides reasonable defaults for the syntax container and common token classes.
+   Per-language files (language-*.css) can override or extend these styles. */
+
+code.syntax {
+  display: block;
+  background: #282c34;
+  color: #abb2bf;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  
+  tab-size: 2;
+}
+
+code.syntax > span {
+  display: flex;
+}
+
+code.syntax .indent {
+  flex-grow: 0;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+code.syntax .text {
+  white-space: pre-wrap;
+  padding-left: 2ch;
+  text-indent: -2ch;
+}
+
+/* Common token classes (shared across many languages) */
+code.syntax .keyword { color: #c678dd; font-weight: bold; }
+code.syntax .string { color: #98c379; }
+code.syntax .comment { color: #5c6370; font-style: italic; }
+code.syntax .number { color: #d19a66; }
+code.syntax .operator { color: #56b6c2; }
+code.syntax .function { color: #61afef; }
+code.syntax .constant { color: #d19a66; }
+code.syntax .type { color: #e5c07b; }
+code.syntax .preprocessor { color: #e06c75; font-style: italic; }
+code.syntax .access { color: #c678dd; font-weight: bold; }
+code.syntax .escape { color: #56b6c2; font-weight: bold; }
+
+/* HTML-oriented tokens */
+code.syntax .tag { color: #e06c75; }
+code.syntax .tag-name { color: #e06c75; font-weight: bold; }
+code.syntax .attribute { color: #d19a66; }
+code.syntax .entity { color: #56b6c2; }
+code.syntax .doctype { color: #c678dd; }
+code.syntax .cdata { color: #5c6370; }
+
+/* Link support */
+code.syntax a {
+  text-decoration: none;
+  color: inherit;
+}
+
+code.syntax .href {
+  color: #61afef;
+  text-decoration: underline;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@socketry/syntax Examples</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem;
+			background: #1e1e1e;
+			color: #d4d4d4;
+		}
+		
+		h1 {
+			color: #4ec9b0;
+			border-bottom: 2px solid #4ec9b0;
+			padding-bottom: 0.5rem;
+		}
+		
+		h2 {
+			color: #569cd6;
+			margin-top: 2rem;
+		}
+		
+		.example {
+			margin: 1rem 0 2rem;
+		}
+		
+		.description {
+			margin-bottom: 1rem;
+			color: #9cdcfe;
+		}
+		
+		syntax-highlight {
+			display: block;
+			margin: 1rem 0;
+		}
+		
+		nav {
+			background: #252526;
+			padding: 1rem;
+			border-radius: 8px;
+			margin-bottom: 2rem;
+		}
+		
+		nav a {
+			color: #569cd6;
+			text-decoration: none;
+			margin-right: 1.5rem;
+		}
+		
+		nav a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+	<h1>@socketry/syntax Examples</h1>
+	
+	<nav>
+		<a href="javascript.html">JavaScript</a>
+		<a href="html.html">HTML</a>
+		<a href="mixed.html">Mixed Content</a>
+		<a href="clang.html">C/C++/Objective-C</a>
+	</nav>
+	
+	<div class="example">
+		<h2>Welcome</h2>
+		<p class="description">
+			This is a modern, framework-agnostic syntax highlighter built with Web Components.
+			It provides automatic syntax highlighting using the <code>&lt;syntax-highlight&gt;</code> custom element.
+		</p>
+	</div>
+	
+	<div class="example">
+		<h2>JavaScript Example</h2>
+		<p class="description">Basic JavaScript highlighting:</p>
+		
+		<syntax-highlight language="javascript">
+// Modern JavaScript with ES6+ features
+class SyntaxHighlighter {
+	constructor(options = {}) {
+		this.theme = options.theme || 'base';
+		this.languages = new Map();
+	}
+	
+	async highlight(code, language) {
+		const lang = await this.getLanguage(language);
+		return lang.process(code);
+	}
+	
+	getLanguage(name) {
+		if (this.languages.has(name)) {
+			return Promise.resolve(this.languages.get(name));
+		}
+		
+		// Dynamic import for on-demand loading
+		return import(`./languages/${name}.js`)
+			.then(module => {
+				this.languages.set(name, module.default);
+				return module.default;
+			});
+	}
+}
+
+// Usage
+const highlighter = new SyntaxHighlighter({ theme: 'dark' });
+const result = await highlighter.highlight(code, 'javascript');
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>HTML Example</h2>
+		<p class="description">HTML with attributes and entities:</p>
+		
+		<syntax-highlight language="html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;title&gt;Example Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h1&gt;Hello &amp;nbsp; World!&lt;/h1&gt;
+	&lt;p class="intro" id="first"&gt;This is a &lt;strong&gt;test&lt;/strong&gt;.&lt;/p&gt;
+	
+	&lt;!-- Comment example --&gt;
+	&lt;div data-value="test" disabled&gt;
+		&lt;img src="image.jpg" alt="Description" /&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+		</syntax-highlight>
+	</div>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		
+		// Initialize highlighting
+		await Syntax.highlight({
+			autoUpgrade: true,
+			syntax: Syntax.default
+		});
+	</script>
+</body>
+</html>

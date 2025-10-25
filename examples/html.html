@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML Examples - @socketry/syntax</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem;
+			background: #1e1e1e;
+			color: #d4d4d4;
+		}
+		
+		h1 {
+			color: #4ec9b0;
+			border-bottom: 2px solid #4ec9b0;
+			padding-bottom: 0.5rem;
+		}
+		
+		h2 {
+			color: #569cd6;
+			margin-top: 2rem;
+		}
+		
+		.example {
+			margin: 1rem 0 2rem;
+		}
+		
+		.description {
+			margin-bottom: 1rem;
+			color: #9cdcfe;
+		}
+		
+		syntax-highlight {
+			display: block;
+			margin: 1rem 0;
+		}
+		
+		nav {
+			background: #252526;
+			padding: 1rem;
+			border-radius: 8px;
+			margin-bottom: 2rem;
+		}
+		
+		nav a {
+			color: #569cd6;
+			text-decoration: none;
+			margin-right: 1.5rem;
+		}
+		
+		nav a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+	<h1>HTML Examples</h1>
+	
+	<nav>
+		<a href="index.html">← Back</a>
+		<a href="javascript.html">JavaScript</a>
+		<a href="mixed.html">Mixed Content</a>
+	</nav>
+	
+	<div class="example">
+		<h2>Basic HTML Document</h2>
+		<p class="description">A complete HTML5 document with common elements:</p>
+		
+		<syntax-highlight language="html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+	&lt;meta name="description" content="A sample page"&gt;
+	&lt;title&gt;My Awesome Website&lt;/title&gt;
+	&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;header&gt;
+		&lt;h1&gt;Welcome&lt;/h1&gt;
+		&lt;nav&gt;
+			&lt;a href="/"&gt;Home&lt;/a&gt;
+			&lt;a href="/about"&gt;About&lt;/a&gt;
+			&lt;a href="/contact"&gt;Contact&lt;/a&gt;
+		&lt;/nav&gt;
+	&lt;/header&gt;
+	
+	&lt;main&gt;
+		&lt;article&gt;
+			&lt;h2&gt;Article Title&lt;/h2&gt;
+			&lt;p&gt;This is a paragraph.&lt;/p&gt;
+		&lt;/article&gt;
+	&lt;/main&gt;
+	
+	&lt;footer&gt;
+		&lt;p&gt;&amp;copy; 2025 My Website&lt;/p&gt;
+	&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>Attributes</h2>
+		<p class="description">Various attribute types:</p>
+		
+		<syntax-highlight language="html">
+&lt;!-- Different attribute formats --&gt;
+&lt;input type="text" name="username" required&gt;
+&lt;input type='email' value='user@example.com'&gt;
+&lt;input type=checkbox checked disabled&gt;
+
+&lt;!-- Data attributes --&gt;
+&lt;div data-user-id="123" data-role="admin"&gt;&lt;/div&gt;
+
+&lt;!-- Boolean attributes --&gt;
+&lt;button disabled&gt;Click Me&lt;/button&gt;
+&lt;video controls autoplay muted&gt;&lt;/video&gt;
+
+&lt;!-- Custom attributes and ARIA --&gt;
+&lt;div 
+	class="container" 
+	id="main-content"
+	aria-label="Main content area"
+	role="main"
+	data-component="layout"&gt;
+	Content here
+&lt;/div&gt;
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>HTML Entities</h2>
+		<p class="description">Named and numeric character references:</p>
+		
+		<syntax-highlight language="html">
+&lt;!-- Named entities --&gt;
+&lt;p&gt;Copyright &amp;copy; 2025&lt;/p&gt;
+&lt;p&gt;Less than &amp;lt; and greater than &amp;gt;&lt;/p&gt;
+&lt;p&gt;Ampersand &amp;amp; and quotes &amp;quot;&lt;/p&gt;
+&lt;p&gt;Non-breaking &amp;nbsp; space&lt;/p&gt;
+
+&lt;!-- Numeric entities --&gt;
+&lt;p&gt;Em dash &amp;#8212; (decimal)&lt;/p&gt;
+&lt;p&gt;Euro sign &amp;#x20AC; (hexadecimal)&lt;/p&gt;
+&lt;p&gt;Emoji &amp;#128512; (smiley face)&lt;/p&gt;
+
+&lt;!-- Special characters --&gt;
+&lt;p&gt;Math: &amp;times; &amp;divide; &amp;plusmn; &amp;ne;&lt;/p&gt;
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>Forms</h2>
+		<p class="description">Form elements and input types:</p>
+		
+		<syntax-highlight language="html">
+&lt;form action="/submit" method="post" enctype="multipart/form-data"&gt;
+	&lt;fieldset&gt;
+		&lt;legend&gt;Personal Information&lt;/legend&gt;
+		
+		&lt;label for="name"&gt;Name:&lt;/label&gt;
+		&lt;input type="text" id="name" name="name" required&gt;
+		
+		&lt;label for="email"&gt;Email:&lt;/label&gt;
+		&lt;input type="email" id="email" name="email" required&gt;
+		
+		&lt;label for="age"&gt;Age:&lt;/label&gt;
+		&lt;input type="number" id="age" name="age" min="0" max="120"&gt;
+		
+		&lt;label for="country"&gt;Country:&lt;/label&gt;
+		&lt;select id="country" name="country"&gt;
+			&lt;option value=""&gt;Select...&lt;/option&gt;
+			&lt;option value="us"&gt;United States&lt;/option&gt;
+			&lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+			&lt;option value="ca"&gt;Canada&lt;/option&gt;
+		&lt;/select&gt;
+		
+		&lt;label&gt;
+			&lt;input type="checkbox" name="subscribe"&gt;
+			Subscribe to newsletter
+		&lt;/label&gt;
+	&lt;/fieldset&gt;
+	
+	&lt;button type="submit"&gt;Submit&lt;/button&gt;
+	&lt;button type="reset"&gt;Reset&lt;/button&gt;
+&lt;/form&gt;
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>Semantic HTML5</h2>
+		<p class="description">Modern semantic elements:</p>
+		
+		<syntax-highlight language="html">
+&lt;article&gt;
+	&lt;header&gt;
+		&lt;h1&gt;Article Heading&lt;/h1&gt;
+		&lt;time datetime="2025-10-26"&gt;October 26, 2025&lt;/time&gt;
+		&lt;address&gt;By &lt;a href="/author"&gt;John Doe&lt;/a&gt;&lt;/address&gt;
+	&lt;/header&gt;
+	
+	&lt;section&gt;
+		&lt;h2&gt;Introduction&lt;/h2&gt;
+		&lt;p&gt;Article content...&lt;/p&gt;
+	&lt;/section&gt;
+	
+	&lt;aside&gt;
+		&lt;h3&gt;Related Links&lt;/h3&gt;
+		&lt;nav&gt;
+			&lt;ul&gt;
+				&lt;li&gt;&lt;a href="#"&gt;Link 1&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href="#"&gt;Link 2&lt;/a&gt;&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/nav&gt;
+	&lt;/aside&gt;
+	
+	&lt;footer&gt;
+		&lt;p&gt;Published under &lt;a href="/license"&gt;CC BY&lt;/a&gt;&lt;/p&gt;
+	&lt;/footer&gt;
+&lt;/article&gt;
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>Comments and CDATA</h2>
+		<p class="description">HTML comments and CDATA sections:</p>
+		
+		<syntax-highlight language="html">
+&lt;!-- This is a single-line comment --&gt;
+
+&lt;!--
+	Multi-line comment
+	spanning multiple lines
+	with various content
+--&gt;
+
+&lt;!-- Nested tags in comments: &lt;div&gt;&lt;/div&gt; --&gt;
+
+&lt;script&gt;
+	&lt;![CDATA[
+		// CDATA section (rarely used in HTML5)
+		var x = 1 &lt; 2 &amp;&amp; 3 &gt; 2;
+		console.log("No need to escape &lt; &gt; &amp;");
+	]]&gt;
+&lt;/script&gt;
+		</syntax-highlight>
+	</div>
+	
+	<div class="example">
+		<h2>Media Elements</h2>
+		<p class="description">Images, video, and audio:</p>
+		
+		<syntax-highlight language="html">
+&lt;!-- Images --&gt;
+&lt;img src="photo.jpg" alt="Description" width="800" height="600"&gt;
+&lt;picture&gt;
+	&lt;source srcset="image.webp" type="image/webp"&gt;
+	&lt;source srcset="image.jpg" type="image/jpeg"&gt;
+	&lt;img src="fallback.jpg" alt="Responsive image"&gt;
+&lt;/picture&gt;
+
+&lt;!-- Video --&gt;
+&lt;video controls width="640" height="360" poster="preview.jpg"&gt;
+	&lt;source src="video.mp4" type="video/mp4"&gt;
+	&lt;source src="video.webm" type="video/webm"&gt;
+	&lt;track src="subtitles.vtt" kind="subtitles" srclang="en" label="English"&gt;
+	Your browser doesn't support video.
+&lt;/video&gt;
+
+&lt;!-- Audio --&gt;
+&lt;audio controls&gt;
+	&lt;source src="audio.mp3" type="audio/mpeg"&gt;
+	&lt;source src="audio.ogg" type="audio/ogg"&gt;
+	Your browser doesn't support audio.
+&lt;/audio&gt;
+		</syntax-highlight>
+	</div>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		
+		// Initialize highlighting
+		await Syntax.highlight({
+			autoUpgrade: true,
+			syntax: Syntax.default
+		});
+	</script>
+</body>
+</html>
