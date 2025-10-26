@@ -15,7 +15,8 @@
 	"files": [
 		"Syntax.js",
 		"Syntax/",
-		"styles/"
+		"styles/",
+		"themes/"
 	],
 	"scripts": {
 		"test": "node --test 'test/**/*.js'",

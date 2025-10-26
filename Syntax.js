@@ -72,29 +72,49 @@ export class Syntax {
 	}
 
 	/**
-	 * One-stop setup: ensures web component is loaded and optionally auto-upgrades code blocks
+	 * Initialize syntax highlighting on the page
+	 * Registers the web component and sets up the default syntax instance
+	 * Languages will be auto-loaded on demand when referenced by elements
 	 *
 	 * @param {Object} options - Configuration options
-	 * @param {boolean} options.autoUpgrade - If true, automatically convert <code> elements (default: true)
+	 * @param {Syntax} options.syntax - Syntax instance to use (defaults to Syntax.default)
+	 * @param {boolean} options.autoUpgrade - Whether to automatically upgrade existing elements (default: true)
 	 * @param {string} options.selector - CSS selector for auto-upgrade (default: 'code[lang], code[class*="language-"], code[class*="brush-"]')
-	 * @param {Syntax} options.syntax - Syntax instance to use (default: Syntax.default)
+	 * @param {string} options.root - Base URL for loading language modules (default: auto-detected)
 	 * @returns {Promise<void>}
 	 */
 	static async highlight(options = {}) {
 		const {
+			syntax = Syntax.default,
 			autoUpgrade = true,
 			selector = 'code[lang], code[class*="language-"], code[class*="brush-"]',
-			syntax = null
+			root = null
 		} = options;
 
-		// Dynamically import the web component (ensures it's registered)
-		const {autoUpgrade: upgradeFunction} = await import(
-			'./Syntax/HighlightElement.js'
-		);
+		// Set the default syntax instance:
+		Syntax.default = syntax;
 
-		// Auto-upgrade existing code blocks if requested
+		// Configure root for auto-loading if provided:
+		if (root && !syntax.root) {
+			syntax.root = root;
+		}
+
+		// Import and register the web component:
+		const {HighlightElement, autoUpgrade: upgradeFunction} = await import('./Syntax/HighlightElement.js');
+
+		if (!customElements.get('syntax-highlight')) {
+			customElements.define('syntax-highlight', HighlightElement);
+		}
+
+		// Auto-upgrade existing code blocks if requested:
 		if (autoUpgrade) {
-			upgradeFunction(selector, syntax);
+			if (upgradeFunction) {
+				// Use the autoUpgrade function with the selector:
+				upgradeFunction(selector, syntax);
+			} else {
+				// Fallback to customElements.upgrade if the function isn't available:
+				customElements.upgrade(document.body);
+			}
 		}
 	}
 
@@ -336,41 +356,6 @@ export class Syntax {
 		}
 
 		return names;
-	}
-
-	/**
-	 * Initialize syntax highlighting on the page
-	 * Registers the web component and sets up the default syntax instance
-	 * Languages will be auto-loaded on demand when referenced by elements
-	 *
-	 * @param {Object} options - Configuration options
-	 * @param {Syntax} options.syntax - Syntax instance to use (defaults to Syntax.default)
-	 * @param {boolean} options.autoUpgrade - Whether to automatically upgrade existing elements (default: true)
-	 * @param {string} options.root - Base URL for loading language modules (default: auto-detected)
-	 * @returns {Promise<void>}
-	 */
-	static async highlight(options = {}) {
-		const {syntax = Syntax.default, autoUpgrade = true, root = null} = options;
-
-		// Set the default syntax instance
-		Syntax.default = syntax;
-
-		// Configure root for auto-loading if provided
-		if (root && !syntax.root) {
-			syntax.root = root;
-		}
-
-		// Import and register the web component
-		const {HighlightElement} = await import('./Syntax/HighlightElement.js');
-
-		if (!customElements.get('syntax-highlight')) {
-			customElements.define('syntax-highlight', HighlightElement);
-		}
-
-		// If autoUpgrade is enabled, force upgrade any existing elements
-		if (autoUpgrade) {
-			customElements.upgrade(document.body);
-		}
 	}
 }
 
