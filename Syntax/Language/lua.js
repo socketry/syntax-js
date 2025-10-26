@@ -4,80 +4,90 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('lua', function (brush) {
-	var keywords = [
-		'and',
-		'break',
-		'do',
-		'else',
-		'elseif',
-		'end',
-		'false',
-		'for',
-		'function',
-		'if',
-		'in',
-		'local',
-		'nil',
-		'not',
-		'or',
-		'repeat',
-		'return',
-		'then',
-		'true',
-		'until',
-		'while'
-	];
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var operators = [
-		'+',
-		'-',
-		'*',
-		'/',
-		'%',
-		'^',
-		'#',
-		'..',
-		'=',
-		'==',
-		'~=',
-		'<',
-		'>',
-		'<=',
-		'>=',
-		'?',
-		':'
-	];
+const language = new Language('lua');
 
-	var values = ['self', 'true', 'false', 'nil'];
+const keywords = [
+	'and',
+	'break',
+	'do',
+	'else',
+	'elseif',
+	'end',
+	'false',
+	'for',
+	'function',
+	'if',
+	'in',
+	'local',
+	'nil',
+	'not',
+	'or',
+	'repeat',
+	'return',
+	'then',
+	'true',
+	'until',
+	'while'
+];
 
-	language.push(values, {type: 'constant'});
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
+// Operators ordered longest-first
+const operators = [
+	'==',
+	'~=',
+	'<=',
+	'>=',
+	'..',
+	'+',
+	'-',
+	'*',
+	'/',
+	'%',
+	'^',
+	'#',
+	'=',
+	'<',
+	'>',
+	'?',
+	':'
+];
 
-	// Camelcase Types
-	language.push(Syntax.lib.camelCaseType);
-	language.push(Syntax.lib.cStyleFunction);
+const values = ['self', 'true', 'false', 'nil'];
 
-	language.push({
-		pattern: /\-\-.*$/m,
-		type: 'comment',
-		allow: ['href']
-	});
+language.push(values, {type: 'constant'});
+language.push(keywords, {type: 'keyword'});
+language.push(operators, {type: 'operator'});
 
-	language.push({
-		pattern: /\-\-\[\[(\n|.)*?\]\]\-\-/m,
-		type: 'comment',
-		allow: ['href']
-	});
+// CamelCase types
+language.push(Rule.camelCaseType);
+language.push(Rule.cStyleFunction);
 
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	language.push(Syntax.lib.hexNumber);
-	language.push(Syntax.lib.decimalNumber);
-
-	language.push(Syntax.lib.webLink);
+// Single-line comments
+language.push({
+	pattern: /\-\-.*$/m,
+	type: 'comment',
+	allow: ['href']
 });
+
+// Multi-line comments
+language.push({
+	pattern: /\-\-\[\[(\n|.)*?\]\]\-\-/m,
+	type: 'comment',
+	allow: ['href']
+});
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+language.push(Rule.hexNumber);
+language.push(Rule.decimalNumber);
+
+language.push(Rule.webLink);
+
+export default function register(syntax) {
+	syntax.register('lua', language);
+}

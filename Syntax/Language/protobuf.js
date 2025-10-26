@@ -4,71 +4,80 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('protobuf', function (brush) {
-	var keywords = [
-		'enum',
-		'extend',
-		'extensions',
-		'group',
-		'import',
-		'max',
-		'message',
-		'option',
-		'package',
-		'returns',
-		'rpc',
-		'service',
-		'syntax',
-		'to',
-		'default'
-	];
-	language.push(keywords, {type: 'keyword'});
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var values = ['true', 'false'];
-	language.push(values, {type: 'constant'});
+const language = new Language('protobuf');
 
-	var types = [
-		'bool',
-		'bytes',
-		'double',
-		'fixed32',
-		'fixed64',
-		'float',
-		'int32',
-		'int64',
-		'sfixed32',
-		'sfixed64',
-		'sint32',
-		'sint64',
-		'string',
-		'uint32',
-		'uint64'
-	];
-	language.push(types, {type: 'type'});
+const keywords = [
+	'enum',
+	'extend',
+	'extensions',
+	'group',
+	'import',
+	'max',
+	'message',
+	'option',
+	'package',
+	'returns',
+	'rpc',
+	'service',
+	'syntax',
+	'to',
+	'default'
+];
+language.push(keywords, {type: 'keyword'});
 
-	var access = ['optional', 'required', 'repeated'];
-	language.push(access, {type: 'access'});
+const values = ['true', 'false'];
+language.push(values, {type: 'constant'});
 
-	language.push(Syntax.lib.camelCaseType);
+const types = [
+	'bool',
+	'bytes',
+	'double',
+	'fixed32',
+	'fixed64',
+	'float',
+	'int32',
+	'int64',
+	'sfixed32',
+	'sfixed64',
+	'sint32',
+	'sint64',
+	'string',
+	'uint32',
+	'uint64'
+];
+language.push(types, {type: 'type'});
 
-	// Highlight names of fields
-	language.push({
-		pattern: /\s+(\w+)\s*=\s*\d+/,
-		matches: Syntax.extractMatches({
-			type: 'variable'
-		})
-	});
+const access = ['optional', 'required', 'repeated'];
+language.push(access, {type: 'access'});
 
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.webLink);
+language.push(Rule.camelCaseType);
 
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
+// Highlight names of fields
+language.push({
+	pattern: /\s+(\w+)\s*=\s*\d+/,
+	matches: Rule.extractMatches({
+		type: 'variable'
+	})
 });
+
+// Comments
+language.push(Rule.cppStyleComment);
+language.push(Rule.cStyleComment);
+language.push(Rule.webLink);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+export default function register(syntax) {
+	syntax.register('protobuf', language);
+	syntax.alias('protobuf', ['proto']);
+}

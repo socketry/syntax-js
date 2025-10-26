@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XRB Syntax Example (XML + Ruby)</title>
+	<link rel="stylesheet" href="../themes/base/syntax.css">
+	<link rel="stylesheet" href="../themes/base/xml.css">
+	<link rel="stylesheet" href="../themes/base/ruby.css">
+	<link rel="stylesheet" href="../themes/base/xrb.css">
+</head>
+<body>
+	<h1>XRB: XML with Embedded Ruby</h1>
+	
+	<syntax-highlight language="xrb">
+&lt;note author="sam"&gt;
+  &lt;title&gt;Hello&lt;/title&gt;
+  &lt;body&gt;
+    Greeting: #{ name.upcase }
+    &lt;?r puts "Debug from Ruby" ?&gt;
+  &lt;/body&gt;
+&lt;/note&gt;
+	</syntax-highlight>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		await Syntax.highlight({ autoUpgrade: true });
+	</script>
+</body>
+</html>

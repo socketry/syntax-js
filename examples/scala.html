@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scala Example - @socketry/syntax</title>
+    <link rel="stylesheet" href="../themes/base/syntax.css" />
+    <link rel="stylesheet" href="../themes/base/scala.css" />
+    <style>
+        body { background: #1e1e1e; color: #d4d4d4; font-family: system-ui, sans-serif; padding: 2rem; }
+    </style>
+    <script type="module" src="../Syntax.js"></script>
+    <script type="module">
+        import Syntax from '../Syntax.js';
+        import registerScala from '../Syntax/Language/scala.js';
+        import registerXML from '../Syntax/Language/xml.js';
+        registerXML(Syntax.default);
+        registerScala(Syntax.default);
+        await Syntax.highlight({ autoUpgrade: true, syntax: Syntax.default });
+    </script>
+    <script type="module" src="../Syntax/HighlightElement.js"></script>
+</head>
+<body>
+    <h1>Scala Example</h1>
+    <p>Minimal sample showing keywords, strings, functions, types, comments, and XML literals.</p>
+
+    <syntax-highlight language="scala">
+object App extends App {
+  // line comment
+  /* block comment */
+
+  def greet(name: String): String = {
+    val msg = "Hello, " + name
+    msg
+  }
+
+  val xml = &lt;note&gt;Hi {greet("World")}!&lt;/note&gt;
+
+  val multi = """This is a
+multi-line string"""
+
+  val value: MyType = MyType(42)
+}
+    </syntax-highlight>
+</body>
+</html>

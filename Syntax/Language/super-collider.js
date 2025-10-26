@@ -4,30 +4,25 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('super-collider', function (brush) {
-	var keywords = ['const', 'arg', 'classvar', 'var'];
-	language.push(keywords, {type: 'keyword'});
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var operators = [
-		'`',
-		'+',
-		'@',
-		':',
-		'*',
-		'/',
-		'-',
-		'&',
-		'|',
-		'~',
-		'!',
-		'%',
-		'<',
-		'=',
-		'>'
-	];
-	language.push(operators, {type: 'operator'});
+const language = new Language('super-collider');
 
-	var values = [
+// Keywords
+language.push(['const', 'arg', 'classvar', 'var'], {type: 'keyword'});
+
+// Operators
+language.push(
+	['`', '+', '@', ':', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'],
+	{
+		type: 'operator'
+	}
+);
+
+// Constants/values
+language.push(
+	[
 		'thisFunctionDef',
 		'thisFunction',
 		'thisMethod',
@@ -39,47 +34,43 @@ Syntax.register('super-collider', function (brush) {
 		'false',
 		'nil',
 		'inf'
-	];
-	language.push(values, {type: 'constant'});
+	],
+	{type: 'constant'}
+);
 
-	language.push(Syntax.lib.camelCaseType);
+// CamelCase class/type names
+language.push(Rule.camelCaseType);
 
-	// Single Characters
-	language.push({
-		pattern: /\$(\\)?./,
-		type: 'constant'
-	});
+// Single Characters like $a or $\n
+language.push({pattern: /\$(\\)?.\b/, type: 'constant'});
 
-	// Symbols
-	language.push({
-		pattern: /\\[a-z_][a-z0-9_]*/i,
-		type: 'symbol'
-	});
+// Symbols: \symbol and 'quotedSymbol'
+language.push({pattern: /\\[a-z_][a-z0-9_]*/i, type: 'symbol'});
+language.push({pattern: /'[^']+'/, type: 'symbol'});
 
-	language.push({
-		pattern: /'[^']+'/,
-		type: 'symbol'
-	});
+// Comments and links
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+language.push(Rule.webLink);
 
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-	language.push(Syntax.lib.webLink);
+// Strings: SuperCollider uses double quotes for Strings
+// Single quotes denote Symbols and are handled above.
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
 
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
 
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	// Functions
-	language.push({
-		pattern: /(?:\.)([a-z_][a-z0-9_]*)/i,
-		matches: Syntax.extractMatches({type: 'function'})
-	});
-
-	language.push(Syntax.lib.cStyleFunction);
+// Method calls .method and c-style function pattern (identifier()
+language.push({
+	pattern: /(?:\.)([a-z_][a-z0-9_]*)/i,
+	matches: Rule.extractMatches({type: 'function'})
 });
+language.push(Rule.cStyleFunction);
+
+export default function register(syntax) {
+	syntax.register('super-collider', language);
+	// Alias: sc
+	syntax.alias('super-collider', ['sc']);
+}

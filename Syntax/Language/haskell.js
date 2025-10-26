@@ -1,101 +1,113 @@
-// brush: "haskell" aliases: []
+// This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+// Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('haskell', function (brush) {
-	var keywords = [
-		'as',
-		'case',
-		'of',
-		'class',
-		'data',
+const language = new Language('haskell');
+
+// Multi-word keywords need to be matched first (before single words)
+language.push(
+	[
 		'data family',
 		'data instance',
-		'default',
-		'deriving',
 		'deriving instance',
-		'do',
-		'forall',
-		'foreign',
-		'hiding',
-		'if',
-		'then',
-		'else',
-		'import',
-		'infix',
-		'infixl',
-		'infixr',
-		'instance',
-		'let',
-		'in',
-		'mdo',
-		'module',
-		'newtype',
-		'proc',
-		'qualified',
-		'rec',
-		'type',
 		'type family',
-		'type instance',
-		'where'
-	];
+		'type instance'
+	],
+	{type: 'keyword'}
+);
 
-	var operators = [
-		'`',
-		'|',
-		'\\',
-		'-',
-		'-<',
-		'-<<',
-		'->',
-		'*',
-		'?',
-		'??',
-		'#',
-		'<-',
-		'@',
-		'!',
-		'::',
-		'_',
-		'~',
-		'>',
-		';',
-		'{',
-		'}'
-	];
+const keywords = [
+	'as',
+	'case',
+	'of',
+	'class',
+	'data',
+	'default',
+	'deriving',
+	'do',
+	'forall',
+	'foreign',
+	'hiding',
+	'if',
+	'then',
+	'else',
+	'import',
+	'infix',
+	'infixl',
+	'infixr',
+	'instance',
+	'let',
+	'in',
+	'mdo',
+	'module',
+	'newtype',
+	'proc',
+	'qualified',
+	'rec',
+	'type',
+	'where'
+];
 
-	var values = ['True', 'False'];
+// Operators - ordered from longest to shortest to avoid partial matches
+const operators = [
+	'::',
+	'->',
+	'<-',
+	'-<<',
+	'-<',
+	'??',
+	'`',
+	'|',
+	'\\',
+	'-',
+	'*',
+	'?',
+	'#',
+	'@',
+	'!',
+	'_',
+	'~',
+	'>',
+	';',
+	'{',
+	'}'
+];
 
-	language.push(values, {type: 'constant'});
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
+const values = ['True', 'False'];
 
-	// Camelcase Types
-	language.push(Syntax.lib.camelCaseType);
+language.push(values, {type: 'constant'});
+language.push(keywords, {type: 'keyword'});
+language.push(operators, {type: 'operator'});
 
-	// Comments
-	language.push({
-		pattern: /\-\-.*$/m,
-		type: 'comment',
-		allow: ['href']
-	});
+// CamelCase types
+language.push(Rule.camelCaseType);
 
-	language.push({
-		pattern: /\{\-[\s\S]*?\-\}/m,
-		type: 'comment',
-		allow: ['href']
-	});
-
-	language.push(Syntax.lib.webLink);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
+// Comments
+language.push({
+	pattern: /\-\-.*$/m,
+	type: 'comment',
+	allow: ['href']
 });
+
+language.push({
+	pattern: /\{\-[\s\S]*?\-\}/m,
+	type: 'comment',
+	allow: ['href']
+});
+
+language.push(Rule.webLink);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+export default function register(syntax) {
+	syntax.register('haskell', language);
+}

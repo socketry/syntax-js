@@ -4,63 +4,71 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('io', function (brush) {
-	language.push(Syntax.lib.cStyleFunction);
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var keywords = ['return'];
+const language = new Language('io');
 
-	var operators = [
-		'::=',
-		':=',
-		'or',
-		'and',
-		'@',
-		'+',
-		'*',
-		'/',
-		'-',
-		'&',
-		'|',
-		'~',
-		'!',
-		'%',
-		'<',
-		'=',
-		'>',
-		'[',
-		']',
-		'new',
-		'delete'
-	];
+language.push(Rule.cStyleFunction);
 
-	language.push(keywords, {type: 'keywords'});
-	language.push(operators, {type: 'operator'});
+const keywords = ['return'];
 
-	// Extract space delimited method invocations
-	language.push({
-		pattern: /\b([ \t]+([a-z]+))/i,
-		matches: Syntax.extractMatches({index: 2, type: 'function'})
-	});
+// Operators ordered longest-first
+const operators = [
+	'::=',
+	':=',
+	'or',
+	'and',
+	'new',
+	'delete',
+	'@',
+	'+',
+	'*',
+	'/',
+	'-',
+	'&',
+	'|',
+	'~',
+	'!',
+	'%',
+	'<',
+	'=',
+	'>',
+	'[',
+	']'
+];
 
-	language.push({
-		pattern: /\)([ \t]+([a-z]+))/i,
-		matches: Syntax.extractMatches({index: 2, type: 'function'})
-	});
+language.push(keywords, {type: 'keyword'});
+language.push(operators, {type: 'operator'});
 
-	// Objective-C classes
-	language.push(Syntax.lib.camelCaseType);
-
-	language.push(Syntax.lib.perlStyleComment);
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-	language.push(Syntax.lib.webLink);
-
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
+// Extract space delimited method invocations
+language.push({
+	pattern: /\b([ \t]+([a-z]+))/i,
+	matches: Rule.extractMatches({index: 2, type: 'function'})
 });
+
+language.push({
+	pattern: /\)([ \t]+([a-z]+))/i,
+	matches: Rule.extractMatches({index: 2, type: 'function'})
+});
+
+// CamelCase types
+language.push(Rule.camelCaseType);
+
+language.push(Rule.perlStyleComment);
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+language.push(Rule.webLink);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+export default function register(syntax) {
+	syntax.register('io', language);
+}

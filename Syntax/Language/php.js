@@ -4,17 +4,24 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.brushes.dependency('php', 'php-script');
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('php', function (brush) {
-	language.push({
-		pattern: /(<\?(php)?)((.|\n)*?)(\?>)/m,
-		matches: Syntax.extractMatches(
-			{type: 'keyword'},
-			null,
-			{brush: 'php-script'},
-			null,
-			{type: 'keyword'}
-		)
-	});
+const language = new Language('php');
+
+// Don't derive from php-script - we only want it inside the tags
+// language.derives('php-script');
+
+language.push({
+	pattern: /(<\?(php)?)([\s\S]*?)(\?>)/m,
+	matches: Rule.extractMatches(
+		{type: 'keyword'},
+		null,
+		{language: 'php-script'},
+		{type: 'keyword'}
+	)
 });
+
+export default function register(syntax) {
+	syntax.register('php', language);
+}

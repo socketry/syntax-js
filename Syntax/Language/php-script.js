@@ -4,108 +4,115 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('php-script', function (brush) {
-	var keywords = [
-		'abstract',
-		'and',
-		'as',
-		'break',
-		'case',
-		'cfunction',
-		'class',
-		'const',
-		'continue',
-		'declare',
-		'default',
-		'die',
-		'do',
-		'echo',
-		'else',
-		'elseif',
-		'enddeclare',
-		'endfor',
-		'endforeach',
-		'endif',
-		'endswitch',
-		'endwhile',
-		'extends',
-		'extends',
-		'for',
-		'foreach',
-		'function',
-		'global',
-		'if',
-		'implements',
-		'include',
-		'include_once',
-		'interface',
-		'old_function',
-		'or',
-		'require',
-		'require_once',
-		'return',
-		'static',
-		'switch',
-		'throw',
-		'use',
-		'var',
-		'while',
-		'xor'
-	];
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var access = ['private', 'protected', 'public'];
+const language = new Language('php-script');
 
-	var operators = [
-		'+',
-		'*',
-		'/',
-		'-',
-		'&',
-		'|',
-		'~',
-		'!',
-		'%',
-		'<',
-		'=',
-		'>',
-		'[',
-		']',
-		'new'
-	];
+const keywords = [
+	'abstract',
+	'and',
+	'as',
+	'break',
+	'case',
+	'cfunction',
+	'class',
+	'const',
+	'continue',
+	'declare',
+	'default',
+	'die',
+	'do',
+	'echo',
+	'else',
+	'elseif',
+	'enddeclare',
+	'endfor',
+	'endforeach',
+	'endif',
+	'endswitch',
+	'endwhile',
+	'extends',
+	'extends',
+	'for',
+	'foreach',
+	'function',
+	'global',
+	'if',
+	'implements',
+	'include',
+	'include_once',
+	'interface',
+	'old_function',
+	'or',
+	'require',
+	'require_once',
+	'return',
+	'static',
+	'switch',
+	'throw',
+	'use',
+	'var',
+	'while',
+	'xor'
+];
 
-	var values = ['this', 'true', 'false'];
+const access = ['private', 'protected', 'public'];
 
-	language.push(values, {type: 'constant'});
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
-	language.push(access, {type: 'access'});
+const operators = [
+	'+',
+	'*',
+	'/',
+	'-',
+	'&',
+	'|',
+	'~',
+	'!',
+	'%',
+	'<',
+	'=',
+	'>',
+	'[',
+	']',
+	'new'
+];
 
-	// Variables
-	language.push({
-		pattern: /\$[a-z_][a-z0-9]*/i,
-		type: 'variable'
-	});
+const values = ['this', 'true', 'false'];
 
-	// ClassNames (CamelCase)
-	language.push(Syntax.lib.camelCaseType);
-	language.push(Syntax.lib.cStyleFunction);
+language.push(values, {type: 'constant'});
+language.push(keywords, {type: 'keyword'});
+language.push(operators, {type: 'operator'});
+language.push(access, {type: 'access'});
 
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-	language.push(Syntax.lib.perlStyleComment);
-	language.push(Syntax.lib.webLink);
-
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	brush.processes['function'] = Syntax.lib.webLinkProcess(
-		'http://www.php.net/manual-lookup.php?pattern='
-	);
+// Variables
+language.push({
+	pattern: /\$[a-z_][a-z0-9]*/gi,
+	type: 'variable'
 });
+
+// ClassNames (CamelCase)
+language.push(Rule.camelCaseType);
+language.push(Rule.cStyleFunction);
+
+// Comments
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+language.push(Rule.perlStyleComment);
+language.push(Rule.webLink);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+language.processes['function'] = Rule.webLinkProcess(
+	'http://www.php.net/manual-lookup.php?pattern='
+);
+
+export default function register(syntax) {
+	syntax.register('php-script', language);
+}

@@ -232,6 +232,10 @@ function createUser(name, age) {
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';
+		import registerJavaScript from '../Syntax/Language/javascript.js';
+		
+		// Register the JavaScript language
+		registerJavaScript(Syntax.default);
 		
 		// Initialize highlighting
 		await Syntax.highlight({

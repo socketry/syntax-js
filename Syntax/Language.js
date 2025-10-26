@@ -44,13 +44,13 @@ export class Language {
 	/**
 	 * Return an array of all classes that the language consists of.
 	 */
-	allNames(syntax) {
+	async allNames(syntax) {
 		const names = [this.name];
 
 		for (const parent of this.#parents) {
 			if (syntax) {
-				const parentLanguage = syntax.getLanguage(parent);
-				if (parentLanguage) names.push(...parentLanguage.allNames(syntax));
+				const parentLanguage = await syntax.getLanguage(parent);
+				if (parentLanguage) names.push(...(await parentLanguage.allNames(syntax)));
 			}
 		}
 
@@ -190,7 +190,12 @@ export class Language {
 			}
 		}
 
-		const match = await language.buildTree(syntax, text, offset, additionalMatches);
+		const match = await language.buildTree(
+			syntax,
+			text,
+			offset,
+			additionalMatches
+		);
 
 		Object.assign(match.expression, rule);
 
@@ -218,7 +223,7 @@ export class Language {
 		const top = new Match(
 			offset,
 			text.length,
-			{type: this.allNames(syntax).join(' '), allow: '*', owner: this},
+			{type: (await this.allNames(syntax)).join(' '), allow: '*', owner: this},
 			text
 		);
 

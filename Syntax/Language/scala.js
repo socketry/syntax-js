@@ -4,10 +4,14 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.brushes.dependency('scala', 'xml');
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('scala', function (brush) {
-	var keywords = [
+const language = new Language('scala');
+
+// Keywords
+language.push(
+	[
 		'abstract',
 		'do',
 		'finally',
@@ -43,37 +47,41 @@ Syntax.register('scala', function (brush) {
 		'protected',
 		'throw',
 		'val'
-	];
-	language.push(keywords, {type: 'keyword'});
+	],
+	{type: 'keyword'}
+);
 
-	var operators = ['_', ':', '=', '=>', '<-', '<:', '<%', '>:', '#', '@'];
-	language.push(operators, {type: 'operator'});
-
-	var constants = ['this', 'null', 'true', 'false'];
-	language.push(constants, {type: 'constant'});
-
-	// Strings
-	language.push({
-		pattern: /"""[\s\S]*?"""/,
-		type: 'string'
-	});
-
-	language.push(Syntax.lib.doubleQuotedString);
-
-	// Functions
-	language.push({
-		pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/i,
-		matches: Syntax.extractMatches({type: 'function'})
-	});
-
-	language.push(Syntax.lib.camelCaseType);
-
-	// Types
-	language.push(Syntax.lib.cStyleFunction);
-
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-
-	brush.derives('xml');
+// Operators
+language.push(['_', ':', '=', '=>', '<-', '<:', '<%', '>:', '#', '@'], {
+	type: 'operator'
 });
+
+// Constants
+language.push(['this', 'null', 'true', 'false'], {type: 'constant'});
+
+// Triple-quoted strings
+language.push({pattern: /"""[\s\S]*?"""/, type: 'string'});
+
+// Double-quoted strings
+language.push(Rule.doubleQuotedString);
+
+// Functions: `def name` or `.name`
+language.push({
+	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/i,
+	matches: Rule.extractMatches({type: 'function'})
+});
+
+// Types and function calls
+language.push(Rule.camelCaseType);
+language.push(Rule.cStyleFunction);
+
+// Comments
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+
+// Scala supports XML literals; derive XML rules
+language.derives('xml');
+
+export default function register(syntax) {
+	syntax.register('scala', language);
+}

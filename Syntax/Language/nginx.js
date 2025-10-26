@@ -4,28 +4,40 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('nginx', function (brush) {
-	language.push({
-		pattern: /((\w+).*?);/,
-		matches: Syntax.extractMatches(
-			{type: 'directive', allow: '*'},
-			{
-				type: 'function',
-				process: Syntax.lib.webLinkProcess('http://nginx.org/r/')
-			}
-		)
-	});
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	language.push({
-		pattern: /(\w+).*?{/,
-		matches: Syntax.extractMatches({type: 'keyword'})
-	});
+const language = new Language('nginx');
 
-	language.push({pattern: /(\$)[\w]+/, type: 'variable'});
-
-	language.push(Syntax.lib.perlStyleComment);
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-
-	language.push(Syntax.lib.webLink);
+// Directives with web links to nginx documentation
+language.push({
+	pattern: /((\w+).*?);/,
+	matches: Rule.extractMatches(
+		{type: 'directive', allow: '*'},
+		{
+			type: 'function',
+			process: Rule.webLinkProcess('http://nginx.org/r/')
+		}
+	)
 });
+
+// Keywords (blocks with { )
+language.push({
+	pattern: /(\w+).*?{/,
+	matches: Rule.extractMatches({type: 'keyword'})
+});
+
+// Variables ($var)
+language.push({pattern: /(\$)[\w]+/, type: 'variable'});
+
+// Comments and strings
+language.push(Rule.perlStyleComment);
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+
+// Web links
+language.push(Rule.webLink);
+
+export default function register(syntax) {
+	syntax.register('nginx', language);
+}

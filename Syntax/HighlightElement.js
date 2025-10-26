@@ -218,14 +218,11 @@ export class HighlightElement extends HTMLElement {
 			// Build shadow DOM structure without clearing the light DOM until success
 			this.#shadow.innerHTML = '';
 			const pre = document.createElement('pre');
-			const codeEl = document.createElement('code');
-			codeEl.className = `syntax ${languageName}`;
-			pre.appendChild(codeEl);
 			this.#shadow.appendChild(pre);
 
-			// Highlight and append
+			// Highlight and append - language.process() returns a <code> element
 			const highlighted = await language.process(this.syntax, code);
-			codeEl.appendChild(highlighted);
+			pre.appendChild(highlighted);
 
 			// Clear light DOM only after successful render to avoid losing content on errors
 			this.textContent = '';

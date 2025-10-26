@@ -4,133 +4,137 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('java', function (brush) {
-	var keywords = [
-		'abstract',
-		'continue',
-		'for',
-		'switch',
-		'assert',
-		'default',
-		'goto',
-		'synchronized',
-		'do',
-		'if',
-		'break',
-		'implements',
-		'throw',
-		'else',
-		'import',
-		'throws',
-		'case',
-		'enum',
-		'return',
-		'transient',
-		'catch',
-		'extends',
-		'try',
-		'final',
-		'interface',
-		'static',
-		'class',
-		'finally',
-		'strictfp',
-		'volatile',
-		'const',
-		'native',
-		'super',
-		'while'
-	];
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var access = ['private', 'protected', 'public', 'package'];
+const language = new Language('java');
 
-	var types = [
-		'void',
-		'byte',
-		'short',
-		'int',
-		'long',
-		'float',
-		'double',
-		'boolean',
-		'char'
-	];
+const keywords = [
+	'abstract',
+	'continue',
+	'for',
+	'switch',
+	'assert',
+	'default',
+	'goto',
+	'synchronized',
+	'do',
+	'if',
+	'break',
+	'implements',
+	'throw',
+	'else',
+	'import',
+	'throws',
+	'case',
+	'enum',
+	'return',
+	'transient',
+	'catch',
+	'extends',
+	'try',
+	'final',
+	'interface',
+	'static',
+	'class',
+	'finally',
+	'strictfp',
+	'volatile',
+	'const',
+	'native',
+	'super',
+	'while'
+];
 
-	var operators = [
-		'++',
-		'--',
-		'++',
-		'--',
-		'+',
-		'-',
-		'~',
-		'!',
-		'*',
-		'/',
-		'%',
-		'+',
-		'-',
-		'<<',
-		'>>',
-		'>>>',
-		'<',
-		'>',
-		'<=',
-		'>=',
-		'==',
-		'!=',
-		'&',
-		'^',
-		'|',
-		'&&',
-		'||',
-		'?',
-		'=',
-		'+=',
-		'-=',
-		'*=',
-		'/=',
-		'%=',
-		'&=',
-		'^=',
-		'|=',
-		'<<=',
-		'>>=',
-		'>>>=',
-		'instanceof',
-		'new',
-		'delete'
-	];
+const access = ['private', 'protected', 'public', 'package'];
 
-	var constants = ['this', 'true', 'false', 'null'];
+const types = [
+	'void',
+	'byte',
+	'short',
+	'int',
+	'long',
+	'float',
+	'double',
+	'boolean',
+	'char'
+];
 
-	language.push(constants, {type: 'constant'});
-	language.push(types, {type: 'type'});
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
-	language.push(access, {type: 'access'});
+// Operators ordered longest-first to match correctly
+const operators = [
+	'>>>=',
+	'<<=',
+	'>>=',
+	'>>>',
+	'instanceof',
+	'==',
+	'!=',
+	'<=',
+	'>=',
+	'<<',
+	'>>',
+	'&&',
+	'||',
+	'++',
+	'--',
+	'+=',
+	'-=',
+	'*=',
+	'/=',
+	'%=',
+	'&=',
+	'^=',
+	'|=',
+	'new',
+	'delete',
+	'<',
+	'>',
+	'+',
+	'-',
+	'~',
+	'!',
+	'*',
+	'/',
+	'%',
+	'&',
+	'^',
+	'|',
+	'?',
+	'='
+];
 
-	// Camel Case Types
-	language.push(Syntax.lib.camelCaseType);
+const constants = ['this', 'true', 'false', 'null'];
 
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-	language.push(Syntax.lib.webLink);
+language.push(constants, {type: 'constant'});
+language.push(types, {type: 'type'});
+language.push(keywords, {type: 'keyword'});
+language.push(operators, {type: 'operator'});
+language.push(access, {type: 'access'});
 
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
+// Camel Case Types
+language.push(Rule.camelCaseType);
 
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
+// Comments
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+language.push(Rule.webLink);
 
-	language.push(Syntax.lib.cStyleFunction);
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
 
-	brush.processes['function'] = Syntax.lib.webLinkProcess(
-		'java "Developer Documentation"',
-		true
-	);
-});
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+language.push(Rule.cStyleFunction);
+
+language.processes['function'] = Rule.webLinkProcess(
+	'java "Developer Documentation"',
+	true
+);
+
+export default function register(syntax) {
+	syntax.register('java', language);
+}

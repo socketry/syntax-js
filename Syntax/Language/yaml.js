@@ -1,28 +1,32 @@
-// brush: "yaml" aliases: []
+// This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+// Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('yaml', function (brush) {
-	language.push({
-		pattern: /^\s*#.*$/m,
-		type: 'comment',
-		allow: ['href']
-	});
+const language = new Language('yaml');
 
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-
-	language.push({
-		pattern: /(&|\*)[a-z0-9]+/i,
-		type: 'constant'
-	});
-
-	language.push({
-		pattern: /(.*?):/i,
-		matches: Syntax.extractMatches({type: 'keyword'})
-	});
-
-	language.push(Syntax.lib.webLink);
+language.push({
+	pattern: /^\s*#.*$/m,
+	type: 'comment',
+	allow: ['href']
 });
+
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+
+language.push({
+	pattern: /(&|\*)[a-z0-9]+/i,
+	type: 'constant'
+});
+
+language.push({
+	pattern: /(.*?):/i,
+	matches: Rule.extractMatches({type: 'keyword'})
+});
+
+language.push(Rule.webLink);
+
+export default function register(syntax) {
+	syntax.register('yaml', language);
+}

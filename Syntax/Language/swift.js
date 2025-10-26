@@ -1,168 +1,177 @@
-// brush: "swift" aliases: []
+// Swift language syntax highlighting
+// This file is part of the "Syntax" project, and is distributed under the MIT License.
 
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2016 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('swift', function (brush) {
-	var keywords = [
-		'associatedtype',
-		'class',
-		'deinit',
-		'enum',
-		'extension',
-		'fileprivate',
-		'func',
-		'import',
-		'init',
-		'inout',
-		'internal',
-		'let',
-		'operator',
-		'private',
-		'protocol',
-		'static',
-		'struct',
-		'subscript',
-		'typealias',
-		'var',
-		'break',
-		'case',
-		'continue',
-		'default',
-		'defer',
-		'do',
-		'else',
-		'fallthrough',
-		'for',
-		'guard',
-		'if',
-		'in',
-		'repeat',
-		'return',
-		'switch',
-		'where',
-		'while',
-		'as',
-		'catch',
-		'is',
-		'rethrows',
-		'throw',
-		'throws',
-		'try',
-		'_',
-		'#available',
-		'#colorLiteral',
-		'#column',
-		'#else',
-		'#elseif',
-		'#endif',
-		'#file',
-		'#fileLiteral',
-		'#function',
-		'#if',
-		'#imageLiteral',
-		'#line',
-		'#selector',
-		'#sourceLocation',
-		'associativity',
-		'convenience',
-		'dynamic',
-		'didSet',
-		'final',
-		'get',
-		'infix',
-		'indirect',
-		'lazy',
-		'left',
-		'mutating',
-		'none',
-		'nonmutating',
-		'optional',
-		'override',
-		'postfix',
-		'precedence',
-		'prefix',
-		'Protocol',
-		'required',
-		'right',
-		'set',
-		'Type',
-		'unowned',
-		'weak',
-		'willSet'
-	];
+const language = new Language('swift');
 
-	var operators = [
-		'+',
-		'*',
-		'/',
-		'-',
-		'&',
-		'|',
-		'~',
-		'!',
-		'%',
-		'<',
-		'=',
-		'>',
-		'(',
-		')',
-		'{',
-		'}',
-		'[',
-		']',
-		'.',
-		',',
-		':',
-		';',
-		'=',
-		'@',
-		'#',
-		'->',
-		'`',
-		'?',
-		'!'
-	];
+const keywords = [
+	'associatedtype',
+	'class',
+	'deinit',
+	'enum',
+	'extension',
+	'fileprivate',
+	'func',
+	'import',
+	'init',
+	'inout',
+	'internal',
+	'let',
+	'operator',
+	'private',
+	'protocol',
+	'static',
+	'struct',
+	'subscript',
+	'typealias',
+	'var',
+	'break',
+	'case',
+	'continue',
+	'default',
+	'defer',
+	'do',
+	'else',
+	'fallthrough',
+	'for',
+	'guard',
+	'if',
+	'in',
+	'repeat',
+	'return',
+	'switch',
+	'where',
+	'while',
+	'as',
+	'catch',
+	'is',
+	'rethrows',
+	'throw',
+	'throws',
+	'try',
+	'_',
+	'#available',
+	'#colorLiteral',
+	'#column',
+	'#else',
+	'#elseif',
+	'#endif',
+	'#file',
+	'#fileLiteral',
+	'#function',
+	'#if',
+	'#imageLiteral',
+	'#line',
+	'#selector',
+	'#sourceLocation',
+	'associativity',
+	'convenience',
+	'dynamic',
+	'didSet',
+	'final',
+	'get',
+	'infix',
+	'indirect',
+	'lazy',
+	'left',
+	'mutating',
+	'none',
+	'nonmutating',
+	'optional',
+	'override',
+	'postfix',
+	'precedence',
+	'prefix',
+	'Protocol',
+	'required',
+	'right',
+	'set',
+	'Type',
+	'unowned',
+	'weak',
+	'willSet'
+];
 
-	var values = ['self', 'super', 'true', 'false', 'nil'];
+// Operators - ordered longest to shortest
+const operators = [
+	'->',
+	'+',
+	'*',
+	'/',
+	'-',
+	'&',
+	'|',
+	'~',
+	'!',
+	'%',
+	'<',
+	'=',
+	'>',
+	'(',
+	')',
+	'{',
+	'}',
+	'[',
+	']',
+	'.',
+	',',
+	':',
+	';',
+	'@',
+	'#',
+	'`',
+	'?'
+];
 
-	var access = ['fileprivate', 'open', 'private', 'public'];
+const values = ['self', 'super', 'true', 'false', 'nil'];
+const access = ['fileprivate', 'open', 'private', 'public'];
 
-	language.push(access, {type: 'access'});
-	language.push(values, {type: 'constant'});
+// Access modifiers
+language.push(access, {type: 'access'});
 
-	language.push({
-		pattern: /`[^`]+`/,
-		type: 'identifier'
-	});
+// Built-in values
+language.push(values, {type: 'constant'});
 
-	language.push({
-		pattern: /\\\(([^)]*)\)/,
-		matches: Syntax.extractMatches({
-			brush: 'swift',
-			only: ['string']
-		})
-	});
-
-	language.push(Syntax.lib.camelCaseType);
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
-
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-	language.push(Syntax.lib.webLink);
-
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	// Functions
-	language.push(Syntax.lib.cStyleFunction);
+// Backtick identifiers
+language.push({
+	pattern: /`[^`]+`/g,
+	type: 'identifier'
 });
+
+// String interpolation \(...) - needs special handling
+language.push({
+	pattern: /\\\(([^)]*)\)/g,
+	klass: 'string'
+});
+
+// Types (CamelCase)
+language.push(Rule.camelCaseType);
+
+// Keywords
+language.push(keywords, {type: 'keyword'});
+
+// Operators
+language.push(operators, {type: 'operator'});
+
+// Comments
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+language.push(Rule.webLink);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+// Functions
+language.push(Rule.cStyleFunction);
+
+export default function register(syntax) {
+	syntax.register('swift', language);
+}

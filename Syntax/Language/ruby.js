@@ -4,117 +4,125 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.lib.rubyStyleFunction = {
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
+import {Match} from '../Match.js';
+
+const language = new Language('ruby');
+
+// Ruby-style function definitions and method calls (def foo, .bar)
+const rubyStyleFunction = {
 	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/i,
-	matches: Syntax.extractMatches({type: 'function'})
+	matches: Rule.extractMatches({type: 'function'})
 };
 
-// We need to emulate negative lookbehind
-Syntax.lib.rubyStyleSymbol = {
+// Emulate negative lookbehind to avoid matching ::symbol (only match :symbol not ::symbol)
+const rubyStyleSymbol = {
 	pattern: /([:]?):\w+/,
 	type: 'constant',
-	matches: function (match, expr) {
-		if (match[1] != '') return [];
+	matches: function (/* syntax */ _syntax, match, expr) {
+		// If there is a preceding ':' captured, skip (handles '::symbol').
+		if (match[1] !== '') return [];
 
-		return [new Syntax.Match(match.index, match[0].length, expr, match[0])];
+		return [new Match(match.index, match[0].length, expr, match[0])];
 	}
 };
 
-Syntax.register('ruby', function (brush) {
-	var keywords = [
-		'alias',
-		'and',
-		'begin',
-		'break',
-		'case',
-		'class',
-		'def',
-		'define_method',
-		'defined?',
-		'do',
-		'else',
-		'elsif',
-		'end',
-		'ensure',
-		'false',
-		'for',
-		'if',
-		'in',
-		'module',
-		'next',
-		'not',
-		'or',
-		'raise',
-		'redo',
-		'rescue',
-		'retry',
-		'return',
-		'then',
-		'throw',
-		'undef',
-		'unless',
-		'until',
-		'when',
-		'while',
-		'yield',
-		'block_given?'
-	];
+// Keywords, operators, values and access modifiers
+const keywords = [
+	'alias',
+	'and',
+	'begin',
+	'break',
+	'case',
+	'class',
+	'def',
+	'define_method',
+	'defined?',
+	'do',
+	'else',
+	'elsif',
+	'end',
+	'ensure',
+	'false',
+	'for',
+	'if',
+	'in',
+	'module',
+	'next',
+	'not',
+	'or',
+	'raise',
+	'redo',
+	'rescue',
+	'retry',
+	'return',
+	'then',
+	'throw',
+	'undef',
+	'unless',
+	'until',
+	'when',
+	'while',
+	'yield',
+	'block_given?'
+];
 
-	var operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'];
-	var values = ['self', 'super', 'true', 'false', 'nil'];
+const operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'];
+const values = ['self', 'super', 'true', 'false', 'nil'];
+const access = ['private', 'protected', 'public'];
 
-	var access = ['private', 'protected', 'public'];
+language.push(access, {type: 'access'});
+language.push(values, {type: 'constant'});
 
-	language.push(access, {type: 'access'});
-	language.push(values, {type: 'constant'});
-
-	// Percent operator statements
-	language.push({
-		pattern: /(\%[\S])(\{[\s\S]*?\})/,
-		matches: Syntax.extractMatches({type: 'function'}, {type: 'constant'})
-	});
-
-	language.push({
-		pattern: /`[^`]+`/,
-		type: 'string'
-	});
-
-	language.push({
-		pattern: /\#\{([^\}]*)\}/,
-		matches: Syntax.extractMatches({
-			brush: 'ruby',
-			only: ['string']
-		})
-	});
-
-	// Regular expressions
-	language.push(Syntax.lib.rubyStyleRegularExpression);
-
-	language.push({pattern: /(@+|\$)[\w]+/, type: 'variable'});
-
-	language.push(Syntax.lib.camelCaseType);
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
-
-	language.push(Syntax.lib.rubyStyleSymbol);
-
-	// Comments
-	language.push(Syntax.lib.perlStyleComment);
-	language.push(Syntax.lib.webLink);
-
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	// Functions
-	language.push(Syntax.lib.rubyStyleFunction);
-	language.push(Syntax.lib.cStyleFunction);
-
-	// brush.processes['function'] = Syntax.lib.webLinkProcess("ruby", true);
-	// brush.processes['type'] = Syntax.lib.webLinkProcess("ruby", true);
+// Percent-literals like %q{...}, %w{...}
+language.push({
+	pattern: /(\%[\S])(\{[\s\S]*?\})/,
+	matches: Rule.extractMatches({type: 'function'}, {type: 'constant'})
 });
+
+// Backtick command strings
+language.push({pattern: /`[^`]+`/, type: 'string'});
+
+// Interpolation inside strings: #{ ... }
+language.push({
+	pattern: /\#\{([^\}]*)\}/,
+	matches: Rule.extractMatches({language: 'ruby', only: ['string']})
+});
+
+// Regular expressions
+language.push(Rule.rubyStyleRegularExpression);
+
+// Instance/class/global variables
+language.push({pattern: /(@+|\$)[\w]+/, type: 'variable'});
+
+// Types (CamelCase constants)
+language.push(Rule.camelCaseType);
+
+// Core tokens
+language.push(keywords, {type: 'keyword'});
+language.push(operators, {type: 'operator'});
+
+// Symbols
+language.push(rubyStyleSymbol);
+
+// Comments and links
+language.push(Rule.perlStyleComment);
+language.push(Rule.webLink);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+// Functions (definitions and c-style function detection)
+language.push(rubyStyleFunction);
+language.push(Rule.cStyleFunction);
+
+export default function register(syntax) {
+	syntax.register('ruby', language);
+}

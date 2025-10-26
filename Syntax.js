@@ -342,7 +342,7 @@ export class Syntax {
 	 * Initialize syntax highlighting on the page
 	 * Registers the web component and sets up the default syntax instance
 	 * Languages will be auto-loaded on demand when referenced by elements
-	 * 
+	 *
 	 * @param {Object} options - Configuration options
 	 * @param {Syntax} options.syntax - Syntax instance to use (defaults to Syntax.default)
 	 * @param {boolean} options.autoUpgrade - Whether to automatically upgrade existing elements (default: true)
@@ -350,15 +350,11 @@ export class Syntax {
 	 * @returns {Promise<void>}
 	 */
 	static async highlight(options = {}) {
-		const {
-			syntax = Syntax.default,
-			autoUpgrade = true,
-			root = null
-		} = options;
+		const {syntax = Syntax.default, autoUpgrade = true, root = null} = options;
 
 		// Set the default syntax instance
 		Syntax.default = syntax;
-		
+
 		// Configure root for auto-loading if provided
 		if (root && !syntax.root) {
 			syntax.root = root;
@@ -366,7 +362,7 @@ export class Syntax {
 
 		// Import and register the web component
 		const {HighlightElement} = await import('./Syntax/HighlightElement.js');
-		
+
 		if (!customElements.get('syntax-highlight')) {
 			customElements.define('syntax-highlight', HighlightElement);
 		}

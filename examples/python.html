@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Python Syntax Example</title>
+	<link rel="stylesheet" href="../themes/base/syntax.css">
+	<link rel="stylesheet" href="../themes/base/python.css">
+</head>
+<body>
+	<h1>Python Syntax Highlighting</h1>
+	
+	<syntax-highlight language="python">
+def fibonacci(n):
+    """Generate Fibonacci sequence up to n terms."""
+    a, b = 0, 1
+    result = []
+    
+    for i in range(n):
+        result.append(a)
+        a, b = b, a + b
+    
+    return result
+
+@decorator
+class Calculator:
+    """A simple calculator class."""
+    
+    def __init__(self, name):
+        self.name = name
+        self._history = []
+    
+    def add(self, x, y):
+        """Add two numbers."""
+        result = x + y
+        self._history.append(f"{x} + {y} = {result}")
+        return result
+    
+    def multiply(self, *args):
+        """Multiply multiple numbers."""
+        result = 1
+        for num in args:
+            result *= num
+        return result
+
+# Example usage
+if __name__ == "__main__":
+    calc = Calculator("MyCalc")
+    print(calc.add(5, 3))
+    print(calc.multiply(2, 3, 4))
+    
+    # List comprehension
+    squares = [x**2 for x in range(10) if x % 2 == 0]
+    
+    # Dictionary
+    config = {
+        'debug': True,
+        'timeout': 30,
+        'servers': ['localhost', '127.0.0.1']
+    }
+	</syntax-highlight>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		
+		await Syntax.highlight({ autoUpgrade: true });
+	</script>
+</body>
+</html>

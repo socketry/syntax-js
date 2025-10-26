@@ -188,19 +188,19 @@ test('stringEscape matches escaped quotes', () => {
 test('webLinkProcess creates anchor elements', () => {
 	const baseUrl = 'http://docs.example.com/search?q=';
 	const process = Rule.webLinkProcess(baseUrl);
-	
+
 	// Create a mock container and match
 	const container = document.createElement('span');
 	container.className = 'function';
 	container.textContent = 'myFunction';
-	
+
 	const match = {
 		value: 'myFunction',
 		expression: {type: 'function'}
 	};
-	
+
 	const result = process(container, match, {});
-	
+
 	assert.strictEqual(result.tagName, 'A');
 	assert.strictEqual(result.className, 'function');
 	assert.strictEqual(result.textContent, 'myFunction');
@@ -211,18 +211,18 @@ test('webLinkProcess creates anchor elements', () => {
 test('webLinkProcess encodes URLs properly', () => {
 	const baseUrl = 'http://docs.example.com/search?q=';
 	const process = Rule.webLinkProcess(baseUrl);
-	
+
 	const container = document.createElement('span');
 	container.className = 'function';
 	container.textContent = 'my Function';
-	
+
 	const match = {
 		value: 'my Function',
 		expression: {type: 'function'}
 	};
-	
+
 	const result = process(container, match, {});
-	
+
 	// Should encode the space
 	assert.ok(result.href.includes('my%20Function'));
 });
@@ -230,19 +230,22 @@ test('webLinkProcess encodes URLs properly', () => {
 test('webLinkProcess preserves nested HTML', () => {
 	const baseUrl = 'http://docs.example.com/';
 	const process = Rule.webLinkProcess(baseUrl);
-	
+
 	const container = document.createElement('span');
 	container.className = 'function';
 	container.innerHTML = 'my<span class="highlight">Func</span>tion';
-	
+
 	const match = {
 		value: 'myFunction',
 		expression: {type: 'function'}
 	};
-	
+
 	const result = process(container, match, {});
-	
+
 	assert.strictEqual(result.tagName, 'A');
-	assert.strictEqual(result.innerHTML, 'my<span class="highlight">Func</span>tion');
+	assert.strictEqual(
+		result.innerHTML,
+		'my<span class="highlight">Func</span>tion'
+	);
 	assert.strictEqual(result.className, 'function');
 });

@@ -1,95 +1,112 @@
-// brush: "bash-script" aliases: []
+// This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+// Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('bash-script', function (brush) {
-	var operators = ['&&', '|', ';', '{', '}'];
-	language.push(operators, {type: 'operator'});
+const bashScript = new Language('bash-script');
 
-	language.push({
-		pattern:
-			/(?:^|\||;|&&)\s*((?:"([^"]|\\")+"|'([^']|\\')+'|\\\n|.|[ \t])+?)(?=$|\||;|&&)/im,
-		matches: Syntax.extractMatches({brush: 'bash-statement'})
-	});
+var operators = ['&&', '|', ';', '{', '}'];
+bashScript.push(operators, {type: 'operator'});
+
+bashScript.push({
+	pattern:
+		/(?:^|\||;|&&)\s*((?:"([^"]|\\")+"|'([^']|\\')+'|\\\n|.|[ \t])+?)(?=$|\||;|&&)/im,
+	matches: Rule.extractMatches({language: 'bash-statement'})
 });
 
-Syntax.register('bash-statement', function (brush) {
-	var keywords = [
-		'break',
-		'case',
-		'continue',
-		'do',
-		'done',
-		'elif',
-		'else',
-		'eq',
-		'fi',
-		'for',
-		'function',
-		'ge',
-		'gt',
-		'if',
-		'in',
-		'le',
-		'lt',
-		'ne',
-		'return',
-		'then',
-		'until',
-		'while'
-	];
-	language.push(keywords, {type: 'keyword'});
+const bashStatement = new Language('bash-statement');
 
-	var operators = ['>', '<', '=', '`', '--', '{', '}', '(', ')', '[', ']'];
-	language.push(operators, {type: 'operator'});
+var keywords = [
+	'break',
+	'case',
+	'continue',
+	'do',
+	'done',
+	'elif',
+	'else',
+	'eq',
+	'fi',
+	'for',
+	'function',
+	'ge',
+	'gt',
+	'if',
+	'in',
+	'le',
+	'lt',
+	'ne',
+	'return',
+	'then',
+	'until',
+	'while'
+];
+bashStatement.push(keywords, {type: 'keyword'});
 
-	language.push({
-		pattern: /\(\((.*?)\)\)/im,
-		type: 'expression',
-		allow: ['variable', 'string', 'operator', 'constant']
-	});
+var statementOperators = [
+	'>',
+	'<',
+	'=',
+	'`',
+	'--',
+	'{',
+	'}',
+	'(',
+	')',
+	'[',
+	']'
+];
+bashStatement.push(statementOperators, {type: 'operator'});
 
-	language.push({
-		pattern: /`([\s\S]+?)`/im,
-		matches: Syntax.extractMatches({brush: 'bash-script', debug: true})
-	});
-
-	language.push(Syntax.lib.perlStyleComment);
-
-	// Probably need to write a real parser here rather than using regular expressions, it is too fragile
-	// and misses lots of edge cases (e.g. nested brackets, delimiters).
-	language.push({
-		pattern:
-			/^\s*((?:\S+?=\$?(?:\[[^\]]+\]|\(\(.*?\)\)|"(?:[^"]|\\")+"|'(?:[^']|\\')+'|\S+)\s*)*)((?:(\\ |\S)+)?)/im,
-		matches: Syntax.extractMatches(
-			{
-				type: 'env',
-				allow: ['variable', 'string', 'operator', 'constant', 'expression']
-			},
-			{type: 'function', allow: ['variable', 'string']}
-		)
-	});
-
-	language.push({
-		pattern: /(\S+?)=/im,
-		matches: Syntax.extractMatches({type: 'variable'}),
-		only: ['env']
-	});
-
-	language.push({
-		pattern: /\$\w+/,
-		type: 'variable'
-	});
-
-	language.push({pattern: /\s\-+[\w-]+/, type: 'option'});
-
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	language.push(Syntax.lib.webLink);
+bashStatement.push({
+	pattern: /\(\((.*?)\)\)/im,
+	type: 'expression',
+	allow: ['variable', 'string', 'operator', 'constant']
 });
+
+bashStatement.push({
+	pattern: /`([\s\S]+?)`/im,
+	matches: Rule.extractMatches({language: 'bash-script', debug: true})
+});
+
+bashStatement.push(Rule.perlStyleComment);
+
+// Probably need to write a real parser here rather than using regular expressions, it is too fragile
+// and misses lots of edge cases (e.g. nested brackets, delimiters).
+bashStatement.push({
+	pattern:
+		/^\s*((?:\S+?=\$?(?:\[[^\]]+\]|\(\(.*?\)\)|"(?:[^"]|\\")+"|'(?:[^']|\\')+'|\S+)\s*)*)((?:(\\ |\S)+)?)/im,
+	matches: Rule.extractMatches(
+		{
+			type: 'env',
+			allow: ['variable', 'string', 'operator', 'constant', 'expression']
+		},
+		{type: 'function', allow: ['variable', 'string']}
+	)
+});
+
+bashStatement.push({
+	pattern: /(\S+?)=/im,
+	matches: Rule.extractMatches({type: 'variable'}),
+	only: ['env']
+});
+
+bashStatement.push({
+	pattern: /\$\w+/,
+	type: 'variable'
+});
+
+bashStatement.push({pattern: /\s\-+[\w-]+/, type: 'option'});
+
+bashStatement.push(Rule.singleQuotedString);
+bashStatement.push(Rule.doubleQuotedString);
+
+bashStatement.push(Rule.decimalNumber);
+bashStatement.push(Rule.hexNumber);
+
+bashStatement.push(Rule.webLink);
+
+export default function register(syntax) {
+	syntax.register('bash-script', bashScript);
+	syntax.register('bash-statement', bashStatement);
+}

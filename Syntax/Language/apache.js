@@ -1,50 +1,52 @@
-// brush: "apache" aliases: []
+// This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+// Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('apache', function (brush) {
-	language.push({
-		pattern: /(<(\w+).*?>)/i,
-		matches: Syntax.extractMatches(
-			{
-				type: 'tag',
-				allow: ['attribute', 'tag-name', 'string']
-			},
-			{
-				type: 'tag-name',
-				process: Syntax.lib.webLinkProcess(
-					'site:http://httpd.apache.org/docs/trunk/ directive',
-					true
-				)
-			}
-		)
-	});
+const language = new Language('apache');
 
-	language.push({
-		pattern: /(<\/(\w+).*?>)/i,
-		matches: Syntax.extractMatches(
-			{type: 'tag', allow: ['tag-name']},
-			{type: 'tag-name'}
-		)
-	});
-
-	language.push({
-		pattern: /^\s+([A-Z][\w]+)/m,
-		matches: Syntax.extractMatches({
-			type: 'function',
-			allow: ['attribute'],
-			process: Syntax.lib.webLinkProcess(
-				'site:http://httpd.apache.org/docs/trunk/ directive',
-				true
+language.push({
+	pattern: /(<(\w+).*?>)/i,
+	matches: Rule.extractMatches(
+		{
+			type: 'tag',
+			allow: ['attribute', 'tag-name', 'string']
+		},
+		{
+			type: 'tag-name',
+			process: Rule.webLinkProcess(
+				'http://httpd.apache.org/docs/trunk/mod/directive-dict.html#'
 			)
-		})
-	});
-
-	language.push(Syntax.lib.perlStyleComment);
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-
-	language.push(Syntax.lib.webLink);
+		}
+	)
 });
+
+language.push({
+	pattern: /(<\/(\w+).*?>)/i,
+	matches: Rule.extractMatches(
+		{type: 'tag', allow: ['tag-name']},
+		{type: 'tag-name'}
+	)
+});
+
+language.push({
+	pattern: /^\s+([A-Z][\w]+)/m,
+	matches: Rule.extractMatches({
+		type: 'function',
+		allow: ['attribute'],
+		process: Rule.webLinkProcess(
+			'http://httpd.apache.org/docs/trunk/mod/directive-dict.html#'
+		)
+	})
+});
+
+language.push(Rule.perlStyleComment);
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+
+language.push(Rule.webLink);
+
+export default function register(syntax) {
+	syntax.register('apache', language);
+}

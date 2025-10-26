@@ -284,6 +284,12 @@
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';
+		import registerHTML from '../Syntax/Language/html.js';
+		import registerXML from '../Syntax/Language/xml.js';
+		
+		// Register HTML and its dependencies
+		registerXML(Syntax.default);
+		registerHTML(Syntax.default);
 		
 		// Initialize highlighting
 		await Syntax.highlight({

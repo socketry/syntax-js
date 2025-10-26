@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>XML Example</title>
+		<link rel="stylesheet" href="../themes/base/syntax.css">
+		<link rel="stylesheet" href="../themes/base/xml.css">
+		<script type="module" src="../Syntax.js"></script>
+		<script type="module">
+			import Syntax from '../Syntax.js';
+			Syntax.highlight();
+		</script>
+	</head>
+	<body>
+		<h1>XML Code Example</h1>
+		
+		<syntax-highlight language="xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- Sample XML Document demonstrating various features --&gt;
+
+&lt;!-- Root element with namespace declaration --&gt;
+&lt;library xmlns:book="http://example.com/books" xmlns:author="http://example.com/authors"&gt;
+	
+	&lt;!-- Element with multiple attributes --&gt;
+	&lt;book:collection id="scifi-classics" category="Science Fiction" year="2024"&gt;
+		
+		&lt;!-- Nested elements with different structures --&gt;
+		&lt;book:item isbn='978-0-441-17271-9' format="hardcover"&gt;
+			&lt;book:title&gt;Neuromancer&lt;/book:title&gt;
+			&lt;author:name&gt;William Gibson&lt;/author:name&gt;
+			&lt;book:published&gt;1984&lt;/book:published&gt;
+			
+			&lt;!-- Entity references --&gt;
+			&lt;book:description&gt;
+				A &amp;quot;cyberpunk&amp;quot; masterpiece that defined a genre.
+				The story follows Case, a washed-up computer hacker &amp;amp; console cowboy.
+			&lt;/book:description&gt;
+			
+			&lt;!-- CDATA section for preserving special characters --&gt;
+			&lt;book:code-snippet&gt;
+				&lt;![CDATA[
+					if (condition &lt; 10 && value &gt; 5) {
+						console.log("Special chars: &lt;&gt;&amp;\"'");
+					}
+				]]&gt;
+			&lt;/book:code-snippet&gt;
+		&lt;/book:item&gt;
+		
+		&lt;book:item isbn="978-0-441-00590-0" format="paperback"&gt;
+			&lt;book:title&gt;Dune&lt;/book:title&gt;
+			&lt;author:name&gt;Frank Herbert&lt;/author:name&gt;
+			&lt;book:published&gt;1965&lt;/book:published&gt;
+			
+			&lt;book:description&gt;
+				Set on the desert planet Arrakis, where &amp;quot;spice&amp;quot; is the most valuable substance.
+				Winner of both Hugo &amp;amp; Nebula awards.
+			&lt;/book:description&gt;
+			
+			&lt;!-- Self-closing tags --&gt;
+			&lt;book:available/&gt;
+			&lt;book:bestseller/&gt;
+		&lt;/book:item&gt;
+		
+	&lt;/book:collection&gt;
+	
+	&lt;!-- URL encoding in attributes --&gt;
+	&lt;book:reference 
+		url="http://example.com/catalog?id=123&amp;amp;category=scifi" 
+		encoded="%20%2F%3A%3F%3D"&gt;
+		External catalog link
+	&lt;/book:reference&gt;
+	
+	&lt;!-- Multi-line comment
+	     demonstrating various
+	     XML features and patterns --&gt;
+	
+	&lt;!-- Common XML entities --&gt;
+	&lt;book:entities&gt;
+		&amp;lt; Less than
+		&amp;gt; Greater than
+		&amp;amp; Ampersand
+		&amp;quot; Quote
+		&amp;apos; Apostrophe
+		&amp;nbsp; Non-breaking space
+	&lt;/book:entities&gt;
+	
+	&lt;!-- Mixed content with both text and elements --&gt;
+	&lt;book:description&gt;
+		This is &lt;book:emphasis&gt;mixed content&lt;/book:emphasis&gt; with both
+		text nodes and &lt;book:strong&gt;element nodes&lt;/book:strong&gt; together.
+	&lt;/book:description&gt;
+	
+	&lt;!-- Complex CDATA with nested structure --&gt;
+	&lt;book:template&gt;
+		&lt;![CDATA[
+			&lt;html&gt;
+				&lt;body&gt;
+					&lt;h1&gt;Title&lt;/h1&gt;
+					&lt;p&gt;Content with &lt;, &gt;, &amp; symbols&lt;/p&gt;
+				&lt;/body&gt;
+			&lt;/html&gt;
+		]]&gt;
+	&lt;/book:template&gt;
+	
+&lt;/library&gt;
+		</syntax-highlight>
+	</body>
+</html>

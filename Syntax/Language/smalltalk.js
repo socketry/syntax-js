@@ -4,26 +4,33 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('smalltalk', function (brush) {
-	var operators = ['[', ']', '|', ':=', '.'];
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-	var values = ['self', 'super', 'true', 'false', 'nil'];
+const language = new Language('smalltalk');
 
-	language.push(values, {type: 'constant'});
-	language.push(operators, {type: 'operator'});
+const operators = ['[', ']', '|', ':=', '.'];
 
-	// Objective-C style functions
-	language.push({pattern: /\w+:/, type: 'function'});
+const values = ['self', 'super', 'true', 'false', 'nil'];
 
-	// Camelcase Types
-	language.push(Syntax.lib.camelCaseType);
+language.push(values, {type: 'constant'});
+language.push(operators, {type: 'operator'});
 
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
+// Objective-C style functions (method selectors ending with colon)
+language.push({pattern: /\w+:/, type: 'function'});
 
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-});
+// Camelcase Types
+language.push(Rule.camelCaseType);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+export default function register(syntax) {
+	syntax.register('smalltalk', language);
+}

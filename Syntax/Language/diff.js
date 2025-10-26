@@ -1,23 +1,27 @@
-// brush: "diff" aliases: ["patch"]
+// This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+// Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
+import {Language} from '../Language.js';
 
-Syntax.register('diff', function (brush) {
-	language.push({pattern: /^\+\+\+.*$/m, type: 'add'});
-	language.push({pattern: /^\-\-\-.*$/m, type: 'del'});
+const language = new Language('diff');
 
-	language.push({pattern: /^@@.*@@/m, type: 'offset'});
+// File headers
+language.push({pattern: /^\+\+\+.*$/m, type: 'add'});
+language.push({pattern: /^\-\-\-.*$/m, type: 'del'});
 
-	language.push({pattern: /^\+[^\+]{1}.*$/m, type: 'insert'});
-	language.push({pattern: /^\-[^\-]{1}.*$/m, type: 'remove'});
+// Chunk header (offset markers)
+language.push({pattern: /^@@.*@@/m, type: 'offset'});
 
-	brush.postprocess = function (options, html, container) {
-		$('.insert', html).closest('.source').addClass('insert-line');
-		$('.remove', html).closest('.source').addClass('remove-line');
-		$('.offset', html).closest('.source').addClass('offset-line');
+// Added lines
+language.push({pattern: /^\+[^\+]{1}.*$/m, type: 'insert'});
 
-		return html;
-	};
-});
+// Removed lines
+language.push({pattern: /^\-[^\-]{1}.*$/m, type: 'remove'});
+
+// Note: The postprocess function that added classes to parent lines has been removed.
+// CSS can be used to style entire lines based on the span types instead.
+
+export default function register(syntax) {
+	syntax.register('diff', language);
+	syntax.alias('diff', ['patch']);
+}

@@ -1,0 +1,11 @@
+/* Ruby-specific token styles */
+
+/* Symbols like :symbol */
+code.syntax .symbol {
+	color: #e06c75;
+}
+
+/* Instance/class/global variables */
+code.syntax .variable {
+	color: #e5c07b;
+}

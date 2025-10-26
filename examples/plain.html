@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Plain Text Syntax Examples</title>
+	<link rel="stylesheet" href="../themes/base/syntax.css">
+	<link rel="stylesheet" href="../themes/base/plain.css">
+	<style>
+		.syntax a {
+			color: #4ec9b0;
+			text-decoration: underline;
+		}
+		.syntax a:hover {
+			color: #569cd6;
+		}
+	</style>
+</head>
+<body>
+	<h1>Plain Text Syntax Examples</h1>
+	
+	<p>The plain text language highlights URLs and makes them clickable links.</p>
+
+	<h2>Simple URL</h2>
+	<syntax-highlight language="plain">Visit http://example.com for more information.</syntax-highlight>
+
+	<h2>HTTPS URLs</h2>
+	<syntax-highlight language="plain">Secure sites use HTTPS like https://secure.example.com
+You can also visit https://www.github.com or https://stackoverflow.com</syntax-highlight>
+
+	<h2>URLs with Paths</h2>
+	<syntax-highlight language="plain">Documentation: https://developer.mozilla.org/en-US/docs/Web
+API Reference: https://api.example.com/v1/users
+Deep link: https://example.com/products/category/item-123</syntax-highlight>
+
+	<h2>URLs with Query Parameters</h2>
+	<syntax-highlight language="plain">Search: https://www.google.com/search?q=javascript&lang=en
+API call: https://api.example.com/search?query=test&limit=10&offset=0
+Analytics: https://analytics.example.com/reports?start=2024-01-01&end=2024-12-31</syntax-highlight>
+
+	<h2>URLs with Fragments</h2>
+	<syntax-highlight language="plain">Jump to section: https://example.com/docs#installation
+MDN reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript#see_also
+Anchor link: https://github.com/user/repo#readme</syntax-highlight>
+
+	<h2>URLs with Ports</h2>
+	<syntax-highlight language="plain">Local server: http://localhost:3000
+Custom port: https://example.com:8443/api
+Development: http://192.168.1.100:8080</syntax-highlight>
+
+	<h2>FTP URLs</h2>
+	<syntax-highlight language="plain">Download files from ftp://ftp.example.com/pub/files
+Legacy FTP: ftp://user:password@ftp.example.com/downloads</syntax-highlight>
+
+	<h2>File URLs</h2>
+	<syntax-highlight language="plain">Local file: file:///home/user/documents/readme.txt
+Windows path: file:///C:/Users/User/Documents/file.pdf</syntax-highlight>
+
+	<h2>Multiple URLs in Text</h2>
+	<syntax-highlight language="plain">Check out these resources:
+- Official site: https://example.com
+- Documentation: https://docs.example.com
+- Community forum: https://forum.example.com
+- Bug tracker: https://github.com/user/repo/issues
+- Stack Overflow: https://stackoverflow.com/questions/tagged/example</syntax-highlight>
+
+	<h2>URLs with Subdomains</h2>
+	<syntax-highlight language="plain">API endpoint: https://api.staging.example.com
+CDN: https://cdn.example.com/assets/main.js
+Blog: https://blog.example.com/2024/10/article-title</syntax-highlight>
+
+	<h2>URLs in Sentences</h2>
+	<syntax-highlight language="plain">You can find more information at https://example.com/about or contact us.
+For support, visit https://support.example.com (requires login).
+The source code is available at https://github.com/user/repo.</syntax-highlight>
+
+	<h2>Plain Text Without URLs</h2>
+	<syntax-highlight language="plain">This is plain text without any URLs.
+It will be displayed as-is without any special highlighting.
+Multiple lines are supported.
+	Indentation is preserved.
+		Even nested indentation works.</syntax-highlight>
+
+	<h2>Mixed Content</h2>
+	<syntax-highlight language="plain">Project: My Awesome App
+Version: 1.0.0
+License: MIT
+Homepage: https://github.com/user/awesome-app
+Documentation: https://awesome-app.readthedocs.io/en/latest/
+Issues: https://github.com/user/awesome-app/issues
+
+Installation:
+1. Clone the repository: https://github.com/user/awesome-app.git
+2. Install dependencies
+3. Run the application
+
+For more details, visit https://awesome-app.com</syntax-highlight>
+
+	<h2>README-style Text</h2>
+	<syntax-highlight language="plain"># My Project
+
+A description of my project.
+
+## Installation
+
+```
+npm install my-project
+```
+
+## Documentation
+
+Full documentation is available at https://docs.myproject.com
+
+## Links
+
+- Website: https://myproject.com
+- GitHub: https://github.com/user/myproject
+- NPM: https://www.npmjs.com/package/myproject
+- Issues: https://github.com/user/myproject/issues
+
+## License
+
+MIT License - see https://opensource.org/licenses/MIT</syntax-highlight>
+
+	<h2>Log File Example</h2>
+	<syntax-highlight language="plain">[2024-10-26 10:15:23] INFO Starting application
+[2024-10-26 10:15:24] INFO Loading configuration from https://config.example.com
+[2024-10-26 10:15:25] INFO Connecting to https://api.example.com/v1
+[2024-10-26 10:15:26] INFO Successfully connected
+[2024-10-26 10:15:27] WARN Slow response from https://api.example.com/v1/users
+[2024-10-26 10:15:28] ERROR Failed to fetch https://api.example.com/v1/products
+[2024-10-26 10:15:29] INFO Retrying connection
+[2024-10-26 10:15:30] INFO Application ready</syntax-highlight>
+
+	<h2>URL List</h2>
+	<syntax-highlight language="plain">Useful Resources:
+
+Development Tools:
+https://github.com
+https://gitlab.com
+https://bitbucket.org
+https://stackoverflow.com
+
+Documentation:
+https://developer.mozilla.org
+https://www.w3.org
+https://devdocs.io
+
+Learning:
+https://www.freecodecamp.org
+https://www.codecademy.com
+https://www.udemy.com
+
+Communities:
+https://dev.to
+https://hashnode.com
+https://www.reddit.com/r/programming</syntax-highlight>
+
+	<h2>IP Address URLs</h2>
+	<syntax-highlight language="plain">Production server: https://203.0.113.42
+Staging server: http://198.51.100.10:8080
+Local network: http://192.168.1.1
+Localhost: http://127.0.0.1:3000
+IPv6: http://[2001:db8::1]:8080</syntax-highlight>
+
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		await Syntax.highlight({ autoUpgrade: true });
+	</script>
+</body>
+</html>

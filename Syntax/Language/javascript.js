@@ -4,8 +4,17 @@
 //	Copyright (c) 2019 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.register('javascript', function (brush) {
-	var keywords = [
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
+
+const language = new Language('javascript');
+
+// Constants/values
+language.push(['this', 'true', 'false', 'null'], {type: 'constant'});
+
+// Keywords
+language.push(
+	[
 		'async',
 		'await',
 		'break',
@@ -42,45 +51,45 @@ Syntax.register('javascript', function (brush) {
 		'while',
 		'with',
 		'yield'
-	];
+	],
+	{type: 'keyword'}
+);
 
-	var operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'];
-	var values = ['this', 'true', 'false', 'null'];
-
-	var access = [
-		'implements',
-		'package',
-		'protected',
-		'interface',
-		'private',
-		'public'
-	];
-
-	language.push(values, {type: 'constant'});
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
-	language.push(access, {type: 'access'});
-
-	// Regular expressions
-	language.push(Syntax.lib.perlStyleRegularExpression);
-
-	// Camel Case Types
-	language.push(Syntax.lib.camelCaseType);
-
-	// Comments
-	language.push(Syntax.lib.cStyleComment);
-	language.push(Syntax.lib.cppStyleComment);
-	language.push(Syntax.lib.webLink);
-
-	// Strings
-	language.push(Syntax.lib.singleQuotedString);
-	language.push(Syntax.lib.doubleQuotedString);
-	language.push(Syntax.lib.stringEscape);
-
-	// Numbers
-	language.push(Syntax.lib.decimalNumber);
-	language.push(Syntax.lib.hexNumber);
-
-	// Functions
-	language.push(Syntax.lib.cStyleFunction);
+// Operators
+language.push(['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'], {
+	type: 'operator'
 });
+
+// Access modifiers
+language.push(
+	['implements', 'package', 'protected', 'interface', 'private', 'public'],
+	{type: 'access'}
+);
+
+// Regular expressions
+language.push(Rule.perlStyleRegularExpression);
+
+// Camel Case Types
+language.push(Rule.camelCaseType);
+
+// Comments
+language.push(Rule.cStyleComment);
+language.push(Rule.cppStyleComment);
+language.push(Rule.webLink);
+
+// Strings
+language.push(Rule.singleQuotedString);
+language.push(Rule.doubleQuotedString);
+language.push(Rule.stringEscape);
+
+// Numbers
+language.push(Rule.decimalNumber);
+language.push(Rule.hexNumber);
+
+// Functions
+language.push(Rule.cStyleFunction);
+
+export default function register(syntax) {
+	syntax.register('javascript', language);
+	syntax.alias('javascript', ['js', 'actionscript']);
+}

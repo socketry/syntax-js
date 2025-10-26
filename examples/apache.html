@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Apache Configuration Syntax Example</title>
+	<link rel="stylesheet" href="../themes/base/syntax.css">
+	<link rel="stylesheet" href="../themes/base/apache.css">
+</head>
+<body>
+	<h1>Apache Configuration Syntax Highlighting</h1>
+	
+	<syntax-highlight language="apache">
+# Apache Configuration Example
+
+ServerRoot "/etc/apache2"
+Listen 80
+Listen 443
+
+LoadModule ssl_module modules/mod_ssl.so
+LoadModule rewrite_module modules/mod_rewrite.so
+
+<VirtualHost *:80>
+    ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot /var/www/html
+    
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    
+    # Redirect to HTTPS
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}$1 [R=301,L]
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName example.com
+    DocumentRoot /var/www/html
+    
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/example.crt
+    SSLCertificateKeyFile /etc/ssl/private/example.key
+    
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+        SSLOptions +StdEnvVars
+    </FilesMatch>
+</VirtualHost>
+	</syntax-highlight>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		
+		await Syntax.highlight({ autoUpgrade: true });
+	</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ruby Syntax Example</title>
+	<link rel="stylesheet" href="../themes/base/syntax.css">
+	<link rel="stylesheet" href="../themes/base/ruby.css">
+</head>
+<body>
+	<h1>Ruby Syntax Highlighting</h1>
+	
+	<syntax-highlight language="ruby">
+# Simple class
+class Greeter
+  def initialize(name)
+    @name = name
+  end
+
+  def greet
+    puts "Hello, #{@name}!"
+  end
+end
+
+# Usage
+user = Greeter.new('World')
+user.greet
+
+# Symbols and regex
+status = :ok
+pattern = /foo.+bar/i
+
+# Percent literals
+words = %w{alpha beta gamma}
+
+# Command
+output = `uname -a`
+	</syntax-highlight>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		await Syntax.highlight({ autoUpgrade: true });
+	</script>
+</body>
+</html>

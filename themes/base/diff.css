@@ -1,0 +1,25 @@
+/* Per-language overrides for Diff (empty by default). */
+
+/* Optional: Style entire lines based on the type of change */
+.syntax.diff .insert {
+	background-color: rgba(0, 255, 0, 0.1);
+}
+
+.syntax.diff .remove {
+	background-color: rgba(255, 0, 0, 0.1);
+}
+
+.syntax.diff .offset {
+	background-color: rgba(0, 150, 255, 0.1);
+	font-weight: bold;
+}
+
+.syntax.diff .add {
+	color: #22863a;
+	font-weight: bold;
+}
+
+.syntax.diff .del {
+	color: #b31d28;
+	font-weight: bold;
+}

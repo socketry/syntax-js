@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SuperCollider Syntax Example</title>
+	<link rel="stylesheet" href="../themes/base/syntax.css">
+	<link rel="stylesheet" href="../themes/base/super-collider.css">
+</head>
+<body>
+	<h1>SuperCollider Syntax Highlighting</h1>
+	
+	<syntax-highlight language="super-collider">
+// Basic SynthDef example
+SynthDef(\example, { |freq = 440, amp = 0.1|
+    var sig;
+    sig = SinOsc.ar(freq) * amp;
+    Out.ar(0, Pan2.ar(sig));
+}).add;
+
+// Using symbols and method calls
+~buf = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01.wav");
+~player = { |rate = 1|
+    var play;
+    play = PlayBuf.ar(1, ~buf, rate, loop: 1);
+    Out.ar(0, Pan2.ar(play));
+};
+
+// Comments and strings
+// This is a line comment
+/* This is a block comment */
+"Double quoted string"; 'Single quoted string';
+
+// Numbers and operations
+var x = 123.45; var y = 0xFF; x = x + y * 2;
+
+// Method chains
+x.squared.clip(0, 1);
+	</syntax-highlight>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		await Syntax.highlight({ autoUpgrade: true });
+	</script>
+</body>
+</html>

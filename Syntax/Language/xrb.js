@@ -4,31 +4,36 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.brushes.dependency('xrb', 'xml');
-Syntax.brushes.dependency('xrb', 'ruby');
+import {Language} from '../Language.js';
+import {Rule} from '../Rule.js';
 
-Syntax.register('xrb', function (brush) {
-	language.push({
-		pattern: /((<\?r)([\s\S]*?)(\?>))/m,
-		matches: Syntax.extractMatches(
-			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
-			{type: 'keyword'},
-			{brush: 'ruby'},
-			{type: 'keyword'}
-		)
-	});
+const language = new Language('xrb');
 
-	language.push({
-		pattern: /((#{)([\s\S]*?)(}))/m,
-		matches: Syntax.extractMatches(
-			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
-			{type: 'keyword'},
-			{brush: 'ruby'},
-			{type: 'keyword'}
-		)
-	});
-
-	// The position of this statement is important - it determines at what point the rules of the parent are processed.
-	// In this case, the rules for xml are processed after the rules for html.
-	brush.derives('xml');
+// Embedded Ruby processing instruction: <?r ... ?>
+language.push({
+	pattern: /(<\?r)([\s\S]*?)(\?>)/m,
+	matches: Rule.extractMatches(
+		{type: 'keyword'},
+		{language: 'ruby'},
+		{type: 'keyword'}
+	)
 });
+
+// Ruby interpolation within text: #{ ... }
+language.push({
+	pattern: /(#{)([\s\S]*?)(})/m,
+	matches: Rule.extractMatches(
+		{type: 'keyword'},
+		{language: 'ruby'},
+		{type: 'keyword'}
+	)
+});
+
+// Derive XML so tags/attributes/entities are highlighted around embedded Ruby
+language.derives('xml');
+
+export default function register(syntax) {
+	syntax.register('xrb', language);
+	// Alias 'trenni' if used historically
+	syntax.alias('xrb', ['trenni']);
+}
