@@ -71,7 +71,7 @@ export class Rule {
 				// This supports both extractMatches (new) and custom matches functions (old)
 				const result =
 					rule.matches.length >= 3
-						? rule.matches(rule.owner.syntax, match, rule)
+						? rule.matches(syntax, match, rule)
 						: rule.matches(match, rule);
 				// Handle both sync and async matches functions
 				matches.push(...(result instanceof Promise ? await result : result));
@@ -79,7 +79,7 @@ export class Rule {
 				// Use the owning language's syntax to build sub-tree for embedded language
 				matches.push(
 					await Language.buildTree(
-						rule.owner.syntax,
+						syntax,
 						rule,
 						match[0],
 						match.index,

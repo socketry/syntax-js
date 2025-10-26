@@ -13,13 +13,13 @@ test('Language.buildTree throws LanguageNotFoundError in strict mode for missing
 	const syntax = new Syntax();
 	syntax.defaultOptions.strict = true;
 
-	const lang = new Language(syntax, 'dummy');
+	const lang = new Language('dummy');
 	// Rule that embeds a non-existent language
 	lang.push({pattern: /x+/, language: 'no-such-language'});
 
 	await assert.rejects(
 		async () => {
-			await lang.buildTree('xxx', 0);
+			await lang.buildTree(syntax, 'xxx', 0);
 		},
 		err => err instanceof LanguageNotFoundError
 	);
@@ -29,7 +29,7 @@ test('RuleApplyError thrown in strict mode when rule.apply throws', async () => 
 	const syntax = new Syntax();
 	syntax.defaultOptions.strict = true;
 
-	const lang = new Language(syntax, 'dummy');
+	const lang = new Language('dummy');
 	// Custom rule that throws from apply
 	lang.push({
 		pattern: /x+/,
@@ -40,7 +40,7 @@ test('RuleApplyError thrown in strict mode when rule.apply throws', async () => 
 
 	await assert.rejects(
 		async () => {
-			await lang.getMatches('xxx');
+			await lang.getMatches(syntax, 'xxx');
 		},
 		err => err instanceof RuleApplyError
 	);
@@ -50,7 +50,7 @@ test('Rule apply failure is ignored (warn) in non-strict mode', async () => {
 	const syntax = new Syntax();
 	syntax.defaultOptions.strict = false;
 
-	const lang = new Language(syntax, 'dummy');
+	const lang = new Language('dummy');
 	lang.push({
 		pattern: /x+/,
 		apply() {
@@ -58,7 +58,7 @@ test('Rule apply failure is ignored (warn) in non-strict mode', async () => {
 		}
 	});
 
-	const matches = await lang.getMatches('xxx');
+	const matches = await lang.getMatches(syntax, 'xxx');
 	assert.ok(Array.isArray(matches));
 	assert.strictEqual(matches.length, 0);
 });

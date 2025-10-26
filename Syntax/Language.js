@@ -12,7 +12,6 @@ import {LanguageNotFoundError, RuleApplyError} from './Errors.js';
 
 export class Language {
 	// Public properties that define the language
-	syntax;
 	name;
 
 	// A list of processes that may be run after extracting matches.
@@ -24,10 +23,7 @@ export class Language {
 	// A list of all the parent languages this language derives from.
 	#parents = [];
 
-	constructor(syntax, name = null) {
-		// Reference to the Syntax instance this language belongs to (required)
-		this.syntax = syntax;
-
+	constructor(name = null) {
 		// The primary class of this language. Must be unique.
 		this.name = name;
 	}
@@ -37,10 +33,10 @@ export class Language {
 	 */
 	derives(name) {
 		this.#parents.push(name);
-		const syntax = this.syntax;
 		this.#rules.push({
-			apply: function (text, expression) {
-				return syntax.getLanguage(name).getMatches(text);
+			apply: async function (syntax, rule, text) {
+				const parentLanguage = await syntax.getLanguage(name);
+				return parentLanguage.getMatches(syntax, text);
 			}
 		});
 	}
@@ -109,16 +105,16 @@ export class Language {
 	/**
 	 * Get matches for a specific rule.
 	 */
-	async getMatchesForRule(text, rule) {
+	async getMatchesForRule(syntax, text, rule) {
 		let matches = [];
 
 		// Short circuit (user defined) function:
 		if (typeof rule.apply !== 'undefined') {
 			try {
-				const result = rule.apply(this.syntax, rule, text);
+				const result = rule.apply(syntax, rule, text);
 				matches = result instanceof Promise ? await result : result;
 			} catch (error) {
-				if (this.syntax?.defaultOptions?.strict) {
+				if (syntax?.defaultOptions?.strict) {
 					// If the underlying error is a strict language resolution error, surface it directly:
 					if (error instanceof LanguageNotFoundError) throw error;
 					throw new RuleApplyError(rule, {cause: error});
@@ -152,11 +148,11 @@ export class Language {
 	/**
 	 * Get all matches for the given text.
 	 */
-	async getMatches(text) {
+	async getMatches(syntax, text) {
 		const matches = [];
 
 		for (const rule of this.#rules) {
-			matches.push(...(await this.getMatchesForRule(text, rule)));
+			matches.push(...(await this.getMatchesForRule(syntax, text, rule)));
 		}
 
 		return matches;
@@ -194,7 +190,7 @@ export class Language {
 			}
 		}
 
-		const match = await language.buildTree(text, offset, additionalMatches);
+		const match = await language.buildTree(syntax, text, offset, additionalMatches);
 
 		Object.assign(match.expression, rule);
 
@@ -204,13 +200,13 @@ export class Language {
 	/**
 	 * Build a syntax tree from a given block of text.
 	 */
-	async buildTree(text, offset, additionalMatches) {
+	async buildTree(syntax, text, offset, additionalMatches) {
 		offset = offset || 0;
 
 		// Fixes code that uses \r\n for line endings
 		text = text.replace(/\r/g, '');
 
-		const matches = await this.getMatches(text);
+		const matches = await this.getMatches(syntax, text);
 
 		// Shift matches if offset is provided
 		if (offset && offset > 0) {
@@ -222,7 +218,7 @@ export class Language {
 		const top = new Match(
 			offset,
 			text.length,
-			{type: this.allNames(this.syntax).join(' '), allow: '*', owner: this},
+			{type: this.allNames(syntax).join(' '), allow: '*', owner: this},
 			text
 		);
 
@@ -247,8 +243,8 @@ export class Language {
 	/**
 	 * Build a syntax tree and process it into HTML.
 	 */
-	async process(text, syntax, options) {
-		const top = await this.buildTree(text, 0);
+	async process(syntax, text, options) {
+		const top = await this.buildTree(syntax, text, 0);
 
 		const lines = top.splitLines();
 
