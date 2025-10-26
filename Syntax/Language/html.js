@@ -9,10 +9,14 @@ import {Rule} from '../Rule.js';
 
 const language = new Language('html');
 
-// Embedded JavaScript in <script> tags
+// Custom handler for all <script> tags - determines language based on type attribute
 language.push({
-	pattern: /<script.*?type\=.?text\/javascript.*?>((.|\n)*?)<\/script>/im,
-	matches: Rule.extractMatches({language: 'javascript'})
+	pattern: /<script(\s+[^>]*?)?>((.|\n)*?)<\/script>/im,
+	matches: Rule.extractConditionalMatch(1, 2, [
+		{pattern: /type\s*=\s*["']importmap["']/i, language: 'json'},
+		{pattern: /type\s*=\s*["'](?:text|application)\/javascript["']/i, language: 'javascript'},
+		{language: 'javascript'} // Fallback: no type or unknown type defaults to JavaScript (HTML5)
+	])
 });
 
 // Embedded CSS in <style> tags

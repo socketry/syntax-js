@@ -2,6 +2,7 @@ import Syntax from '../../../Syntax.js';
 import registerHTML from '../../../Syntax/Language/html.js';
 import registerXML from '../../../Syntax/Language/xml.js';
 import registerJavaScript from '../../../Syntax/Language/javascript.js';
+import registerJSON from '../../../Syntax/Language/json.js';
 import registerCSS from '../../../Syntax/Language/css.js';
 import registerPHPScript from '../../../Syntax/Language/php-script.js';
 import registerRuby from '../../../Syntax/Language/ruby.js';
@@ -12,6 +13,7 @@ async function getLanguage() {
 	const syntax = new Syntax();
 	registerXML(syntax);
 	registerJavaScript(syntax);
+	registerJSON(syntax);
 	registerCSS(syntax);
 	registerPHPScript(syntax);
 	registerRuby(syntax);
@@ -42,6 +44,22 @@ test('HTML: embedded JavaScript in script tag', async () => {
 	const matches = await language.getMatches(Syntax.default, code);
 	// Should have embedded JavaScript language
 	ok(matches.some(m => m.expression && m.expression.language === 'javascript'));
+});
+
+test('HTML: embedded JavaScript in script tag without type', async () => {
+	const language = await getLanguage();
+	const code = '<script>console.log("test");</script>';
+	const matches = await language.getMatches(Syntax.default, code);
+	// Should have embedded JavaScript language
+	ok(matches.some(m => m.expression && m.expression.language === 'javascript'));
+});
+
+test('HTML: embedded JSON in importmap', async () => {
+	const language = await getLanguage();
+	const code = '<script type="importmap">{"imports": {"vue": "/vue.js"}}</script>';
+	const matches = await language.getMatches(Syntax.default, code);
+	// Should have embedded JSON language
+	ok(matches.some(m => m.expression && m.expression.language === 'json'));
 });
 
 test('HTML: embedded CSS in style tag', async () => {

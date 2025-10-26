@@ -243,11 +243,14 @@
 &lt;!-- Nested tags in comments: &lt;div&gt;&lt;/div&gt; --&gt;
 
 &lt;script&gt;
-	&lt;![CDATA[
-		// CDATA section (rarely used in HTML5)
-		var x = 1 &lt; 2 &amp;&amp; 3 &gt; 2;
-		console.log("No need to escape &lt; &gt; &amp;");
-	]]&gt;
+	// &lt;![CDATA[
+	// CDATA wrapped in JavaScript comments (legacy technique)
+	// JavaScript comments should be highlighted
+	var x = 1 &lt; 2 &amp;&amp; 3 &gt; 2;
+	console.log("No need to escape &lt; &gt; &amp;");
+	/* Multi-line comment
+	   inside CDATA */
+	// ]]&gt;
 &lt;/script&gt;
 		</syntax-highlight>
 	</div>
@@ -282,14 +285,73 @@
 		</syntax-highlight>
 	</div>
 	
+	<div class="example">
+		<h2>Embedded JavaScript</h2>
+		<p class="description">JavaScript in script tags with proper syntax highlighting:</p>
+		
+		<syntax-highlight language="html">
+&lt;!-- Default script tag (JavaScript) --&gt;
+&lt;script&gt;
+	// Single-line comment
+	const greeting = "Hello, World!";
+	
+	/* Multi-line comment
+	   explaining the code */
+	function sayHello(name) {
+		console.log(`Hello, ${name}!`);
+	}
+	
+	// Modern JavaScript features
+	const numbers = [1, 2, 3, 4, 5];
+	const doubled = numbers.map(n =&gt; n * 2);
+	
+	// Async/await
+	async function fetchData() {
+		const response = await fetch('/api/data');
+		return response.json();
+	}
+&lt;/script&gt;
+
+&lt;!-- Explicit JavaScript type --&gt;
+&lt;script type="text/javascript"&gt;
+	// Traditional inline script
+	document.addEventListener('DOMContentLoaded', function() {
+		// Event handler code
+		console.log('Page loaded');
+	});
+&lt;/script&gt;
+
+&lt;!-- Import map (JSON syntax) --&gt;
+&lt;script type="importmap"&gt;
+{
+	"imports": {
+		"vue": "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js",
+		"lodash": "/node_modules/lodash-es/lodash.js"
+	}
+}
+&lt;/script&gt;
+
+&lt;!-- ES Module --&gt;
+&lt;script type="module"&gt;
+	// Module-scoped code
+	import { helper } from './utils.js';
+	
+	class MyComponent {
+		constructor() {
+			this.name = 'Component';
+		}
+		
+		render() {
+			// Rendering logic
+			return `&lt;div&gt;${this.name}&lt;/div&gt;`;
+		}
+	}
+&lt;/script&gt;
+		</syntax-highlight>
+	</div>
+	
 	<script type="module">
 		import Syntax from '../Syntax.js';
-		import registerHTML from '../Syntax/Language/html.js';
-		import registerXML from '../Syntax/Language/xml.js';
-		
-		// Register HTML and its dependencies
-		registerXML(Syntax.default);
-		registerHTML(Syntax.default);
 		
 		// Initialize highlighting
 		await Syntax.highlight({

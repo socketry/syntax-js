@@ -130,6 +130,95 @@ export class Rule {
 		};
 	}
 
+	/**
+	 * Create a conditional matcher that selects a rule based on another capture group.
+	 * Tests a condition capture group against patterns to determine which rule to apply
+	 * to a content capture group.
+	 * 
+	 * @param {number} conditionIndex - Capture group index to test against patterns
+	 * @param {number} contentIndex - Capture group index containing content to match
+	 * @param {Array<{pattern?: RegExp, ...rule}>} conditions - Array of condition objects. Each can have:
+	 *   - pattern: RegExp to test against the condition group (optional - if omitted, acts as fallback)
+	 *   - Any rule properties (language, type, etc.) to apply when pattern matches
+	 * @returns {Function} A matches function for use in language rules
+	 * 
+	 * @example
+	 * // Script tags with type-based language selection
+	 * language.push({
+	 *   pattern: /<script(\s+[^>]*?)?>((.|\n)*?)<\/script>/im,
+	 *   matches: Rule.extractConditionalMatch(1, 2, [
+	 *     {pattern: /type\s*=\s*["']importmap["']/i, language: 'json'},
+	 *     {pattern: /type\s*=\s*["'](?:text|application)\/javascript["']/i, language: 'javascript'},
+	 *     {language: 'javascript'} // Fallback for no type or unknown types
+	 *   ])
+	 * });
+	 * 
+	 * @example
+	 * // Code fence with language specifier
+	 * language.push({
+	 *   pattern: /```(\w+)?\n([\s\S]*?)```/,
+	 *   matches: Rule.extractConditionalMatch(1, 2, [
+	 *     {pattern: /^javascript$/i, language: 'javascript'},
+	 *     {pattern: /^python$/i, language: 'python'},
+	 *     {language: 'plaintext'} // Fallback
+	 *   ])
+	 * });
+	 * 
+	 * @example
+	 * // Conditional type based on prefix
+	 * language.push({
+	 *   pattern: /(TODO|FIXME|NOTE):\s*(.+)/,
+	 *   matches: Rule.extractConditionalMatch(1, 2, [
+	 *     {pattern: /^TODO$/i, type: 'todo'},
+	 *     {pattern: /^FIXME$/i, type: 'error'},
+	 *     {pattern: /^NOTE$/i, type: 'comment'}
+	 *   ])
+	 * });
+	 */
+	static extractConditionalMatch(conditionIndex, contentIndex, conditions) {
+		return async function (syntax, match, expression) {
+			const condition = match[conditionIndex] || '';
+			const content = match[contentIndex];
+
+			// Skip if no content
+			if (!content) return [];
+
+			// Find matching rule
+			let rule = null;
+			for (const candidate of conditions) {
+				// If no pattern specified, it's a fallback
+				if (!candidate.pattern || candidate.pattern.test(condition)) {
+					rule = candidate;
+					break;
+				}
+			}
+
+			// If no rule determined, return empty
+			if (!rule) return [];
+
+			// Extract rule properties (exclude pattern)
+			const {pattern, ...ruleProps} = rule;
+
+			// Build syntax tree or create match based on rule properties
+			const offset = match.index + match[0].indexOf(content);
+			
+			if (ruleProps.language) {
+				return [
+					await Language.buildTree(
+						syntax,
+						{...ruleProps, owner: expression?.owner},
+						content,
+						offset,
+						undefined
+					)
+				];
+			} else {
+				const nestedExpression = {owner: expression?.owner, ...ruleProps};
+				return [new Match(offset, content.length, nestedExpression, content)];
+			}
+		};
+	}
+
 	static cStyleComment = {
 		pattern: /\/\*[\s\S]*?\*\//m,
 		type: 'comment',
