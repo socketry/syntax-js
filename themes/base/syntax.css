@@ -17,7 +17,6 @@
 }
 
 code.syntax {
-	color: #24292e;
 	tab-size: 2;
 }
 
@@ -41,7 +40,7 @@ code.syntax .number { color: #1c00cf; }
 code.syntax .operator { color: #000000; }
 code.syntax .function { color: #0000ff; }
 code.syntax .constant { color: #1c00cf; }
-code.syntax .type { color: #3f6e74; }
+code.syntax .type { color: #6f42c1; }
 code.syntax .preprocessor { color: #643820; font-style: italic; }
 code.syntax .access { color: #a90d91; font-weight: bold; }
 code.syntax .escape { color: #ff00ff; font-weight: bold; }
@@ -56,11 +55,6 @@ code.syntax .cdata { color: #5d6c79; }
 
 /* Dark mode colors */
 @media (prefers-color-scheme: dark) {
-  code.syntax {
-    background: #282c34;
-    /* color: #abb2bf; */
-  }
-  
   code.syntax .keyword { color: #c678dd; font-weight: bold; }
   code.syntax .string { color: #98c379; }
   code.syntax .comment { color: #5c6370; font-style: italic; }
