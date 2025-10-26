@@ -245,13 +245,6 @@ export class CodeElement extends HTMLElement {
 			this.#highlighted = true;
 			this.classList.add('highlighted', 'syntax');
 		} catch (error) {
-			this.classList.add('syntax-error');
-			this.setAttribute('data-error', error?.name || 'render-error');
-			this.dispatchEvent(
-				new CustomEvent('syntax-error', {
-					detail: {error, language: this.language, element: this}
-				})
-			);
 			console.warn('<syntax-code> render failed:', error);
 		}
 	}
