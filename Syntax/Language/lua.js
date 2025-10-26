@@ -51,33 +51,33 @@ Syntax.register('lua', function (brush) {
 
 	var values = ['self', 'true', 'false', 'nil'];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(values, {type: 'constant'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
 
 	// Camelcase Types
-	brush.push(Syntax.lib.camelCaseType);
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.cStyleFunction);
 
-	brush.push({
+	language.push({
 		pattern: /\-\-.*$/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\-\-\[\[(\n|.)*?\]\]\-\-/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
-	brush.push(Syntax.lib.hexNumber);
-	brush.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

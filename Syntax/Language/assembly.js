@@ -5,36 +5,36 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('assembly', function (brush) {
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
 
-	brush.push({pattern: /\.[a-zA-Z_][a-zA-Z0-9_]*/gm, klass: 'directive'});
+	language.push({pattern: /\.[a-zA-Z_][a-zA-Z0-9_]*/gm, type: 'directive'});
 
-	brush.push({pattern: /^[a-zA-Z_][a-zA-Z0-9_]*:/gm, klass: 'label'});
+	language.push({pattern: /^[a-zA-Z_][a-zA-Z0-9_]*:/gm, type: 'label'});
 
-	brush.push({
+	language.push({
 		pattern: /^\s*([a-zA-Z]+)/gm,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	brush.push({pattern: /(-[0-9]+)|(\b[0-9]+)|(\$[0-9]+)/g, klass: 'constant'});
-	brush.push({
+	language.push({pattern: /(-[0-9]+)|(\b[0-9]+)|(\$[0-9]+)/g, type: 'constant'});
+	language.push({
 		pattern: /(\-|\b|\$)(0x[0-9a-f]+|[0-9]+|[a-z0-9_]+)/gi,
-		klass: 'constant'
+		type: 'constant'
 	});
 
-	brush.push({pattern: /%\w+/g, klass: 'register'});
+	language.push({pattern: /%\w+/g, type: 'register'});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Comments
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.webLink);
 });

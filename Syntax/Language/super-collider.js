@@ -6,7 +6,7 @@
 
 Syntax.register('super-collider', function (brush) {
 	var keywords = ['const', 'arg', 'classvar', 'var'];
-	brush.push(keywords, {klass: 'keyword'});
+	language.push(keywords, {type: 'keyword'});
 
 	var operators = [
 		'`',
@@ -25,7 +25,7 @@ Syntax.register('super-collider', function (brush) {
 		'=',
 		'>'
 	];
-	brush.push(operators, {klass: 'operator'});
+	language.push(operators, {type: 'operator'});
 
 	var values = [
 		'thisFunctionDef',
@@ -40,46 +40,46 @@ Syntax.register('super-collider', function (brush) {
 		'nil',
 		'inf'
 	];
-	brush.push(values, {klass: 'constant'});
+	language.push(values, {type: 'constant'});
 
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Single Characters
-	brush.push({
+	language.push({
 		pattern: /\$(\\)?./g,
-		klass: 'constant'
+		type: 'constant'
 	});
 
 	// Symbols
-	brush.push({
+	language.push({
 		pattern: /\\[a-z_][a-z0-9_]*/gi,
-		klass: 'symbol'
+		type: 'symbol'
 	});
 
-	brush.push({
+	language.push({
 		pattern: /'[^']+'/g,
-		klass: 'symbol'
+		type: 'symbol'
 	});
 
 	// Comments
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Functions
-	brush.push({
+	language.push({
 		pattern: /(?:\.)([a-z_][a-z0-9_]*)/gi,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 });

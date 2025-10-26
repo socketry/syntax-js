@@ -6,7 +6,7 @@
 
 Syntax.lib.vbStyleComment = {
 	pattern: /' .*$/gm,
-	klass: 'comment',
+	type: 'comment',
 	allow: ['href']
 };
 
@@ -225,24 +225,24 @@ Syntax.register('basic', function (brush) {
 		'NotOverridable'
 	];
 
-	brush.push(types, {klass: 'type'});
-	brush.push(keywords, {klass: 'keyword', options: 'gi'});
-	brush.push(operators, {klass: 'operator'});
-	brush.push(access, {klass: 'access'});
-	brush.push(values, {klass: 'constant'});
+	language.push(types, {type: 'type'});
+	language.push(keywords, {type: 'keyword', options: 'gi'});
+	language.push(operators, {type: 'operator'});
+	language.push(access, {type: 'access'});
+	language.push(values, {type: 'constant'});
 
-	brush.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.decimalNumber);
 
 	// ClassNames (CamelCase)
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
-	brush.push(Syntax.lib.vbStyleComment);
+	language.push(Syntax.lib.vbStyleComment);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	brush.postprocess = function (options, html, container) {
 		var queryURI = 'http://social.msdn.microsoft.com/Search/en-us?query=';

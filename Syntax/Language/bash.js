@@ -7,27 +7,27 @@
 Syntax.brushes.dependency('bash', 'bash-script');
 
 Syntax.register('bash', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /^([\w@:~ ]*?[\$|\#])\s+(.*?)$/gm,
-		matches: Syntax.extractMatches({klass: 'prompt'}, {brush: 'bash-script'})
+		matches: Syntax.extractMatches({type: 'prompt'}, {brush: 'bash-script'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /^\-\- .*$/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 
-	brush.push({
-		klass: 'stderr',
+	language.push({
+		type: 'stderr',
 		allow: ['string', 'comment', 'constant', 'href']
 	});
 });

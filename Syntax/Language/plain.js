@@ -5,5 +5,5 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('plain', function (brush) {
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

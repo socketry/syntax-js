@@ -6,13 +6,13 @@
 
 Syntax.lib.rubyStyleFunction = {
 	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/gi,
-	matches: Syntax.extractMatches({klass: 'function'})
+	matches: Syntax.extractMatches({type: 'function'})
 };
 
 // We need to emulate negative lookbehind
 Syntax.lib.rubyStyleSymbol = {
 	pattern: /([:]?):\w+/g,
-	klass: 'constant',
+	type: 'constant',
 	matches: function (match, expr) {
 		if (match[1] != '') return [];
 
@@ -65,21 +65,21 @@ Syntax.register('ruby', function (brush) {
 
 	var access = ['private', 'protected', 'public'];
 
-	brush.push(access, {klass: 'access'});
-	brush.push(values, {klass: 'constant'});
+	language.push(access, {type: 'access'});
+	language.push(values, {type: 'constant'});
 
 	// Percent operator statements
-	brush.push({
+	language.push({
 		pattern: /(\%[\S])(\{[\s\S]*?\})/g,
-		matches: Syntax.extractMatches({klass: 'function'}, {klass: 'constant'})
+		matches: Syntax.extractMatches({type: 'function'}, {type: 'constant'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /`[^`]+`/g,
-		klass: 'string'
+		type: 'string'
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\#\{([^\}]*)\}/g,
 		matches: Syntax.extractMatches({
 			brush: 'ruby',
@@ -88,32 +88,32 @@ Syntax.register('ruby', function (brush) {
 	});
 
 	// Regular expressions
-	brush.push(Syntax.lib.rubyStyleRegularExpression);
+	language.push(Syntax.lib.rubyStyleRegularExpression);
 
-	brush.push({pattern: /(@+|\$)[\w]+/g, klass: 'variable'});
+	language.push({pattern: /(@+|\$)[\w]+/g, type: 'variable'});
 
-	brush.push(Syntax.lib.camelCaseType);
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(Syntax.lib.camelCaseType);
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
 
-	brush.push(Syntax.lib.rubyStyleSymbol);
+	language.push(Syntax.lib.rubyStyleSymbol);
 
 	// Comments
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Functions
-	brush.push(Syntax.lib.rubyStyleFunction);
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.rubyStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 
 	// brush.processes['function'] = Syntax.lib.webLinkProcess("ruby", true);
 	// brush.processes['type'] = Syntax.lib.webLinkProcess("ruby", true);

@@ -5,27 +5,27 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('nginx', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /((\w+).*?);/g,
 		matches: Syntax.extractMatches(
-			{klass: 'directive', allow: '*'},
+			{type: 'directive', allow: '*'},
 			{
-				klass: 'function',
+				type: 'function',
 				process: Syntax.lib.webLinkProcess('http://nginx.org/r/')
 			}
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /(\w+).*?{/g,
-		matches: Syntax.extractMatches({klass: 'keyword'})
+		matches: Syntax.extractMatches({type: 'keyword'})
 	});
 
-	brush.push({pattern: /(\$)[\w]+/g, klass: 'variable'});
+	language.push({pattern: /(\$)[\w]+/g, type: 'variable'});
 
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

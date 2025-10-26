@@ -169,56 +169,56 @@ Syntax.register('ocaml', function (brush) {
 
 	var access = ['private', 'public'];
 
-	brush.push(access, {klass: 'access'});
-	brush.push(values, {klass: 'constant'});
-	brush.push(types, {klass: 'type'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(access, {type: 'access'});
+	language.push(values, {type: 'constant'});
+	language.push(types, {type: 'type'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
 
 	// http://caml.inria.fr/pub/docs/manual-ocaml/manual011.html#module-path
 	// open [module-path], new [type]
-	brush.push({
+	language.push({
 		pattern: /(?:open|new)\s+((?:\.?[a-z][a-z0-9]*)+)/gi,
-		matches: Syntax.extractMatches({klass: 'type'})
+		matches: Syntax.extractMatches({type: 'type'})
 	});
 
 	// Functions
-	brush.push({
+	language.push({
 		pattern: /(?:\.)([a-z_][a-z0-9_]+)/gi,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
 	// Avoid highlighting keyword arguments as camel-case types.
-	brush.push({
+	language.push({
 		pattern: /(?:\(|,)\s*(\w+\s*=)/g,
 		matches: Syntax.extractMatches({
-			klass: 'keyword-argument'
+			type: 'keyword-argument'
 		})
 	});
 
 	// We need to modify cStyleFunction because "(*" is a comment token.
-	brush.push({
+	language.push({
 		pattern: /([a-z_][a-z0-9_]*)\s*\((?!\*)/gi,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
 	// Types
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Web Links
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 
 	// Comments
-	brush.push({
+	language.push({
 		pattern: /\(\*[\s\S]*?\*\)/g,
-		klass: 'comment'
+		type: 'comment'
 	});
 
 	// Strings
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 });

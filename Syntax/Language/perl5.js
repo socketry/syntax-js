@@ -279,39 +279,39 @@ Syntax.register('perl5', function (brush) {
 
 	var values = ['this', 'true', 'false'];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
-	brush.push(builtins, {klass: 'function'});
+	language.push(values, {type: 'constant'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
+	language.push(builtins, {type: 'function'});
 
 	// Regular expressions
-	brush.push(Syntax.lib.perlStyleRegularExpression);
+	language.push(Syntax.lib.perlStyleRegularExpression);
 
 	// Comments
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Variables
-	brush.push({
+	language.push({
 		pattern: /(\$|@|%)\w+/gi,
-		klass: 'variable'
+		type: 'variable'
 	});
 
 	// Enddoc
-	brush.push({
+	language.push({
 		pattern: /__END__[\s\S]*/gm,
-		klass: 'comment'
+		type: 'comment'
 	});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Functions
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 });

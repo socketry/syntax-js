@@ -118,17 +118,17 @@ Syntax.register('clang', function (brush) {
 
 	var values = ['this', 'true', 'false', 'NULL', 'YES', 'NO', 'nil'];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(typeModifiers, {klass: 'keyword'});
-	brush.push(types, {klass: 'type'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
-	brush.push(access, {klass: 'access'});
+	language.push(values, {type: 'constant'});
+	language.push(typeModifiers, {type: 'keyword'});
+	language.push(types, {type: 'type'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
+	language.push(access, {type: 'access'});
 
 	// Objective-C properties
-	brush.push({
+	language.push({
 		pattern: /@property\((.*)\)[^;]+;/gim,
-		klass: 'objective-c-property',
+		type: 'objective-c-property',
 		allow: '*'
 	});
 
@@ -143,57 +143,57 @@ Syntax.register('clang', function (brush) {
 		'nonatomic'
 	];
 
-	brush.push(propertyAttributes, {
-		klass: 'keyword',
+	language.push(propertyAttributes, {
+		type: 'keyword',
 		only: ['objective-c-property']
 	});
 
 	// Objective-C strings
 
-	brush.push({
+	language.push({
 		pattern: /@(?=")/g,
-		klass: 'string'
+		type: 'string'
 	});
 
 	// Objective-C classes, C++ classes, C types, etc.
-	brush.push(Syntax.lib.camelCaseType);
-	brush.push(Syntax.lib.cStyleType);
-	brush.push({
+	language.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.cStyleType);
+	language.push({
 		pattern: /(?:class|struct|enum|namespace)\s+([^{;\s]+)/gim,
-		matches: Syntax.extractMatches({klass: 'type'})
+		matches: Syntax.extractMatches({type: 'type'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /#.*$/gim,
-		klass: 'preprocessor',
+		type: 'preprocessor',
 		allow: ['string']
 	});
 
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Objective-C style functions
-	brush.push({pattern: /\w+:(?=.*(\]|;|\{))(?!:)/g, klass: 'function'});
+	language.push({pattern: /\w+:(?=.*(\]|;|\{))(?!:)/g, type: 'function'});
 
-	brush.push({
+	language.push({
 		pattern: /[^:\[]\s+(\w+)(?=\])/g,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /-\s*(\([^\)]+?\))?\s*(\w+)\s*\{/g,
-		matches: Syntax.extractMatches({index: 2, klass: 'function'})
+		matches: Syntax.extractMatches({index: 2, type: 'function'})
 	});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 });

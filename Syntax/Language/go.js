@@ -105,26 +105,26 @@ Syntax.register('go', function (brush) {
 		'recover'
 	];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(types, {klass: 'type'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
-	brush.push(functions, {klass: 'function'});
+	language.push(values, {type: 'constant'});
+	language.push(types, {type: 'type'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
+	language.push(functions, {type: 'function'});
 
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 });

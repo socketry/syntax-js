@@ -122,33 +122,33 @@ Syntax.register('ooc', function (brush) {
 
 	var values = ['this', 'super', 'true', 'false', 'null', /[A-Z][A-Z0-9_]+/g];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(types, {klass: 'type'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(values, {type: 'constant'});
+	language.push(types, {type: 'type'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
 
 	// Hex, Octal and Binary numbers :)
-	brush.push({
+	language.push({
 		pattern: /0[xcb][0-9a-fA-F]+/g,
-		klass: 'constant'
+		type: 'constant'
 	});
 
-	brush.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.decimalNumber);
 
 	// ClassNames (CamelCase)
-	brush.push(Syntax.lib.camelCaseType);
-	brush.push(Syntax.lib.cStyleType);
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.cStyleType);
+	language.push(Syntax.lib.cStyleFunction);
 
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	brush.processes['function'] = Syntax.lib.webLinkProcess(
 		'http://docs.ooc-lang.org/search.html?q='

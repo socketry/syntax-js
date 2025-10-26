@@ -6,32 +6,32 @@
 
 Syntax.lib.lispStyleComment = {
 	pattern: /(;+) .*$/gm,
-	klass: 'comment',
+	type: 'comment',
 	allow: ['href']
 };
 
 // This syntax is intentionally very sparse. This is because it is a general syntax for Lisp like languages.
 // It might be a good idea to make specific dialects (e.g. common lisp, scheme, clojure, etc)
 Syntax.register('lisp', function (brush) {
-	brush.push(['(', ')'], {klass: 'operator'});
+	language.push(['(', ')'], {type: 'operator'});
 
-	brush.push(Syntax.lib.lispStyleComment);
+	language.push(Syntax.lib.lispStyleComment);
 
-	brush.push(Syntax.lib.hexNumber);
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.webLink);
 
-	brush.push({
+	language.push({
 		pattern: /\(\s*([^\s\(\)]+)/gim,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /#[a-z]+/gi,
-		klass: 'constant'
+		type: 'constant'
 	});
 
 	// Strings
-	brush.push(Syntax.lib.multiLineDoubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.multiLineDoubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 });

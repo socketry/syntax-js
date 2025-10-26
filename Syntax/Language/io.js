@@ -5,7 +5,7 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('io', function (brush) {
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 
 	var keywords = ['return'];
 
@@ -33,34 +33,34 @@ Syntax.register('io', function (brush) {
 		'delete'
 	];
 
-	brush.push(keywords, {klass: 'keywords'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(keywords, {type: 'keywords'});
+	language.push(operators, {type: 'operator'});
 
 	// Extract space delimited method invocations
-	brush.push({
+	language.push({
 		pattern: /\b([ \t]+([a-z]+))/gi,
-		matches: Syntax.extractMatches({index: 2, klass: 'function'})
+		matches: Syntax.extractMatches({index: 2, type: 'function'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\)([ \t]+([a-z]+))/gi,
-		matches: Syntax.extractMatches({index: 2, klass: 'function'})
+		matches: Syntax.extractMatches({index: 2, type: 'function'})
 	});
 
 	// Objective-C classes
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 });

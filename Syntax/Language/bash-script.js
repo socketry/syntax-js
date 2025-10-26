@@ -6,9 +6,9 @@
 
 Syntax.register('bash-script', function (brush) {
 	var operators = ['&&', '|', ';', '{', '}'];
-	brush.push(operators, {klass: 'operator'});
+	language.push(operators, {type: 'operator'});
 
-	brush.push({
+	language.push({
 		pattern:
 			/(?:^|\||;|&&)\s*((?:"([^"]|\\")+"|'([^']|\\')+'|\\\n|.|[ \t])+?)(?=$|\||;|&&)/gim,
 		matches: Syntax.extractMatches({brush: 'bash-statement'})
@@ -40,56 +40,56 @@ Syntax.register('bash-statement', function (brush) {
 		'until',
 		'while'
 	];
-	brush.push(keywords, {klass: 'keyword'});
+	language.push(keywords, {type: 'keyword'});
 
 	var operators = ['>', '<', '=', '`', '--', '{', '}', '(', ')', '[', ']'];
-	brush.push(operators, {klass: 'operator'});
+	language.push(operators, {type: 'operator'});
 
-	brush.push({
+	language.push({
 		pattern: /\(\((.*?)\)\)/gim,
-		klass: 'expression',
+		type: 'expression',
 		allow: ['variable', 'string', 'operator', 'constant']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /`([\s\S]+?)`/gim,
 		matches: Syntax.extractMatches({brush: 'bash-script', debug: true})
 	});
 
-	brush.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.perlStyleComment);
 
 	// Probably need to write a real parser here rather than using regular expressions, it is too fragile
 	// and misses lots of edge cases (e.g. nested brackets, delimiters).
-	brush.push({
+	language.push({
 		pattern:
 			/^\s*((?:\S+?=\$?(?:\[[^\]]+\]|\(\(.*?\)\)|"(?:[^"]|\\")+"|'(?:[^']|\\')+'|\S+)\s*)*)((?:(\\ |\S)+)?)/gim,
 		matches: Syntax.extractMatches(
 			{
-				klass: 'env',
+				type: 'env',
 				allow: ['variable', 'string', 'operator', 'constant', 'expression']
 			},
-			{klass: 'function', allow: ['variable', 'string']}
+			{type: 'function', allow: ['variable', 'string']}
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /(\S+?)=/gim,
-		matches: Syntax.extractMatches({klass: 'variable'}),
+		matches: Syntax.extractMatches({type: 'variable'}),
 		only: ['env']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\$\w+/g,
-		klass: 'variable'
+		type: 'variable'
 	});
 
-	brush.push({pattern: /\s\-+[\w-]+/g, klass: 'option'});
+	language.push({pattern: /\s\-+[\w-]+/g, type: 'option'});
 
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
 
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

@@ -9,21 +9,21 @@ Syntax.register('smalltalk', function (brush) {
 
 	var values = ['self', 'super', 'true', 'false', 'nil'];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(values, {type: 'constant'});
+	language.push(operators, {type: 'operator'});
 
 	// Objective-C style functions
-	brush.push({pattern: /\w+:/g, klass: 'function'});
+	language.push({pattern: /\w+:/g, type: 'function'});
 
 	// Camelcase Types
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 });

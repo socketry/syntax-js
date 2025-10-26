@@ -44,36 +44,36 @@ Syntax.register('scala', function (brush) {
 		'throw',
 		'val'
 	];
-	brush.push(keywords, {klass: 'keyword'});
+	language.push(keywords, {type: 'keyword'});
 
 	var operators = ['_', ':', '=', '=>', '<-', '<:', '<%', '>:', '#', '@'];
-	brush.push(operators, {klass: 'operator'});
+	language.push(operators, {type: 'operator'});
 
 	var constants = ['this', 'null', 'true', 'false'];
-	brush.push(constants, {klass: 'constant'});
+	language.push(constants, {type: 'constant'});
 
 	// Strings
-	brush.push({
+	language.push({
 		pattern: /"""[\s\S]*?"""/g,
-		klass: 'string'
+		type: 'string'
 	});
 
-	brush.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
 
 	// Functions
-	brush.push({
+	language.push({
 		pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/gi,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Types
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 
 	// Comments
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
 
 	brush.derives('xml');
 });

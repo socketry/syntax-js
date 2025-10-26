@@ -104,30 +104,30 @@ Syntax.register('java', function (brush) {
 
 	var constants = ['this', 'true', 'false', 'null'];
 
-	brush.push(constants, {klass: 'constant'});
-	brush.push(types, {klass: 'type'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
-	brush.push(access, {klass: 'access'});
+	language.push(constants, {type: 'constant'});
+	language.push(types, {type: 'type'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
+	language.push(access, {type: 'access'});
 
 	// Camel Case Types
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Comments
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.cppStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.cppStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 
 	brush.processes['function'] = Syntax.lib.webLinkProcess(
 		'java "Developer Documentation"',

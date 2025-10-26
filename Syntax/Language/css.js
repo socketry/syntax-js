@@ -159,20 +159,20 @@ Syntax.register('css', function (brush) {
 		})
 	);
 
-	brush.push({
+	language.push({
 		pattern: /\(.*?\)/g,
 		allow: '*',
 		disallow: ['property']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\s*([\:\.\[\]\"\'\=\s\w#\.\-,]+)\s+\{/gm,
-		matches: Syntax.extractMatches({klass: 'selector', allow: ['string']})
+		matches: Syntax.extractMatches({type: 'selector', allow: ['string']})
 	});
 
-	brush.push({
+	language.push({
 		pattern: new RegExp(colorMatcher.join('|'), 'gi'),
-		klass: 'color',
+		type: 'color',
 		process: function (element, match) {
 			var text = Syntax.innerText(element);
 			var colourBox = document.createElement('span');
@@ -189,36 +189,36 @@ Syntax.register('css', function (brush) {
 		}
 	});
 
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.webLink);
 
-	brush.push({
+	language.push({
 		pattern: /\{(.|\n)*?\}/g,
-		klass: 'properties',
+		type: 'properties',
 		allow: '*'
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\:(.*?(?=\})|(.|\n)*?(?=(\}|\;)))/g,
 		matches: Syntax.extractMatches({
-			klass: 'value',
+			type: 'value',
 			allow: ['color'],
 			only: ['properties']
 		})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /([\-\w]+):/g,
 		matches: Syntax.extractMatches({
-			klass: 'property',
+			type: 'property',
 			process: Syntax.lib.webLinkProcess('http://cssdocs.org/')
 		})
 	});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 });

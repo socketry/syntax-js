@@ -4,54 +4,54 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.lib.xmlEntity = {pattern: /&\w+;/g, klass: 'entity'};
+Syntax.lib.xmlEntity = {pattern: /&\w+;/g, type: 'entity'};
 Syntax.lib.xmlPercentEscape = {
 	pattern: /(%[0-9a-f]{2})/gi,
-	klass: 'percent-escape',
+	type: 'percent-escape',
 	only: ['string']
 };
 
 Syntax.register('xml-tag', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /<\/?((?:[^:\s>]+:)?)([^\s>]+)(\s[^>]*)?\/?>/g,
-		matches: Syntax.extractMatches({klass: 'namespace'}, {klass: 'tag-name'})
+		matches: Syntax.extractMatches({type: 'namespace'}, {type: 'tag-name'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /([^=\s]+)=(".*?"|'.*?'|[^\s>]+)/g,
 		matches: Syntax.extractMatches(
-			{klass: 'attribute', only: ['tag']},
-			{klass: 'string', only: ['tag']}
+			{type: 'attribute', only: ['tag']},
+			{type: 'string', only: ['tag']}
 		)
 	});
 
-	brush.push(Syntax.lib.xmlEntity);
-	brush.push(Syntax.lib.xmlPercentEscape);
+	language.push(Syntax.lib.xmlEntity);
+	language.push(Syntax.lib.xmlPercentEscape);
 
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
 });
 
 Syntax.register('xml', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /(<!(\[CDATA\[)([\s\S]*?)(\]\])>)/gm,
 		matches: Syntax.extractMatches(
-			{klass: 'cdata', allow: ['cdata-content', 'cdata-tag']},
-			{klass: 'cdata-tag'},
-			{klass: 'cdata-content'},
-			{klass: 'cdata-tag'}
+			{type: 'cdata', allow: ['cdata-content', 'cdata-tag']},
+			{type: 'cdata-tag'},
+			{type: 'cdata-content'},
+			{type: 'cdata-tag'}
 		)
 	});
 
-	brush.push(Syntax.lib.xmlComment);
+	language.push(Syntax.lib.xmlComment);
 
-	brush.push({
+	language.push({
 		pattern: /<[^>\-\s]([^>'"!\/;\?@\[\]^`\{\}\|]|"[^"]*"|'[^']')*[\/?]?>/g,
 		brush: 'xml-tag'
 	});
 
-	brush.push(Syntax.lib.xmlEntity);
-	brush.push(Syntax.lib.xmlPercentEscape);
+	language.push(Syntax.lib.xmlEntity);
+	language.push(Syntax.lib.xmlPercentEscape);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

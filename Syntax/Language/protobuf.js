@@ -22,10 +22,10 @@ Syntax.register('protobuf', function (brush) {
 		'to',
 		'default'
 	];
-	brush.push(keywords, {klass: 'keyword'});
+	language.push(keywords, {type: 'keyword'});
 
 	var values = ['true', 'false'];
-	brush.push(values, {klass: 'constant'});
+	language.push(values, {type: 'constant'});
 
 	var types = [
 		'bool',
@@ -44,31 +44,31 @@ Syntax.register('protobuf', function (brush) {
 		'uint32',
 		'uint64'
 	];
-	brush.push(types, {klass: 'type'});
+	language.push(types, {type: 'type'});
 
 	var access = ['optional', 'required', 'repeated'];
-	brush.push(access, {klass: 'access'});
+	language.push(access, {type: 'access'});
 
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Highlight names of fields
-	brush.push({
+	language.push({
 		pattern: /\s+(\w+)\s*=\s*\d+/g,
 		matches: Syntax.extractMatches({
-			klass: 'variable'
+			type: 'variable'
 		})
 	});
 
 	// Comments
-	brush.push(Syntax.lib.cStyleComment);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.cStyleComment);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 });

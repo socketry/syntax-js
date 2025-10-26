@@ -11,51 +11,51 @@ Syntax.brushes.dependency('html', 'php-script');
 Syntax.brushes.dependency('html', 'ruby');
 
 Syntax.register('html', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /<script.*?type\=.?text\/javascript.*?>((.|\n)*?)<\/script>/gim,
 		matches: Syntax.extractMatches({brush: 'javascript'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /<style.*?type=.?text\/css.*?>((.|\n)*?)<\/style>/gim,
 		matches: Syntax.extractMatches({brush: 'css'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /((<\?php)([\s\S]*?)(\?>))/gm,
 		matches: Syntax.extractMatches(
-			{klass: 'php-tag', allow: ['keyword', 'php-script']},
-			{klass: 'keyword'},
+			{type: 'php-tag', allow: ['keyword', 'php-script']},
+			{type: 'keyword'},
 			{brush: 'php-script'},
-			{klass: 'keyword'}
+			{type: 'keyword'}
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /((<\?rb?)([\s\S]*?)(\?>))/gm,
 		matches: Syntax.extractMatches(
-			{klass: 'ruby-tag', allow: ['keyword', 'ruby']},
-			{klass: 'keyword'},
+			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
+			{type: 'keyword'},
 			{brush: 'ruby'},
-			{klass: 'keyword'}
+			{type: 'keyword'}
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /<%=?(.*?)(%>)/g,
-		klass: 'instruction',
+		type: 'instruction',
 		allow: ['string']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /<\!(DOCTYPE(.*?))>/g,
-		matches: Syntax.extractMatches({klass: 'doctype'})
+		matches: Syntax.extractMatches({type: 'doctype'})
 	});
 
 	// Is this rule still relevant?
-	brush.push({
+	language.push({
 		pattern: /(%[0-9a-f]{2})/gi,
-		klass: 'percent-escape',
+		type: 'percent-escape',
 		only: ['html']
 	});
 

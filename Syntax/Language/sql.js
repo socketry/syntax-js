@@ -6,7 +6,7 @@
 
 Syntax.lib.sqlStyleComment = {
 	pattern: /-- .*$/gm,
-	klass: 'comment',
+	type: 'comment',
 	allow: ['href']
 };
 
@@ -840,20 +840,20 @@ Syntax.register('sql', function (brush) {
 
 	var operators = ['=', '!=', '<', '>', '<=', '>=', '+', '-', '*', '/', '%'];
 
-	brush.push(operators, {klass: 'operator'});
+	language.push(operators, {type: 'operator'});
 
-	brush.push(Syntax.lib.sqlStyleComment);
+	language.push(Syntax.lib.sqlStyleComment);
 
-	brush.push(keywords, {klass: 'keyword', options: 'gi'});
+	language.push(keywords, {type: 'keyword', options: 'gi'});
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

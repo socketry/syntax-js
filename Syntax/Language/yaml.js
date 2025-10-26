@@ -5,24 +5,24 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('yaml', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /^\s*#.*$/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
 
-	brush.push({
+	language.push({
 		pattern: /(&|\*)[a-z0-9]+/gi,
-		klass: 'constant'
+		type: 'constant'
 	});
 
-	brush.push({
+	language.push({
 		pattern: /(.*?):/gi,
-		matches: Syntax.extractMatches({klass: 'keyword'})
+		matches: Syntax.extractMatches({type: 'keyword'})
 	});
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

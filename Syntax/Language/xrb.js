@@ -8,23 +8,23 @@ Syntax.brushes.dependency('xrb', 'xml');
 Syntax.brushes.dependency('xrb', 'ruby');
 
 Syntax.register('xrb', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /((<\?r)([\s\S]*?)(\?>))/gm,
 		matches: Syntax.extractMatches(
-			{klass: 'ruby-tag', allow: ['keyword', 'ruby']},
-			{klass: 'keyword'},
+			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
+			{type: 'keyword'},
 			{brush: 'ruby'},
-			{klass: 'keyword'}
+			{type: 'keyword'}
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /((#{)([\s\S]*?)(}))/gm,
 		matches: Syntax.extractMatches(
-			{klass: 'ruby-tag', allow: ['keyword', 'ruby']},
-			{klass: 'keyword'},
+			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
+			{type: 'keyword'},
 			{brush: 'ruby'},
-			{klass: 'keyword'}
+			{type: 'keyword'}
 		)
 	});
 

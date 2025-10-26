@@ -5,15 +5,15 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('apache', function (brush) {
-	brush.push({
+	language.push({
 		pattern: /(<(\w+).*?>)/gi,
 		matches: Syntax.extractMatches(
 			{
-				klass: 'tag',
+				type: 'tag',
 				allow: ['attribute', 'tag-name', 'string']
 			},
 			{
-				klass: 'tag-name',
+				type: 'tag-name',
 				process: Syntax.lib.webLinkProcess(
 					'site:http://httpd.apache.org/docs/trunk/ directive',
 					true
@@ -22,18 +22,18 @@ Syntax.register('apache', function (brush) {
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /(<\/(\w+).*?>)/gi,
 		matches: Syntax.extractMatches(
-			{klass: 'tag', allow: ['tag-name']},
-			{klass: 'tag-name'}
+			{type: 'tag', allow: ['tag-name']},
+			{type: 'tag-name'}
 		)
 	});
 
-	brush.push({
+	language.push({
 		pattern: /^\s+([A-Z][\w]+)/gm,
 		matches: Syntax.extractMatches({
-			klass: 'function',
+			type: 'function',
 			allow: ['attribute'],
 			process: Syntax.lib.webLinkProcess(
 				'site:http://httpd.apache.org/docs/trunk/ directive',
@@ -42,9 +42,9 @@ Syntax.register('apache', function (brush) {
 		})
 	});
 
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 });

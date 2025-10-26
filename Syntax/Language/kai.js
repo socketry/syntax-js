@@ -5,24 +5,24 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('kai', function (brush) {
-	brush.push(['(', ')', '[', ']', '{', '}'], {klass: 'operator'});
+	language.push(['(', ')', '[', ']', '{', '}'], {type: 'operator'});
 
-	brush.push(Syntax.lib.perlStyleComment);
+	language.push(Syntax.lib.perlStyleComment);
 
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.webLink);
 
-	brush.push({
+	language.push({
 		pattern: /\(([^\s\(\)]+)/gi,
-		matches: Syntax.extractMatches({klass: 'function'})
+		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	brush.push({
+	language.push({
 		pattern: /`[a-z]*/gi,
-		klass: 'constant'
+		type: 'constant'
 	});
 
 	// Strings
-	brush.push(Syntax.lib.multiLineDoubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.multiLineDoubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 });

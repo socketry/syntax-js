@@ -127,36 +127,36 @@ Syntax.register('pascal', function (brush) {
 	var values = ['true', 'false', 'nil'];
 
 	// Keywords are case insensitive
-	brush.push(values, {klass: 'constant', options: 'gi'});
-	brush.push(keywords, {klass: 'keyword', options: 'gi'});
-	brush.push(operators, {klass: 'operator', options: 'gi'});
+	language.push(values, {type: 'constant', options: 'gi'});
+	language.push(keywords, {type: 'keyword', options: 'gi'});
+	language.push(operators, {type: 'operator', options: 'gi'});
 
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Pascal style comments
-	brush.push({
+	language.push({
 		pattern: /\{[\s\S]*?\}/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\(\*[\s\S]*?\*\)/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Functions
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.cStyleFunction);
 });

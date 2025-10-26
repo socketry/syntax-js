@@ -5,13 +5,13 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.register('diff', function (brush) {
-	brush.push({pattern: /^\+\+\+.*$/gm, klass: 'add'});
-	brush.push({pattern: /^\-\-\-.*$/gm, klass: 'del'});
+	language.push({pattern: /^\+\+\+.*$/gm, type: 'add'});
+	language.push({pattern: /^\-\-\-.*$/gm, type: 'del'});
 
-	brush.push({pattern: /^@@.*@@/gm, klass: 'offset'});
+	language.push({pattern: /^@@.*@@/gm, type: 'offset'});
 
-	brush.push({pattern: /^\+[^\+]{1}.*$/gm, klass: 'insert'});
-	brush.push({pattern: /^\-[^\-]{1}.*$/gm, klass: 'remove'});
+	language.push({pattern: /^\+[^\+]{1}.*$/gm, type: 'insert'});
+	language.push({pattern: /^\-[^\-]{1}.*$/gm, type: 'remove'});
 
 	brush.postprocess = function (options, html, container) {
 		$('.insert', html).closest('.source').addClass('insert-line');

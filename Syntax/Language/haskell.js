@@ -68,34 +68,34 @@ Syntax.register('haskell', function (brush) {
 
 	var values = ['True', 'False'];
 
-	brush.push(values, {klass: 'constant'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
+	language.push(values, {type: 'constant'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
 
 	// Camelcase Types
-	brush.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.camelCaseType);
 
 	// Comments
-	brush.push({
+	language.push({
 		pattern: /\-\-.*$/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
-	brush.push({
+	language.push({
 		pattern: /\{\-[\s\S]*?\-\}/gm,
-		klass: 'comment',
+		type: 'comment',
 		allow: ['href']
 	});
 
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.webLink);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 });

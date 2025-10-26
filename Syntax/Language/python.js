@@ -173,28 +173,28 @@ Syntax.register('python', function (brush) {
 
 	var values = ['self', 'True', 'False', 'None'];
 
-	brush.push({pattern: /^\s*@\w+/gm, klass: 'decorator'});
-	brush.push(values, {klass: 'constant'});
-	brush.push(keywords, {klass: 'keyword'});
-	brush.push(operators, {klass: 'operator'});
-	brush.push(builtinFunctions, {klass: 'builtin'});
+	language.push({pattern: /^\s*@\w+/gm, type: 'decorator'});
+	language.push(values, {type: 'constant'});
+	language.push(keywords, {type: 'keyword'});
+	language.push(operators, {type: 'operator'});
+	language.push(builtinFunctions, {type: 'builtin'});
 
 	// ClassNames (CamelCase)
-	brush.push(Syntax.lib.camelCaseType);
-	brush.push(Syntax.lib.cStyleFunction);
+	language.push(Syntax.lib.camelCaseType);
+	language.push(Syntax.lib.cStyleFunction);
 
-	brush.push(Syntax.lib.perlStyleComment);
-	brush.push({pattern: /(['\"]{3})([^\1])*?\1/gm, klass: 'comment'});
-	brush.push(Syntax.lib.webLink);
+	language.push(Syntax.lib.perlStyleComment);
+	language.push({pattern: /(['\"]{3})([^\1])*?\1/gm, type: 'comment'});
+	language.push(Syntax.lib.webLink);
 
 	// Strings
-	brush.push(Syntax.lib.singleQuotedString);
-	brush.push(Syntax.lib.doubleQuotedString);
-	brush.push(Syntax.lib.stringEscape);
+	language.push(Syntax.lib.singleQuotedString);
+	language.push(Syntax.lib.doubleQuotedString);
+	language.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	brush.push(Syntax.lib.decimalNumber);
-	brush.push(Syntax.lib.hexNumber);
+	language.push(Syntax.lib.decimalNumber);
+	language.push(Syntax.lib.hexNumber);
 
 	brush.processes['function'] = Syntax.lib.webLinkProcess(
 		'http://docs.python.org/search.html?q='
