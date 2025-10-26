@@ -1,14 +1,11 @@
-// C/C++/Objective-C language definition
-// Supports C, C++, and Objective-C syntax highlighting
+// brush: "clang" aliases: ["cpp", "c++", "c", "objective-c"]
 
-import Language from '../Language.js';
-import Rule from '../Rule.js';
+//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
+//	See <jquery.syntax.js> for licensing details.
 
-export default function register(syntax) {
-	const language = new Language(syntax, 'clang');
-
-	// Objective-C keywords
-	const objcKeywords = [
+Syntax.register('clang', function (brush) {
+	var keywords = [
 		'@interface',
 		'@implementation',
 		'@protocol',
@@ -23,11 +20,7 @@ export default function register(syntax) {
 		'@synchronized',
 		'@property',
 		'@synthesize',
-		'@dynamic'
-	];
-
-	// C/C++ keywords
-	const keywords = [
+		'@dynamic',
 		'struct',
 		'break',
 		'continue',
@@ -68,8 +61,7 @@ export default function register(syntax) {
 		'IBOutlet'
 	];
 
-	// Access modifiers
-	const access = [
+	var access = [
 		'@private',
 		'@protected',
 		'@public',
@@ -82,8 +74,7 @@ export default function register(syntax) {
 		'using'
 	];
 
-	// Type modifiers
-	const typeModifiers = [
+	var typeModifiers = [
 		'mutable',
 		'auto',
 		'const',
@@ -91,9 +82,7 @@ export default function register(syntax) {
 		'typename',
 		'abstract'
 	];
-
-	// Built-in types
-	const types = [
+	var types = [
 		'double',
 		'float',
 		'int',
@@ -107,33 +96,43 @@ export default function register(syntax) {
 		'id'
 	];
 
-	// Constants
-	const constants = ['this', 'true', 'false', 'NULL', 'YES', 'NO', 'nil'];
+	var operators = [
+		'+',
+		'*',
+		'/',
+		'-',
+		'&',
+		'|',
+		'~',
+		'!',
+		'%',
+		'<',
+		'=',
+		'>',
+		'[',
+		']',
+		'new',
+		'delete',
+		'in'
+	];
 
-	// Push constants
-	language.push(constants, {type: 'constant'});
+	var values = ['this', 'true', 'false', 'NULL', 'YES', 'NO', 'nil'];
 
-	// Push keywords
-	language.push([...objcKeywords, ...keywords], {type: 'keyword'});
+	brush.push(values, {klass: 'constant'});
+	brush.push(typeModifiers, {klass: 'keyword'});
+	brush.push(types, {klass: 'type'});
+	brush.push(keywords, {klass: 'keyword'});
+	brush.push(operators, {klass: 'operator'});
+	brush.push(access, {klass: 'access'});
 
-	// Push type modifiers
-	language.push(typeModifiers, {type: 'keyword'});
-
-	// Push types
-	language.push(types, {type: 'type'});
-
-	// Push access modifiers
-	language.push(access, {type: 'access'});
-
-	// Objective-C properties (before comments so they can contain keywords)
-	language.push({
-		pattern: /@property\s*\([^)]*\)/g,
-		type: 'objective-c-property',
-		allow: ['keyword', 'type']
+	// Objective-C properties
+	brush.push({
+		pattern: /@property\((.*)\)[^;]+;/gim,
+		klass: 'objective-c-property',
+		allow: '*'
 	});
 
-	// Property attributes (only within @property declarations)
-	const propertyAttributes = [
+	var propertyAttributes = [
 		'getter',
 		'setter',
 		'readwrite',
@@ -143,71 +142,58 @@ export default function register(syntax) {
 		'copy',
 		'nonatomic'
 	];
-	language.push(propertyAttributes, {
-		type: 'keyword',
+
+	brush.push(propertyAttributes, {
+		klass: 'keyword',
 		only: ['objective-c-property']
 	});
 
-	// Preprocessor directives
-	language.push({
-		pattern: /#.*$/gm,
-		type: 'preprocessor',
+	// Objective-C strings
+
+	brush.push({
+		pattern: /@(?=")/g,
+		klass: 'string'
+	});
+
+	// Objective-C classes, C++ classes, C types, etc.
+	brush.push(Syntax.lib.camelCaseType);
+	brush.push(Syntax.lib.cStyleType);
+	brush.push({
+		pattern: /(?:class|struct|enum|namespace)\s+([^{;\s]+)/gim,
+		matches: Syntax.extractMatches({klass: 'type'})
+	});
+
+	brush.push({
+		pattern: /#.*$/gim,
+		klass: 'preprocessor',
 		allow: ['string']
 	});
 
-	// Comments
-	language.push(Rule.cStyleComment);
-	language.push(Rule.cppStyleComment);
-	language.push(Rule.webLink);
+	brush.push(Syntax.lib.cStyleComment);
+	brush.push(Syntax.lib.cppStyleComment);
+	brush.push(Syntax.lib.webLink);
 
-	// Objective-C string prefix
-	language.push({
-		pattern: /@(?=")/g,
-		type: 'string'
+	// Objective-C style functions
+	brush.push({pattern: /\w+:(?=.*(\]|;|\{))(?!:)/g, klass: 'function'});
+
+	brush.push({
+		pattern: /[^:\[]\s+(\w+)(?=\])/g,
+		matches: Syntax.extractMatches({klass: 'function'})
+	});
+
+	brush.push({
+		pattern: /-\s*(\([^\)]+?\))?\s*(\w+)\s*\{/g,
+		matches: Syntax.extractMatches({index: 2, klass: 'function'})
 	});
 
 	// Strings
-	language.push(Rule.singleQuotedString);
-	language.push(Rule.doubleQuotedString);
-	language.push(Rule.stringEscape);
-
-	// Types
-	language.push(Rule.camelCaseType);
-	language.push(Rule.cStyleType);
-
-	// Type declarations (class, struct, enum, namespace)
-	language.push({
-		pattern: /\b(?:class|struct|enum|namespace)\s+([a-zA-Z_][\w]*)/gi,
-		matches: Rule.extractMatches({index: 1, type: 'type'})
-	});
-
-	// C++ access modifiers with colon (must come before Objective-C method names)
-	language.push({
-		pattern: /\b(?:public|private|protected):/g,
-		type: 'access'
-	});
-
-	// Objective-C method names (selector syntax)
-	language.push({
-		pattern: /\w+:(?=.*[\];{])/g,
-		type: 'function'
-	});
-
-	// C-style function calls
-	language.push(Rule.cStyleFunction);
-
-	// Operators
-	language.push({
-		pattern: /[+\-*\/%&|~!<>=]+/g,
-		type: 'operator'
-	});
+	brush.push(Syntax.lib.singleQuotedString);
+	brush.push(Syntax.lib.doubleQuotedString);
+	brush.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	language.push(Rule.hexNumber);
-	language.push(Rule.decimalNumber);
+	brush.push(Syntax.lib.decimalNumber);
+	brush.push(Syntax.lib.hexNumber);
 
-	syntax.register('clang', language);
-	syntax.alias('clang', ['c', 'cpp', 'c++', 'objective-c']);
-
-	return language;
-}
+	brush.push(Syntax.lib.cStyleFunction);
+});

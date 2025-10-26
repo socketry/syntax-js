@@ -1,20 +1,11 @@
-/**
- * JavaScript Language Definition
- *
- * @package @socketry/syntax
- * @author Samuel G. D. Williams
- * @license MIT
- */
+// brush: "javascript" aliases: ["js", "actionscript"]
 
-import {Language} from '../Language.js';
+//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+//	Copyright (c) 2019 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
+//	See <jquery.syntax.js> for licensing details.
 
-/**
- * Register the JavaScript language with a Syntax instance
- */
-export default function register(syntax) {
-	const language = new Language(syntax, 'javascript');
-
-	const keywords = [
+Syntax.register('javascript', function (brush) {
+	var keywords = [
 		'async',
 		'await',
 		'break',
@@ -53,9 +44,10 @@ export default function register(syntax) {
 		'yield'
 	];
 
-	const operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'];
-	const values = ['this', 'true', 'false', 'null', 'undefined'];
-	const access = [
+	var operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'];
+	var values = ['this', 'true', 'false', 'null'];
+
+	var access = [
 		'implements',
 		'package',
 		'protected',
@@ -64,81 +56,31 @@ export default function register(syntax) {
 		'public'
 	];
 
-	// Push rules to the language
-	language.push(values, {type: 'constant'});
-	language.push(keywords, {type: 'keyword'});
-	language.push(operators, {type: 'operator'});
-	language.push(access, {type: 'access'});
+	brush.push(values, {klass: 'constant'});
+	brush.push(keywords, {klass: 'keyword'});
+	brush.push(operators, {klass: 'operator'});
+	brush.push(access, {klass: 'access'});
 
 	// Regular expressions
-	language.push({
-		pattern: /\b\/([^\\\/]|\\.)*\/[gimsuvy]*/,
-		type: 'constant'
-	});
+	brush.push(Syntax.lib.perlStyleRegularExpression);
 
-	// Camel case types (e.g., String, Array, MyClass)
-	language.push({
-		pattern: /\b[A-Z][\w]*/,
-		type: 'type'
-	});
+	// Camel Case Types
+	brush.push(Syntax.lib.camelCaseType);
 
 	// Comments
-	language.push({
-		pattern: /\/\*[\s\S]*?\*\//m,
-		type: 'comment'
-	});
-
-	language.push({
-		pattern: /\/\/.*$/m,
-		type: 'comment'
-	});
+	brush.push(Syntax.lib.cStyleComment);
+	brush.push(Syntax.lib.cppStyleComment);
+	brush.push(Syntax.lib.webLink);
 
 	// Strings
-	language.push({
-		pattern: /"([^\\"\n]|\\.)*"/,
-		type: 'string'
-	});
-
-	language.push({
-		pattern: /'([^\\'\n]|\\.)*'/,
-		type: 'string'
-	});
-
-	// Template literals
-	language.push({
-		pattern: /`([^\\`]|\\.)*`/,
-		type: 'string'
-	});
-
-	// String escapes
-	language.push({
-		pattern: /\\./,
-		type: 'escape',
-		only: ['string']
-	});
+	brush.push(Syntax.lib.singleQuotedString);
+	brush.push(Syntax.lib.doubleQuotedString);
+	brush.push(Syntax.lib.stringEscape);
 
 	// Numbers
-	language.push({
-		pattern: /\b[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/,
-		type: 'constant'
-	});
-
-	language.push({
-		pattern: /\b0x[0-9a-fA-F]+/,
-		type: 'constant'
-	});
+	brush.push(Syntax.lib.decimalNumber);
+	brush.push(Syntax.lib.hexNumber);
 
 	// Functions
-	language.push({
-		pattern: /\b([a-z_][a-z0-9_]*)\s*\(/i,
-		type: 'function'
-	});
-
-	// Register aliases
-	syntax.alias('javascript', ['js', 'jsx']);
-
-	// Register the language
-	syntax.register('javascript', language);
-
-	return language;
-}
+	brush.push(Syntax.lib.cStyleFunction);
+});

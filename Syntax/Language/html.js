@@ -1,104 +1,65 @@
-// HTML language definition
-// Supports HTML tags, attributes, entities, comments, DOCTYPE, CDATA sections, and embedded JavaScript
+// brush: "html" aliases: []
 
-import Language from '../Language.js';
-import Match from '../Match.js';
-import Rule from '../Rule.js';
+//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
+//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
+//	See <jquery.syntax.js> for licensing details.
 
-export default function register(syntax) {
-	const language = new Language(syntax, 'html');
+Syntax.brushes.dependency('html', 'xml');
+Syntax.brushes.dependency('html', 'javascript');
+Syntax.brushes.dependency('html', 'css');
+Syntax.brushes.dependency('html', 'php-script');
+Syntax.brushes.dependency('html', 'ruby');
 
-	// Embedded JavaScript in <script> tags
-	// Captures: opening tag (group 1), content (group 2), closing tag (group 3)
-	language.push({
-		pattern: /(<script(?:\s+[^>]*)?>)([\s\S]*?)(<\/script>)/i,
-		matches: Rule.extractMatches({index: 2, language: 'javascript'})
+Syntax.register('html', function (brush) {
+	brush.push({
+		pattern: /<script.*?type\=.?text\/javascript.*?>((.|\n)*?)<\/script>/gim,
+		matches: Syntax.extractMatches({brush: 'javascript'})
 	});
 
-	// CDATA sections: <![CDATA[...]]>
-	language.push({
-		pattern: /(<!(\[CDATA\[)([\s\S]*?)(\]\])>)/,
-		type: 'cdata',
-		allow: ['cdata-content', 'cdata-tag']
+	brush.push({
+		pattern: /<style.*?type=.?text\/css.*?>((.|\n)*?)<\/style>/gim,
+		matches: Syntax.extractMatches({brush: 'css'})
 	});
 
-	// HTML Comments: <!-- ... -->
-	language.push({
-		pattern: /<!--[\s\S]*?-->/,
-		type: 'comment'
+	brush.push({
+		pattern: /((<\?php)([\s\S]*?)(\?>))/gm,
+		matches: Syntax.extractMatches(
+			{klass: 'php-tag', allow: ['keyword', 'php-script']},
+			{klass: 'keyword'},
+			{brush: 'php-script'},
+			{klass: 'keyword'}
+		)
 	});
 
-	// DOCTYPE declaration
-	language.push({
-		pattern: /<!DOCTYPE[^>]*>/i,
-		type: 'doctype'
+	brush.push({
+		pattern: /((<\?rb?)([\s\S]*?)(\?>))/gm,
+		matches: Syntax.extractMatches(
+			{klass: 'ruby-tag', allow: ['keyword', 'ruby']},
+			{klass: 'keyword'},
+			{brush: 'ruby'},
+			{klass: 'keyword'}
+		)
 	});
 
-	// HTML tags with attributes
-	// This matches opening tags, closing tags, and self-closing tags
-	language.push({
-		pattern: /<\/?[\w-]+(?:\s+[\w-]+(?:=(?:"[^"]*"|'[^']*'|[^\s>]+))?)*\s*\/?>/,
-		type: 'tag',
-		allow: ['tag-name', 'attribute', 'string']
+	brush.push({
+		pattern: /<%=?(.*?)(%>)/g,
+		klass: 'instruction',
+		allow: ['string']
 	});
 
-	// Tag names (for highlighting within tags)
-	language.push({
-		pattern: /<\/?([a-zA-Z][\w-]*)/,
-		matches: match => {
-			return [
-				new Match(
-					match.index + 1 + (match[0][1] === '/' ? 1 : 0),
-					match[1].length,
-					{type: 'tag-name'},
-					match[1]
-				)
-			];
-		}
+	brush.push({
+		pattern: /<\!(DOCTYPE(.*?))>/g,
+		matches: Syntax.extractMatches({klass: 'doctype'})
 	});
 
-	// Attribute names and values (only inside tags)
-	// Matches both key=value and boolean attributes
-	language.push({
-		pattern:
-			/\s([\w-]+)(?:=("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|[^\s>]+))?(?=\s|\/?>)/,
-		matches: match => {
-			const matches = [];
-			// Attribute name
-			matches.push(
-				new Match(match.index + 1, match[1].length, {type: 'attribute'}, match[1])
-			);
-			// Attribute value (if present)
-			if (match[2]) {
-				matches.push(
-					new Match(
-						match.index + 1 + match[1].length + 1,
-						match[2].length,
-						{type: 'string'},
-						match[2]
-					)
-				);
-			}
-			return matches;
-		},
-		only: ['tag']
+	// Is this rule still relevant?
+	brush.push({
+		pattern: /(%[0-9a-f]{2})/gi,
+		klass: 'percent-escape',
+		only: ['html']
 	});
 
-	// HTML entities: &nbsp; &lt; &gt; &#123; &#xAB; etc.
-	language.push({
-		pattern: /&(?:[a-zA-Z][a-zA-Z0-9]*|#[0-9]+|#x[0-9a-fA-F]+);/,
-		type: 'entity'
-	});
-
-	// Percent encoding in URLs: %20, %3A, etc.
-	language.push({
-		pattern: /%[0-9a-fA-F]{2}/,
-		type: 'percent-escape',
-		only: ['string']
-	});
-
-	syntax.register('html', language);
-	syntax.alias('html', ['htm']);
-
-	return language;
-}
+	// The position of this statement is important - it determines at what point the rules of the parent are processed.
+	// In this case, the rules for xml are processed after the rules for html.
+	brush.derives('xml');
+});

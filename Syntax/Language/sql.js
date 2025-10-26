@@ -4,7 +4,13 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.lib.sqlStyleComment = Syntax.register('sql', function (brush) {
+Syntax.lib.sqlStyleComment = {
+	pattern: /-- .*$/gm,
+	klass: 'comment',
+	allow: ['href']
+};
+
+Syntax.register('sql', function (brush) {
 	var keywords = [
 		'A',
 		'ABORT',
