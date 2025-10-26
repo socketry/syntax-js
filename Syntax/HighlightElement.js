@@ -224,7 +224,7 @@ export class HighlightElement extends HTMLElement {
 			this.#shadow.appendChild(pre);
 
 			// Highlight and append
-			const highlighted = await language.process(code, this.syntax);
+			const highlighted = await language.process(this.syntax, code);
 			codeEl.appendChild(highlighted);
 
 			// Clear light DOM only after successful render to avoid losing content on errors

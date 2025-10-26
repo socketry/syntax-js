@@ -78,13 +78,7 @@ export class Rule {
 			} else if (rule.language) {
 				// Use the owning language's syntax to build sub-tree for embedded language
 				matches.push(
-					await Language.buildTree(
-						syntax,
-						rule,
-						match[0],
-						match.index,
-						undefined
-					)
+					await Language.buildTree(syntax, rule, match[0], match.index, undefined)
 				);
 			} else {
 				matches.push(new Match(match.index, match[0].length, rule, match[0]));
@@ -193,6 +187,31 @@ export class Rule {
 		type: 'string'
 	};
 	static stringEscape = {pattern: /\\./, type: 'escape', only: ['string']};
+
+	/**
+	 * Create a process function that wraps matched tokens in documentation links.
+	 * 
+	 * @param {string} baseUrl - The base URL for documentation lookups
+	 * @returns {Function} A process function for language.processes
+	 * 
+	 * @example
+	 * language.processes['function'] = Rule.webLinkProcess('http://docs.python.org/search.html?q=');
+	 */
+	static webLinkProcess(baseUrl) {
+		return function(container, match, options) {
+			// Replace the span with an anchor element
+			const anchor = document.createElement('a');
+			
+			// Copy className and content from container
+			anchor.className = container.className;
+			anchor.innerHTML = container.innerHTML;
+			
+			// Append the matched text to the base URL
+			anchor.href = `${baseUrl}${encodeURIComponent(match.value)}`;
+			
+			return anchor;
+		};
+	}
 }
 
 export default Rule;
