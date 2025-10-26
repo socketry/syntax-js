@@ -243,7 +243,6 @@ export class CodeElement extends HTMLElement {
 			this.textContent = '';
 
 			this.#highlighted = true;
-			this.classList.add('highlighted', 'syntax');
 		} catch (error) {
 			console.warn('<syntax-code> render failed:', error);
 		}
