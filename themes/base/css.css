@@ -14,3 +14,9 @@
 	width: 0.9em;
 	height: 0.9em;
 }
+
+@media (prefers-color-scheme: dark) {
+	.colour-box {
+		border-color: #666;
+	}
+}

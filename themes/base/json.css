@@ -1,23 +1,41 @@
 /* JSON syntax highlighting styles */
 
-/* Object keys */
+/* Light mode (default) */
 code.syntax .key {
-	color: #9cdcfe;
+	color: #0451a5;
 	font-weight: normal;
 }
 
-/* JSON strings as values (not keys) */
 code.syntax .string {
-	color: #ce9178;
+	color: #a31515;
 }
 
-/* Numbers, booleans, null */
 code.syntax .constant {
-	color: #b5cea8;
+	color: #098658;
 }
 
-/* Structural characters: {}, [], :, , */
 code.syntax .operator {
-	color: #d4d4d4;
-	opacity: 0.8;
+	color: #000000;
+	opacity: 0.6;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+	code.syntax .key {
+		color: #9cdcfe;
+		font-weight: normal;
+	}
+
+	code.syntax .string {
+		color: #ce9178;
+	}
+
+	code.syntax .constant {
+		color: #b5cea8;
+	}
+
+	code.syntax .operator {
+		color: #d4d4d4;
+		opacity: 0.8;
+	}
 }

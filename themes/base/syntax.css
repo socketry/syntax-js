@@ -1,11 +1,12 @@
 /* Core @socketry/syntax theme (base)
    This file provides reasonable defaults for the syntax container and common token classes.
+   Supports both light (default) and dark modes via prefers-color-scheme.
    Per-language files (language-*.css) can override or extend these styles. */
 
 code.syntax {
   display: block;
-  background: #282c34;
-  color: #abb2bf;
+  background: #f5f5f5;
+  color: #24292e;
   padding: 1rem;
   border-radius: 4px;
   overflow-x: auto;
@@ -32,26 +33,26 @@ code.syntax .text {
   text-indent: -2ch;
 }
 
-/* Common token classes (shared across many languages) */
-code.syntax .keyword { color: #c678dd; font-weight: bold; }
-code.syntax .string { color: #98c379; }
-code.syntax .comment { color: #5c6370; font-style: italic; }
-code.syntax .number { color: #d19a66; }
-code.syntax .operator { color: #56b6c2; }
-code.syntax .function { color: #61afef; }
-code.syntax .constant { color: #d19a66; }
-code.syntax .type { color: #e5c07b; }
-code.syntax .preprocessor { color: #e06c75; font-style: italic; }
-code.syntax .access { color: #c678dd; font-weight: bold; }
-code.syntax .escape { color: #56b6c2; font-weight: bold; }
+/* Light mode colors (default) */
+code.syntax .keyword { color: #a90d91; font-weight: bold; }
+code.syntax .string { color: #c41a16; }
+code.syntax .comment { color: #5d6c79; font-style: italic; }
+code.syntax .number { color: #1c00cf; }
+code.syntax .operator { color: #000000; }
+code.syntax .function { color: #0000ff; }
+code.syntax .constant { color: #1c00cf; }
+code.syntax .type { color: #3f6e74; }
+code.syntax .preprocessor { color: #643820; font-style: italic; }
+code.syntax .access { color: #a90d91; font-weight: bold; }
+code.syntax .escape { color: #ff00ff; font-weight: bold; }
 
 /* HTML-oriented tokens */
-code.syntax .tag { color: #e06c75; }
-code.syntax .tag-name { color: #e06c75; font-weight: bold; }
-code.syntax .attribute { color: #d19a66; }
-code.syntax .entity { color: #56b6c2; }
-code.syntax .doctype { color: #c678dd; }
-code.syntax .cdata { color: #5c6370; }
+code.syntax .tag { color: #117700; }
+code.syntax .tag-name { color: #117700; font-weight: bold; }
+code.syntax .attribute { color: #836c28; }
+code.syntax .entity { color: #000080; }
+code.syntax .doctype { color: #a90d91; }
+code.syntax .cdata { color: #5d6c79; }
 
 /* Link support */
 code.syntax a {
@@ -60,6 +61,39 @@ code.syntax a {
 }
 
 code.syntax .href {
-  color: #61afef;
+  color: #0000ff;
   text-decoration: underline;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  code.syntax {
+    background: #282c34;
+    color: #abb2bf;
+  }
+  
+  code.syntax .keyword { color: #c678dd; font-weight: bold; }
+  code.syntax .string { color: #98c379; }
+  code.syntax .comment { color: #5c6370; font-style: italic; }
+  code.syntax .number { color: #d19a66; }
+  code.syntax .operator { color: #56b6c2; }
+  code.syntax .function { color: #61afef; }
+  code.syntax .constant { color: #d19a66; }
+  code.syntax .type { color: #e5c07b; }
+  code.syntax .preprocessor { color: #e06c75; font-style: italic; }
+  code.syntax .access { color: #c678dd; font-weight: bold; }
+  code.syntax .escape { color: #56b6c2; font-weight: bold; }
+  
+  /* HTML-oriented tokens */
+  code.syntax .tag { color: #e06c75; }
+  code.syntax .tag-name { color: #e06c75; font-weight: bold; }
+  code.syntax .attribute { color: #d19a66; }
+  code.syntax .entity { color: #56b6c2; }
+  code.syntax .doctype { color: #c678dd; }
+  code.syntax .cdata { color: #5c6370; }
+  
+  code.syntax .href {
+    color: #61afef;
+    text-decoration: underline;
+  }
 }

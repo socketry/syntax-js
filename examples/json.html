@@ -1,32 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>JSON Example - @socketry/syntax</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css" />
-	<link rel="stylesheet" href="../themes/base/json.css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JSON Examples - @socketry/syntax</title>
 	<style>
-		body { background: #1e1e1e; color: #d4d4d4; font-family: system-ui, sans-serif; padding: 2rem; }
-		h1 { color: #4ec9b0; }
-		h2 { color: #569cd6; margin-top: 2rem; }
-		.description { margin-bottom: 1rem; color: #9cdcfe; }
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem;
+			background: #1e1e1e;
+			color: #d4d4d4;
+		}
+		
+		h1 {
+			color: #4ec9b0;
+			border-bottom: 2px solid #4ec9b0;
+			padding-bottom: 0.5rem;
+		}
+		
+		h2 {
+			color: #569cd6;
+			margin-top: 2rem;
+		}
+		
+		.example {
+			margin: 1rem 0 2rem;
+		}
+		
+		.description {
+			margin-bottom: 1rem;
+			color: #9cdcfe;
+		}
+		
+		syntax-highlight {
+			display: block;
+			margin: 1rem 0;
+		}
+		
+		nav {
+			background: #252526;
+			padding: 1rem;
+			border-radius: 8px;
+			margin-bottom: 2rem;
+		}
+		
+		nav a {
+			color: #569cd6;
+			text-decoration: none;
+			margin-right: 1.5rem;
+		}
+		
+		nav a:hover {
+			text-decoration: underline;
+		}
 	</style>
-	<script type="module" src="../Syntax.js"></script>
-	<script type="module">
-		import Syntax from '../Syntax.js';
-		import registerJSON from '../Syntax/Language/json.js';
-		registerJSON(Syntax.default);
-		await Syntax.highlight({ autoUpgrade: true, syntax: Syntax.default });
-	</script>
-	<script type="module" src="../Syntax/HighlightElement.js"></script>
 </head>
 <body>
-	<h1>JSON Example</h1>
-	<p class="description">JSON syntax highlighting with keys, values, arrays, and nested objects.</p>
-
-	<h2>Basic JSON Object</h2>
-	<syntax-highlight language="json">
+	<h1>JSON Examples</h1>
+	
+	<nav>
+		<a href="index.html">← Back</a>
+		<a href="javascript.html">JavaScript</a>
+		<a href="html.html">HTML</a>
+	</nav>
+	
+	<div class="example">
+		<h2>Basic JSON Object</h2>
+		<p class="description">Simple object with various value types:</p>
+		
+		<syntax-highlight language="json">
 {
   "name": "John Doe",
   "age": 30,
@@ -35,9 +79,13 @@
   "address": null
 }
 	</syntax-highlight>
+	</div>
 
-	<h2>JSON Array</h2>
-	<syntax-highlight language="json">
+	<div class="example">
+		<h2>JSON Array</h2>
+		<p class="description">Array with mixed types:</p>
+		
+		<syntax-highlight language="json">
 [
   1,
   2,
@@ -48,9 +96,13 @@
   null
 ]
 	</syntax-highlight>
+	</div>
 
-	<h2>Nested Structure</h2>
-	<syntax-highlight language="json">
+	<div class="example">
+		<h2>Nested Structure</h2>
+		<p class="description">Complex nested objects and arrays:</p>
+		
+		<syntax-highlight language="json">
 {
   "user": {
     "id": 12345,
@@ -82,9 +134,13 @@
   }
 }
 	</syntax-highlight>
+	</div>
 
-	<h2>Scientific Notation</h2>
-	<syntax-highlight language="json">
+	<div class="example">
+		<h2>Scientific Notation</h2>
+		<p class="description">Numbers with scientific notation:</p>
+		
+		<syntax-highlight language="json">
 {
   "smallNumber": 1.23e-10,
   "largeNumber": 6.022e23,
@@ -92,9 +148,13 @@
   "positive": 1.5E+5
 }
 	</syntax-highlight>
+	</div>
 
-	<h2>API Response Example</h2>
-	<syntax-highlight language="json">
+	<div class="example">
+		<h2>API Response Example</h2>
+		<p class="description">Typical REST API response structure:</p>
+		
+		<syntax-highlight language="json">
 {
   "status": "success",
   "code": 200,
@@ -117,5 +177,16 @@
   "timestamp": "2025-10-26T14:30:00.000Z"
 }
 	</syntax-highlight>
+	</div>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		
+		// Initialize highlighting
+		await Syntax.highlight({
+			autoUpgrade: true,
+			syntax: Syntax.default
+		});
+	</script>
 </body>
 </html>
