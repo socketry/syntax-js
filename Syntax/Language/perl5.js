@@ -293,13 +293,13 @@ Syntax.register('perl5', function (brush) {
 
 	// Variables
 	language.push({
-		pattern: /(\$|@|%)\w+/gi,
+		pattern: /(\$|@|%)\w+/i,
 		type: 'variable'
 	});
 
 	// Enddoc
 	language.push({
-		pattern: /__END__[\s\S]*/gm,
+		pattern: /__END__[\s\S]*/m,
 		type: 'comment'
 	});
 

@@ -142,7 +142,7 @@ Syntax.register('csharp', function (brush) {
 	// Functions
 	language.push(Syntax.lib.cStyleFunction);
 	language.push({
-		pattern: /(?:\.)([a-z_][a-z0-9_]+)/gi,
+		pattern: /(?:\.)([a-z_][a-z0-9_]+)/i,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 

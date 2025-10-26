@@ -13,7 +13,7 @@ Syntax.register('smalltalk', function (brush) {
 	language.push(operators, {type: 'operator'});
 
 	// Objective-C style functions
-	language.push({pattern: /\w+:/g, type: 'function'});
+	language.push({pattern: /\w+:/, type: 'function'});
 
 	// Camelcase Types
 	language.push(Syntax.lib.camelCaseType);

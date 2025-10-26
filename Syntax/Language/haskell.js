@@ -77,13 +77,13 @@ Syntax.register('haskell', function (brush) {
 
 	// Comments
 	language.push({
-		pattern: /\-\-.*$/gm,
+		pattern: /\-\-.*$/m,
 		type: 'comment',
 		allow: ['href']
 	});
 
 	language.push({
-		pattern: /\{\-[\s\S]*?\-\}/gm,
+		pattern: /\{\-[\s\S]*?\-\}/m,
 		type: 'comment',
 		allow: ['href']
 	});

@@ -173,7 +173,7 @@ Syntax.register('python', function (brush) {
 
 	var values = ['self', 'True', 'False', 'None'];
 
-	language.push({pattern: /^\s*@\w+/gm, type: 'decorator'});
+	language.push({pattern: /^\s*@\w+/m, type: 'decorator'});
 	language.push(values, {type: 'constant'});
 	language.push(keywords, {type: 'keyword'});
 	language.push(operators, {type: 'operator'});
@@ -184,7 +184,7 @@ Syntax.register('python', function (brush) {
 	language.push(Syntax.lib.cStyleFunction);
 
 	language.push(Syntax.lib.perlStyleComment);
-	language.push({pattern: /(['\"]{3})([^\1])*?\1/gm, type: 'comment'});
+	language.push({pattern: /(['\"]{3})([^\1])*?\1/m, type: 'comment'});
 	language.push(Syntax.lib.webLink);
 
 	// Strings

@@ -46,18 +46,18 @@ Syntax.register('super-collider', function (brush) {
 
 	// Single Characters
 	language.push({
-		pattern: /\$(\\)?./g,
+		pattern: /\$(\\)?./,
 		type: 'constant'
 	});
 
 	// Symbols
 	language.push({
-		pattern: /\\[a-z_][a-z0-9_]*/gi,
+		pattern: /\\[a-z_][a-z0-9_]*/i,
 		type: 'symbol'
 	});
 
 	language.push({
-		pattern: /'[^']+'/g,
+		pattern: /'[^']+'/,
 		type: 'symbol'
 	});
 
@@ -77,7 +77,7 @@ Syntax.register('super-collider', function (brush) {
 
 	// Functions
 	language.push({
-		pattern: /(?:\.)([a-z_][a-z0-9_]*)/gi,
+		pattern: /(?:\.)([a-z_][a-z0-9_]*)/i,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 

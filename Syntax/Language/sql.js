@@ -5,7 +5,7 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.lib.sqlStyleComment = {
-	pattern: /-- .*$/gm,
+	pattern: /-- .*$/m,
 	type: 'comment',
 	allow: ['href']
 };

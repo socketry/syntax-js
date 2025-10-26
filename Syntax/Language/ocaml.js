@@ -105,7 +105,7 @@ Syntax.register('ocaml', function (brush) {
 		'bool',
 		'byte',
 		'sbyte',
-		/\bu?int\d*\b/g,
+		/\bu?int\d*\b/,
 		'nativeint',
 		'unativeint',
 		'char',
@@ -178,19 +178,19 @@ Syntax.register('ocaml', function (brush) {
 	// http://caml.inria.fr/pub/docs/manual-ocaml/manual011.html#module-path
 	// open [module-path], new [type]
 	language.push({
-		pattern: /(?:open|new)\s+((?:\.?[a-z][a-z0-9]*)+)/gi,
+		pattern: /(?:open|new)\s+((?:\.?[a-z][a-z0-9]*)+)/i,
 		matches: Syntax.extractMatches({type: 'type'})
 	});
 
 	// Functions
 	language.push({
-		pattern: /(?:\.)([a-z_][a-z0-9_]+)/gi,
+		pattern: /(?:\.)([a-z_][a-z0-9_]+)/i,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 
 	// Avoid highlighting keyword arguments as camel-case types.
 	language.push({
-		pattern: /(?:\(|,)\s*(\w+\s*=)/g,
+		pattern: /(?:\(|,)\s*(\w+\s*=)/,
 		matches: Syntax.extractMatches({
 			type: 'keyword-argument'
 		})
@@ -198,7 +198,7 @@ Syntax.register('ocaml', function (brush) {
 
 	// We need to modify cStyleFunction because "(*" is a comment token.
 	language.push({
-		pattern: /([a-z_][a-z0-9_]*)\s*\((?!\*)/gi,
+		pattern: /([a-z_][a-z0-9_]*)\s*\((?!\*)/i,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 
@@ -210,7 +210,7 @@ Syntax.register('ocaml', function (brush) {
 
 	// Comments
 	language.push({
-		pattern: /\(\*[\s\S]*?\*\)/g,
+		pattern: /\(\*[\s\S]*?\*\)/,
 		type: 'comment'
 	});
 

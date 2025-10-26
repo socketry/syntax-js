@@ -60,13 +60,13 @@ Syntax.register('lua', function (brush) {
 	language.push(Syntax.lib.cStyleFunction);
 
 	language.push({
-		pattern: /\-\-.*$/gm,
+		pattern: /\-\-.*$/m,
 		type: 'comment',
 		allow: ['href']
 	});
 
 	language.push({
-		pattern: /\-\-\[\[(\n|.)*?\]\]\-\-/gm,
+		pattern: /\-\-\[\[(\n|.)*?\]\]\-\-/m,
 		type: 'comment',
 		allow: ['href']
 	});

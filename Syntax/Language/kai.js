@@ -13,12 +13,12 @@ Syntax.register('kai', function (brush) {
 	language.push(Syntax.lib.webLink);
 
 	language.push({
-		pattern: /\(([^\s\(\)]+)/gi,
+		pattern: /\(([^\s\(\)]+)/i,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 
 	language.push({
-		pattern: /`[a-z]*/gi,
+		pattern: /`[a-z]*/i,
 		type: 'constant'
 	});
 

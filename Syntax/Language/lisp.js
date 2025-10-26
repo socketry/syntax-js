@@ -5,7 +5,7 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.lib.lispStyleComment = {
-	pattern: /(;+) .*$/gm,
+	pattern: /(;+) .*$/m,
 	type: 'comment',
 	allow: ['href']
 };
@@ -22,12 +22,12 @@ Syntax.register('lisp', function (brush) {
 	language.push(Syntax.lib.webLink);
 
 	language.push({
-		pattern: /\(\s*([^\s\(\)]+)/gim,
+		pattern: /\(\s*([^\s\(\)]+)/im,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 
 	language.push({
-		pattern: /#[a-z]+/gi,
+		pattern: /#[a-z]+/i,
 		type: 'constant'
 	});
 

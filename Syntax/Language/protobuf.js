@@ -53,7 +53,7 @@ Syntax.register('protobuf', function (brush) {
 
 	// Highlight names of fields
 	language.push({
-		pattern: /\s+(\w+)\s*=\s*\d+/g,
+		pattern: /\s+(\w+)\s*=\s*\d+/,
 		matches: Syntax.extractMatches({
 			type: 'variable'
 		})

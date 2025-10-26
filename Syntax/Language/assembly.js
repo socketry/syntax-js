@@ -8,22 +8,22 @@ Syntax.register('assembly', function (brush) {
 	language.push(Syntax.lib.cStyleComment);
 	language.push(Syntax.lib.cppStyleComment);
 
-	language.push({pattern: /\.[a-zA-Z_][a-zA-Z0-9_]*/gm, type: 'directive'});
+	language.push({pattern: /\.[a-zA-Z_][a-zA-Z0-9_]*/m, type: 'directive'});
 
-	language.push({pattern: /^[a-zA-Z_][a-zA-Z0-9_]*:/gm, type: 'label'});
+	language.push({pattern: /^[a-zA-Z_][a-zA-Z0-9_]*:/m, type: 'label'});
 
 	language.push({
-		pattern: /^\s*([a-zA-Z]+)/gm,
+		pattern: /^\s*([a-zA-Z]+)/m,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 
-	language.push({pattern: /(-[0-9]+)|(\b[0-9]+)|(\$[0-9]+)/g, type: 'constant'});
+	language.push({pattern: /(-[0-9]+)|(\b[0-9]+)|(\$[0-9]+)/, type: 'constant'});
 	language.push({
-		pattern: /(\-|\b|\$)(0x[0-9a-f]+|[0-9]+|[a-z0-9_]+)/gi,
+		pattern: /(\-|\b|\$)(0x[0-9a-f]+|[0-9]+|[a-z0-9_]+)/i,
 		type: 'constant'
 	});
 
-	language.push({pattern: /%\w+/g, type: 'register'});
+	language.push({pattern: /%\w+/, type: 'register'});
 
 	// Strings
 	language.push(Syntax.lib.singleQuotedString);

@@ -82,7 +82,7 @@ Syntax.register('php-script', function (brush) {
 
 	// Variables
 	language.push({
-		pattern: /\$[a-z_][a-z0-9]*/gi,
+		pattern: /\$[a-z_][a-z0-9]*/i,
 		type: 'variable'
 	});
 

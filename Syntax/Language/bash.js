@@ -8,12 +8,12 @@ Syntax.brushes.dependency('bash', 'bash-script');
 
 Syntax.register('bash', function (brush) {
 	language.push({
-		pattern: /^([\w@:~ ]*?[\$|\#])\s+(.*?)$/gm,
+		pattern: /^([\w@:~ ]*?[\$|\#])\s+(.*?)$/m,
 		matches: Syntax.extractMatches({type: 'prompt'}, {brush: 'bash-script'})
 	});
 
 	language.push({
-		pattern: /^\-\- .*$/gm,
+		pattern: /^\-\- .*$/m,
 		type: 'comment',
 		allow: ['href']
 	});

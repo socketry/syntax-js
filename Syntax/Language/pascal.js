@@ -135,13 +135,13 @@ Syntax.register('pascal', function (brush) {
 
 	// Pascal style comments
 	language.push({
-		pattern: /\{[\s\S]*?\}/gm,
+		pattern: /\{[\s\S]*?\}/m,
 		type: 'comment',
 		allow: ['href']
 	});
 
 	language.push({
-		pattern: /\(\*[\s\S]*?\*\)/gm,
+		pattern: /\(\*[\s\S]*?\*\)/m,
 		type: 'comment',
 		allow: ['href']
 	});

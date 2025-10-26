@@ -4,21 +4,21 @@
 //	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
 //	See <jquery.syntax.js> for licensing details.
 
-Syntax.lib.xmlEntity = {pattern: /&\w+;/g, type: 'entity'};
+Syntax.lib.xmlEntity = {pattern: /&\w+;/, type: 'entity'};
 Syntax.lib.xmlPercentEscape = {
-	pattern: /(%[0-9a-f]{2})/gi,
+	pattern: /(%[0-9a-f]{2})/i,
 	type: 'percent-escape',
 	only: ['string']
 };
 
 Syntax.register('xml-tag', function (brush) {
 	language.push({
-		pattern: /<\/?((?:[^:\s>]+:)?)([^\s>]+)(\s[^>]*)?\/?>/g,
+		pattern: /<\/?((?:[^:\s>]+:)?)([^\s>]+)(\s[^>]*)?\/?>/,
 		matches: Syntax.extractMatches({type: 'namespace'}, {type: 'tag-name'})
 	});
 
 	language.push({
-		pattern: /([^=\s]+)=(".*?"|'.*?'|[^\s>]+)/g,
+		pattern: /([^=\s]+)=(".*?"|'.*?'|[^\s>]+)/,
 		matches: Syntax.extractMatches(
 			{type: 'attribute', only: ['tag']},
 			{type: 'string', only: ['tag']}
@@ -34,7 +34,7 @@ Syntax.register('xml-tag', function (brush) {
 
 Syntax.register('xml', function (brush) {
 	language.push({
-		pattern: /(<!(\[CDATA\[)([\s\S]*?)(\]\])>)/gm,
+		pattern: /(<!(\[CDATA\[)([\s\S]*?)(\]\])>)/m,
 		matches: Syntax.extractMatches(
 			{type: 'cdata', allow: ['cdata-content', 'cdata-tag']},
 			{type: 'cdata-tag'},
@@ -46,7 +46,7 @@ Syntax.register('xml', function (brush) {
 	language.push(Syntax.lib.xmlComment);
 
 	language.push({
-		pattern: /<[^>\-\s]([^>'"!\/;\?@\[\]^`\{\}\|]|"[^"]*"|'[^']')*[\/?]?>/g,
+		pattern: /<[^>\-\s]([^>'"!\/;\?@\[\]^`\{\}\|]|"[^"]*"|'[^']')*[\/?]?>/,
 		brush: 'xml-tag'
 	});
 

@@ -5,7 +5,7 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.lib.vbStyleComment = {
-	pattern: /' .*$/gm,
+	pattern: /' .*$/m,
 	type: 'comment',
 	allow: ['href']
 };
@@ -210,7 +210,7 @@ Syntax.register('basic', function (brush) {
 		'True',
 		'False',
 		'Nothing',
-		/[A-Z][A-Z0-9_]+/g
+		/[A-Z][A-Z0-9_]+/
 	];
 
 	var access = [

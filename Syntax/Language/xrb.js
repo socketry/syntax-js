@@ -9,7 +9,7 @@ Syntax.brushes.dependency('xrb', 'ruby');
 
 Syntax.register('xrb', function (brush) {
 	language.push({
-		pattern: /((<\?r)([\s\S]*?)(\?>))/gm,
+		pattern: /((<\?r)([\s\S]*?)(\?>))/m,
 		matches: Syntax.extractMatches(
 			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
 			{type: 'keyword'},
@@ -19,7 +19,7 @@ Syntax.register('xrb', function (brush) {
 	});
 
 	language.push({
-		pattern: /((#{)([\s\S]*?)(}))/gm,
+		pattern: /((#{)([\s\S]*?)(}))/m,
 		matches: Syntax.extractMatches(
 			{type: 'ruby-tag', allow: ['keyword', 'ruby']},
 			{type: 'keyword'},

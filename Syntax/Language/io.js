@@ -38,12 +38,12 @@ Syntax.register('io', function (brush) {
 
 	// Extract space delimited method invocations
 	language.push({
-		pattern: /\b([ \t]+([a-z]+))/gi,
+		pattern: /\b([ \t]+([a-z]+))/i,
 		matches: Syntax.extractMatches({index: 2, type: 'function'})
 	});
 
 	language.push({
-		pattern: /\)([ \t]+([a-z]+))/gi,
+		pattern: /\)([ \t]+([a-z]+))/i,
 		matches: Syntax.extractMatches({index: 2, type: 'function'})
 	});
 

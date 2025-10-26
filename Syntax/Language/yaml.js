@@ -6,7 +6,7 @@
 
 Syntax.register('yaml', function (brush) {
 	language.push({
-		pattern: /^\s*#.*$/gm,
+		pattern: /^\s*#.*$/m,
 		type: 'comment',
 		allow: ['href']
 	});
@@ -15,12 +15,12 @@ Syntax.register('yaml', function (brush) {
 	language.push(Syntax.lib.doubleQuotedString);
 
 	language.push({
-		pattern: /(&|\*)[a-z0-9]+/gi,
+		pattern: /(&|\*)[a-z0-9]+/i,
 		type: 'constant'
 	});
 
 	language.push({
-		pattern: /(.*?):/gi,
+		pattern: /(.*?):/i,
 		matches: Syntax.extractMatches({type: 'keyword'})
 	});
 

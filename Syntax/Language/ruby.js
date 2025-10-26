@@ -5,13 +5,13 @@
 //	See <jquery.syntax.js> for licensing details.
 
 Syntax.lib.rubyStyleFunction = {
-	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/gi,
+	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/i,
 	matches: Syntax.extractMatches({type: 'function'})
 };
 
 // We need to emulate negative lookbehind
 Syntax.lib.rubyStyleSymbol = {
-	pattern: /([:]?):\w+/g,
+	pattern: /([:]?):\w+/,
 	type: 'constant',
 	matches: function (match, expr) {
 		if (match[1] != '') return [];
@@ -70,17 +70,17 @@ Syntax.register('ruby', function (brush) {
 
 	// Percent operator statements
 	language.push({
-		pattern: /(\%[\S])(\{[\s\S]*?\})/g,
+		pattern: /(\%[\S])(\{[\s\S]*?\})/,
 		matches: Syntax.extractMatches({type: 'function'}, {type: 'constant'})
 	});
 
 	language.push({
-		pattern: /`[^`]+`/g,
+		pattern: /`[^`]+`/,
 		type: 'string'
 	});
 
 	language.push({
-		pattern: /\#\{([^\}]*)\}/g,
+		pattern: /\#\{([^\}]*)\}/,
 		matches: Syntax.extractMatches({
 			brush: 'ruby',
 			only: ['string']
@@ -90,7 +90,7 @@ Syntax.register('ruby', function (brush) {
 	// Regular expressions
 	language.push(Syntax.lib.rubyStyleRegularExpression);
 
-	language.push({pattern: /(@+|\$)[\w]+/g, type: 'variable'});
+	language.push({pattern: /(@+|\$)[\w]+/, type: 'variable'});
 
 	language.push(Syntax.lib.camelCaseType);
 	language.push(keywords, {type: 'keyword'});

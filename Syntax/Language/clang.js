@@ -127,7 +127,7 @@ Syntax.register('clang', function (brush) {
 
 	// Objective-C properties
 	language.push({
-		pattern: /@property\((.*)\)[^;]+;/gim,
+		pattern: /@property\((.*)\)[^;]+;/im,
 		type: 'objective-c-property',
 		allow: '*'
 	});
@@ -151,7 +151,7 @@ Syntax.register('clang', function (brush) {
 	// Objective-C strings
 
 	language.push({
-		pattern: /@(?=")/g,
+		pattern: /@(?=")/,
 		type: 'string'
 	});
 
@@ -159,12 +159,12 @@ Syntax.register('clang', function (brush) {
 	language.push(Syntax.lib.camelCaseType);
 	language.push(Syntax.lib.cStyleType);
 	language.push({
-		pattern: /(?:class|struct|enum|namespace)\s+([^{;\s]+)/gim,
+		pattern: /(?:class|struct|enum|namespace)\s+([^{;\s]+)/im,
 		matches: Syntax.extractMatches({type: 'type'})
 	});
 
 	language.push({
-		pattern: /#.*$/gim,
+		pattern: /#.*$/im,
 		type: 'preprocessor',
 		allow: ['string']
 	});
@@ -174,15 +174,15 @@ Syntax.register('clang', function (brush) {
 	language.push(Syntax.lib.webLink);
 
 	// Objective-C style functions
-	language.push({pattern: /\w+:(?=.*(\]|;|\{))(?!:)/g, type: 'function'});
+	language.push({pattern: /\w+:(?=.*(\]|;|\{))(?!:)/, type: 'function'});
 
 	language.push({
-		pattern: /[^:\[]\s+(\w+)(?=\])/g,
+		pattern: /[^:\[]\s+(\w+)(?=\])/,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 
 	language.push({
-		pattern: /-\s*(\([^\)]+?\))?\s*(\w+)\s*\{/g,
+		pattern: /-\s*(\([^\)]+?\))?\s*(\w+)\s*\{/,
 		matches: Syntax.extractMatches({index: 2, type: 'function'})
 	});
 

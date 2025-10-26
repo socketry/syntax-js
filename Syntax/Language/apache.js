@@ -6,7 +6,7 @@
 
 Syntax.register('apache', function (brush) {
 	language.push({
-		pattern: /(<(\w+).*?>)/gi,
+		pattern: /(<(\w+).*?>)/i,
 		matches: Syntax.extractMatches(
 			{
 				type: 'tag',
@@ -23,7 +23,7 @@ Syntax.register('apache', function (brush) {
 	});
 
 	language.push({
-		pattern: /(<\/(\w+).*?>)/gi,
+		pattern: /(<\/(\w+).*?>)/i,
 		matches: Syntax.extractMatches(
 			{type: 'tag', allow: ['tag-name']},
 			{type: 'tag-name'}
@@ -31,7 +31,7 @@ Syntax.register('apache', function (brush) {
 	});
 
 	language.push({
-		pattern: /^\s+([A-Z][\w]+)/gm,
+		pattern: /^\s+([A-Z][\w]+)/m,
 		matches: Syntax.extractMatches({
 			type: 'function',
 			allow: ['attribute'],

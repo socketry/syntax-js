@@ -160,13 +160,13 @@ Syntax.register('css', function (brush) {
 	);
 
 	language.push({
-		pattern: /\(.*?\)/g,
+		pattern: /\(.*?\)/,
 		allow: '*',
 		disallow: ['property']
 	});
 
 	language.push({
-		pattern: /\s*([\:\.\[\]\"\'\=\s\w#\.\-,]+)\s+\{/gm,
+		pattern: /\s*([\:\.\[\]\"\'\=\s\w#\.\-,]+)\s+\{/m,
 		matches: Syntax.extractMatches({type: 'selector', allow: ['string']})
 	});
 
@@ -193,13 +193,13 @@ Syntax.register('css', function (brush) {
 	language.push(Syntax.lib.webLink);
 
 	language.push({
-		pattern: /\{(.|\n)*?\}/g,
+		pattern: /\{(.|\n)*?\}/,
 		type: 'properties',
 		allow: '*'
 	});
 
 	language.push({
-		pattern: /\:(.*?(?=\})|(.|\n)*?(?=(\}|\;)))/g,
+		pattern: /\:(.*?(?=\})|(.|\n)*?(?=(\}|\;)))/,
 		matches: Syntax.extractMatches({
 			type: 'value',
 			allow: ['color'],
@@ -208,7 +208,7 @@ Syntax.register('css', function (brush) {
 	});
 
 	language.push({
-		pattern: /([\-\w]+):/g,
+		pattern: /([\-\w]+):/,
 		matches: Syntax.extractMatches({
 			type: 'property',
 			process: Syntax.lib.webLinkProcess('http://cssdocs.org/')

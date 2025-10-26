@@ -120,7 +120,7 @@ Syntax.register('ooc', function (brush) {
 		'@'
 	];
 
-	var values = ['this', 'super', 'true', 'false', 'null', /[A-Z][A-Z0-9_]+/g];
+	var values = ['this', 'super', 'true', 'false', 'null', /[A-Z][A-Z0-9_]+/];
 
 	language.push(values, {type: 'constant'});
 	language.push(types, {type: 'type'});
@@ -129,7 +129,7 @@ Syntax.register('ooc', function (brush) {
 
 	// Hex, Octal and Binary numbers :)
 	language.push({
-		pattern: /0[xcb][0-9a-fA-F]+/g,
+		pattern: /0[xcb][0-9a-fA-F]+/,
 		type: 'constant'
 	});
 

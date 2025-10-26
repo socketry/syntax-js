@@ -34,9 +34,9 @@ Syntax.register('go', function (brush) {
 	];
 
 	var types = [
-		/u?int\d*/g,
-		/float\d+/g,
-		/complex\d+/g,
+		/u?int\d*/,
+		/float\d+/,
+		/complex\d+/,
 		'byte',
 		'uintptr',
 		'string'

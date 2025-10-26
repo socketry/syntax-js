@@ -133,12 +133,12 @@ Syntax.register('swift', function (brush) {
 	language.push(values, {type: 'constant'});
 
 	language.push({
-		pattern: /`[^`]+`/g,
+		pattern: /`[^`]+`/,
 		type: 'identifier'
 	});
 
 	language.push({
-		pattern: /\\\(([^)]*)\)/g,
+		pattern: /\\\(([^)]*)\)/,
 		matches: Syntax.extractMatches({
 			brush: 'swift',
 			only: ['string']

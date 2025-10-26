@@ -6,7 +6,7 @@
 
 Syntax.register('nginx', function (brush) {
 	language.push({
-		pattern: /((\w+).*?);/g,
+		pattern: /((\w+).*?);/,
 		matches: Syntax.extractMatches(
 			{type: 'directive', allow: '*'},
 			{
@@ -17,11 +17,11 @@ Syntax.register('nginx', function (brush) {
 	});
 
 	language.push({
-		pattern: /(\w+).*?{/g,
+		pattern: /(\w+).*?{/,
 		matches: Syntax.extractMatches({type: 'keyword'})
 	});
 
-	language.push({pattern: /(\$)[\w]+/g, type: 'variable'});
+	language.push({pattern: /(\$)[\w]+/, type: 'variable'});
 
 	language.push(Syntax.lib.perlStyleComment);
 	language.push(Syntax.lib.singleQuotedString);

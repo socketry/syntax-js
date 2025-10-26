@@ -8,7 +8,7 @@ Syntax.brushes.dependency('php', 'php-script');
 
 Syntax.register('php', function (brush) {
 	language.push({
-		pattern: /(<\?(php)?)((.|\n)*?)(\?>)/gm,
+		pattern: /(<\?(php)?)((.|\n)*?)(\?>)/m,
 		matches: Syntax.extractMatches(
 			{type: 'keyword'},
 			null,

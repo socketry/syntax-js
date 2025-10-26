@@ -54,7 +54,7 @@ Syntax.register('scala', function (brush) {
 
 	// Strings
 	language.push({
-		pattern: /"""[\s\S]*?"""/g,
+		pattern: /"""[\s\S]*?"""/,
 		type: 'string'
 	});
 
@@ -62,7 +62,7 @@ Syntax.register('scala', function (brush) {
 
 	// Functions
 	language.push({
-		pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/gi,
+		pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/i,
 		matches: Syntax.extractMatches({type: 'function'})
 	});
 

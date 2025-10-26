@@ -10,7 +10,7 @@ Syntax.register('bash-script', function (brush) {
 
 	language.push({
 		pattern:
-			/(?:^|\||;|&&)\s*((?:"([^"]|\\")+"|'([^']|\\')+'|\\\n|.|[ \t])+?)(?=$|\||;|&&)/gim,
+			/(?:^|\||;|&&)\s*((?:"([^"]|\\")+"|'([^']|\\')+'|\\\n|.|[ \t])+?)(?=$|\||;|&&)/im,
 		matches: Syntax.extractMatches({brush: 'bash-statement'})
 	});
 });
@@ -46,13 +46,13 @@ Syntax.register('bash-statement', function (brush) {
 	language.push(operators, {type: 'operator'});
 
 	language.push({
-		pattern: /\(\((.*?)\)\)/gim,
+		pattern: /\(\((.*?)\)\)/im,
 		type: 'expression',
 		allow: ['variable', 'string', 'operator', 'constant']
 	});
 
 	language.push({
-		pattern: /`([\s\S]+?)`/gim,
+		pattern: /`([\s\S]+?)`/im,
 		matches: Syntax.extractMatches({brush: 'bash-script', debug: true})
 	});
 
@@ -62,7 +62,7 @@ Syntax.register('bash-statement', function (brush) {
 	// and misses lots of edge cases (e.g. nested brackets, delimiters).
 	language.push({
 		pattern:
-			/^\s*((?:\S+?=\$?(?:\[[^\]]+\]|\(\(.*?\)\)|"(?:[^"]|\\")+"|'(?:[^']|\\')+'|\S+)\s*)*)((?:(\\ |\S)+)?)/gim,
+			/^\s*((?:\S+?=\$?(?:\[[^\]]+\]|\(\(.*?\)\)|"(?:[^"]|\\")+"|'(?:[^']|\\')+'|\S+)\s*)*)((?:(\\ |\S)+)?)/im,
 		matches: Syntax.extractMatches(
 			{
 				type: 'env',
@@ -73,17 +73,17 @@ Syntax.register('bash-statement', function (brush) {
 	});
 
 	language.push({
-		pattern: /(\S+?)=/gim,
+		pattern: /(\S+?)=/im,
 		matches: Syntax.extractMatches({type: 'variable'}),
 		only: ['env']
 	});
 
 	language.push({
-		pattern: /\$\w+/g,
+		pattern: /\$\w+/,
 		type: 'variable'
 	});
 
-	language.push({pattern: /\s\-+[\w-]+/g, type: 'option'});
+	language.push({pattern: /\s\-+[\w-]+/, type: 'option'});
 
 	language.push(Syntax.lib.singleQuotedString);
 	language.push(Syntax.lib.doubleQuotedString);
