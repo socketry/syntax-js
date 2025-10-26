@@ -2,7 +2,6 @@
  * XML language syntax highlighting
  * Supports XML tags, attributes, entities, CDATA sections, and comments
  */
-
 import {Language} from '../Language.js';
 import {Rule} from '../Rule.js';
 
@@ -42,6 +41,7 @@ xmlTagLanguage.push(Rule.singleQuotedString);
 xmlTagLanguage.push(Rule.doubleQuotedString);
 
 // Create main XML language
+
 const language = new Language('xml');
 
 // Match CDATA sections

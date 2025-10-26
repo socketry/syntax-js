@@ -1,9 +1,3 @@
-// brush: "ocaml" aliases: ["ml", "sml", "fsharp"]
-
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2011 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
-
 // This brush is based loosely on the following documentation:
 // http://msdn.microsoft.com/en-us/library/dd233230.aspx
 

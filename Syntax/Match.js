@@ -1,14 +1,3 @@
-/**
- * Match - Represents a matched token/region in syntax-highlighted code
- *
- * @package @socketry/syntax
- * @author Samuel G. D. Williams
- * @license MIT
- */
-
-/**
- * Main match constructor. Represents a region of text with associated metadata.
- */
 export class Match {
 	// Public properties
 	offset;

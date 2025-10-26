@@ -1,12 +1,3 @@
-/**
- * Syntax Highlighting Web Component
- * A modern, framework-agnostic syntax highlighter using Web Components and Shadow DOM
- *
- * @package @socketry/syntax
- * @author Samuel G. D. Williams
- * @license MIT
- */
-
 import Syntax from '../Syntax.js';
 
 const supportsAdopted =
@@ -18,12 +9,11 @@ const supportsAdopted =
  *
  * Usage:
  *   <syntax-code language="javascript">const x = 1;</syntax-code>
- *   <syntax-code lang="html"><div>...</div></syntax-code>
- *   <syntax-code class="language-ruby">puts "Hello"</syntax-code>
+ *   <pre><syntax-code language="ruby">puts "Hello"</syntax-code></pre>
  */
 export class CodeElement extends HTMLElement {
 	static get observedAttributes() {
-		return ['language', 'lang', 'theme', 'wrap'];
+		return ['language', 'theme', 'wrap'];
 	}
 
 	#syntax = null;
@@ -50,7 +40,6 @@ export class CodeElement extends HTMLElement {
 	get language() {
 		return (
 			this.getAttribute('language') ||
-			this.getAttribute('lang') ||
 			this.#detectLanguageFromClass()
 		);
 	}
@@ -111,7 +100,7 @@ export class CodeElement extends HTMLElement {
 		}
 
 		if (
-			(name === 'language' || name === 'lang' || name === 'theme' || name === 'wrap') &&
+			(name === 'language' || name === 'theme' || name === 'wrap') &&
 			this.isConnected &&
 			this.#shadow
 		) {

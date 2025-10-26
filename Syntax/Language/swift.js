@@ -1,6 +1,3 @@
-// Swift language syntax highlighting
-// This file is part of the "Syntax" project, and is distributed under the MIT License.
-
 import {Language} from '../Language.js';
 import {Rule} from '../Rule.js';
 

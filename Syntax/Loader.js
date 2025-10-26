@@ -1,15 +1,3 @@
-/**
- * Loader - Manages dynamic loading of resources
- *
- * @package @socketry/syntax
- * @author Samuel G. D. Williams
- * @license MIT
- */
-
-/**
- * Simple promise-based resource loader with caching and deduplication
- * Prevents duplicate fetches when multiple requests arrive concurrently
- */
 export class Loader {
 	#cache = new Map();
 	#pending = new Map();

@@ -1,9 +1,3 @@
-// brush: "json" aliases: []
-
-//	This file is part of the "jQuery.Syntax" project, and is distributed under the MIT License.
-//	Copyright (c) 2025 Samuel G. D. Williams. <http://www.oriontransfer.co.nz>
-//	See <jquery.syntax.js> for licensing details.
-
 import {Language} from '../Language.js';
 import {Rule} from '../Rule.js';
 

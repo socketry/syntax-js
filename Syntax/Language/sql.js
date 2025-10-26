@@ -2,7 +2,6 @@
  * SQL language syntax highlighting
  * Supports standard SQL keywords, operators, comments, strings, and numbers
  */
-
 import {Language} from '../Language.js';
 import {Rule} from '../Rule.js';
 

@@ -1,7 +1,3 @@
-/**
- * Custom error types for @socketry/syntax
- */
-
 export class GenericSyntaxError extends Error {
 	constructor(message, options = {}) {
 		super(message, options);

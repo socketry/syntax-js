@@ -1,11 +1,3 @@
-/**
- * Language - Represents a language syntax definition
- *
- * @package @socketry/syntax
- * @author Samuel G. D. Williams
- * @license MIT
- */
-
 import {Match} from './Match.js';
 import {Rule} from './Rule.js';
 import {LanguageNotFoundError, RuleApplyError} from './Errors.js';
