@@ -1,0 +1,23 @@
+/* JSON syntax highlighting styles */
+
+/* Object keys */
+code.syntax .key {
+	color: #9cdcfe;
+	font-weight: normal;
+}
+
+/* JSON strings as values (not keys) */
+code.syntax .string {
+	color: #ce9178;
+}
+
+/* Numbers, booleans, null */
+code.syntax .constant {
+	color: #b5cea8;
+}
+
+/* Structural characters: {}, [], :, , */
+code.syntax .operator {
+	color: #d4d4d4;
+	opacity: 0.8;
+}
