@@ -34,7 +34,7 @@
 			color: #9cdcfe;
 		}
 		
-		syntax-highlight {
+		syntax-code {
 			display: block;
 			margin: 1rem 0;
 		}
@@ -70,7 +70,7 @@
 		<h2>ES6+ Features</h2>
 		<p class="description">Modern JavaScript with classes, async/await, and arrow functions:</p>
 		
-		<syntax-highlight language="javascript">
+		<syntax-code language="javascript">
 // Modern JavaScript class
 class EventEmitter {
 	#listeners = new Map();
@@ -122,14 +122,14 @@ async function fetchUserData(userId) {
 		return null;
 	}
 }
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<div class="example">
 		<h2>Template Literals</h2>
 		<p class="description">Template strings with expressions:</p>
 		
-		<syntax-highlight language="javascript">
+		<syntax-code language="javascript">
 const name = 'World';
 const greeting = `Hello, ${name}!`;
 
@@ -147,14 +147,14 @@ function highlight(strings, ...values) {
 }
 
 const emphasized = highlight`The answer is ${42}!`;
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<div class="example">
 		<h2>Regular Expressions</h2>
 		<p class="description">Pattern matching and text processing:</p>
 		
-		<syntax-highlight language="javascript">
+		<syntax-code language="javascript">
 // Email validation
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const isValidEmail = email => emailRegex.test(email);
@@ -173,14 +173,14 @@ const replaced = text.replace(/hello/gi, match => {
 const dateRegex = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
 const { groups } = '2025-10-26'.match(dateRegex);
 console.log(groups.year, groups.month, groups.day);
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<div class="example">
 		<h2>Array Methods</h2>
 		<p class="description">Functional programming with arrays:</p>
 		
-		<syntax-highlight language="javascript">
+		<syntax-code language="javascript">
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // Map, filter, reduce
@@ -199,14 +199,14 @@ const allPositive = numbers.every(n => n > 0);
 // FlatMap (ES2019)
 const nested = [[1, 2], [3, 4], [5]];
 const flat = nested.flatMap(arr => arr.map(n => n * 2));
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<div class="example">
 		<h2>Comments</h2>
 		<p class="description">Different comment styles:</p>
 		
-		<syntax-highlight language="javascript">
+		<syntax-code language="javascript">
 // Single-line comment
 let x = 42; // Inline comment
 
@@ -227,7 +227,7 @@ function calculate(a, b) {
 function createUser(name, age) {
 	return { name, age };
 }
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<script type="module">

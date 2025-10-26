@@ -255,6 +255,7 @@ export class Language {
 
 		const html = document.createElement('code');
 		html.className = 'syntax highlighted';
+		html.setAttribute('part', 'code');
 
 		for (const line of lines) {
 			const processedLine = line.reduce(null, (container, match) => {

@@ -111,7 +111,7 @@ For the web component, you can listen for recoverable errors:
 - **`Language`** - Language definition with pattern matching rules
 - **`Rule`** - Pattern matching and extraction helpers
 - **`Loader`** - Handles dynamic loading of language modules and stylesheets with caching
-- **`HighlightElement`** - Web component (`<syntax-highlight>`) for declarative usage
+- **`CodeElement`** - Web component (`<syntax-highlight>`) for declarative usage
 
 ## Migrating from jQuery.Syntax
 

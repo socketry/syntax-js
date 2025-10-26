@@ -18,13 +18,13 @@
         registerScala(Syntax.default);
         await Syntax.highlight({ autoUpgrade: true, syntax: Syntax.default });
     </script>
-    <script type="module" src="../Syntax/HighlightElement.js"></script>
+    <script type="module" src="../Syntax/CodeElement.js"></script>
 </head>
 <body>
     <h1>Scala Example</h1>
     <p>Minimal sample showing keywords, strings, functions, types, comments, and XML literals.</p>
 
-    <syntax-highlight language="scala">
+    <syntax-code language="scala">
 object App extends App {
   // line comment
   /* block comment */
@@ -41,6 +41,6 @@ multi-line string"""
 
   val value: MyType = MyType(42)
 }
-    </syntax-highlight>
+    </syntax-code>
 </body>
 </html>

@@ -28,7 +28,7 @@
 			margin: 20px 0;
 			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 		}
-		syntax-highlight {
+		syntax-code {
 			display: block;
 			margin: 10px 0;
 		}
@@ -39,7 +39,7 @@
 	
 	<div class="example">
 		<h2>C Example</h2>
-		<syntax-highlight language="c">
+		<syntax-code language="c">
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
@@ -74,12 +74,12 @@ int main(int argc, char *argv[]) {
 	
 	return 0;
 }
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<div class="example">
 		<h2>C++ Example</h2>
-		<syntax-highlight language="cpp">
+		<syntax-code language="cpp">
 #include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;string&gt;
@@ -139,12 +139,12 @@ int main() {
 	
 	return 0;
 }
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<div class="example">
 		<h2>Objective-C Example</h2>
-		<syntax-highlight language="objective-c">
+		<syntax-code language="objective-c">
 #import &lt;Foundation/Foundation.h&gt;
 
 @interface Person : NSObject
@@ -204,12 +204,12 @@ int main(int argc, char *argv[]) {
 	}
 	return 0;
 }
-		</syntax-highlight>
+		</syntax-code>
 	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';
-		import '../Syntax/HighlightElement.js';
+		import '../Syntax/CodeElement.js';
 		import clang from '../Syntax/Language/clang.js';
 		
 		const syntax = Syntax.default;

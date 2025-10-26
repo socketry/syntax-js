@@ -13,15 +13,15 @@
 	<h1>Haskell Syntax Highlighting</h1>
 	
 	<h2>Hello World</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Main where
 
 main :: IO ()
 main = putStrLn "Hello, World!"
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Functions and Pattern Matching</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Factorial where
 
 -- Recursive factorial with pattern matching
@@ -41,10 +41,10 @@ describeNumber n = case n of
   0 -> "zero"
   1 -> "one"
   _ -> "many"
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Data Types and Type Classes</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Types where
 
 -- Algebraic data types
@@ -76,10 +76,10 @@ class Describable a where
 -- Type class instance
 instance Describable Person where
   describe p = name p ++ " is " ++ show (age p) ++ " years old"
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Higher-Order Functions and Lambdas</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module HigherOrder where
 
 -- Map, filter, and fold
@@ -110,10 +110,10 @@ addFive = add 5
 -- Using backticks for infix
 divBy :: Int -> Int -> Int
 divBy x y = x `div` y
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>List Comprehensions</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Lists where
 
 -- Basic list comprehension
@@ -142,10 +142,10 @@ uppercase str = [toUpper c | c <- str]
     toUpper c = if c >= 'a' && c <= 'z'
                 then toEnum (fromEnum c - 32)
                 else c
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Monads and Do Notation</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Monads where
 
 import Control.Monad (when, unless)
@@ -184,10 +184,10 @@ positiveProducts xs ys = do
   if product > 0
     then return product
     else []
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Functors, Applicatives, and Monads</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Abstractions where
 
 -- Functor instance for custom type
@@ -217,10 +217,10 @@ applyInBox f x = f <*> x
 -- Using monad
 chainBox :: Box Int -> Box Int
 chainBox x = x >>= \n -> Box (n + 1)
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Type Families and GADTs</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE GADTs #-}
 
@@ -255,10 +255,10 @@ eval (BoolLit b) = b
 eval (Add x y) = eval x + eval y
 eval (Equals x y) = eval x == eval y
 eval (If cond t e) = if eval cond then eval t else eval e
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Recursive Data Structures</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Recursion where
 
 -- Binary tree
@@ -294,10 +294,10 @@ data List a = Nil | Cons a (List a)
 listMap :: (a -> b) -> List a -> List b
 listMap _ Nil = Nil
 listMap f (Cons x xs) = Cons (f x) (listMap f xs)
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Lazy Evaluation and Infinite Lists</h2>
-	<syntax-highlight language="haskell">
+	<syntax-code language="haskell">
 module Lazy where
 
 -- Infinite list of natural numbers
@@ -332,6 +332,6 @@ ones = 1 : ones
 -- Take elements while condition holds
 takeWhileLessThan :: Int -> [Int] -> [Int]
 takeWhileLessThan n = takeWhile (< n)
-	</syntax-highlight>
+	</syntax-code>
 </body>
 </html>

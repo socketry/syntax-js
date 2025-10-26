@@ -14,16 +14,16 @@ const supportsAdopted =
 	'adoptedStyleSheets' in Document.prototype;
 
 /**
- * HighlightElement - Web Component for syntax highlighting with isolated styles
+ * CodeElement - Web Component for syntax highlighting with isolated styles
  *
  * Usage:
- *   <syntax-highlight language="javascript">const x = 1;</syntax-highlight>
- *   <syntax-highlight lang="html"><div>...</div></syntax-highlight>
- *   <syntax-highlight class="language-ruby">puts "Hello"</syntax-highlight>
+ *   <syntax-code language="javascript">const x = 1;</syntax-code>
+ *   <syntax-code lang="html"><div>...</div></syntax-code>
+ *   <syntax-code class="language-ruby">puts "Hello"</syntax-code>
  */
-export class HighlightElement extends HTMLElement {
+export class CodeElement extends HTMLElement {
 	static get observedAttributes() {
-		return ['language', 'lang', 'theme'];
+		return ['language', 'lang', 'theme', 'wrap'];
 	}
 
 	#syntax = null;
@@ -75,7 +75,24 @@ export class HighlightElement extends HTMLElement {
 		}
 	}
 
+	get wrap() {
+		return this.hasAttribute('wrap');
+	}
+
+	set wrap(value) {
+		if (value) {
+			this.setAttribute('wrap', '');
+		} else {
+			this.removeAttribute('wrap');
+		}
+	}
+
 	connectedCallback() {
+		// Detect if we're inside a <pre> element and set wrap attribute
+		if (this.parentElement?.tagName === 'PRE') {
+			this.wrap = true;
+		}
+
 		// Don't re-highlight if already done
 		if (this.#highlighted) {
 			return;
@@ -94,7 +111,7 @@ export class HighlightElement extends HTMLElement {
 		}
 
 		if (
-			(name === 'language' || name === 'lang' || name === 'theme') &&
+			(name === 'language' || name === 'lang' || name === 'theme' || name === 'wrap') &&
 			this.isConnected &&
 			this.#shadow
 		) {
@@ -196,7 +213,7 @@ export class HighlightElement extends HTMLElement {
 			const languageName = this.language;
 
 			if (!languageName) {
-				console.warn('<syntax-highlight>: No language specified');
+				console.warn('<syntax-code>: No language specified');
 				return;
 			}
 
@@ -205,7 +222,7 @@ export class HighlightElement extends HTMLElement {
 
 			if (!language) {
 				console.warn(
-					`<syntax-highlight>: Language '${languageName}' not found and could not be loaded`
+					`<syntax-code>: Language '${languageName}' not found and could not be loaded`
 				);
 				return;
 			}
@@ -215,21 +232,18 @@ export class HighlightElement extends HTMLElement {
 
 			const code = this.#getCodeContent();
 
-			// Build shadow DOM structure without clearing the light DOM until success
+			// Clear shadow DOM before rendering (must happen before appendChild to remove old content, but after loadStylesheets since fallback path may have appended <style> elements):
 			this.#shadow.innerHTML = '';
-			const pre = document.createElement('pre');
-			this.#shadow.appendChild(pre);
 
-			// Highlight and append - language.process() returns a <code> element
+			// Highlight and append - language.process() returns a <code> element:
 			const highlighted = await language.process(this.syntax, code);
-			pre.appendChild(highlighted);
+			this.#shadow.appendChild(highlighted);
 
-			// Clear light DOM only after successful render to avoid losing content on errors
+			// Clear light DOM only after successful render to avoid losing content on errors:
 			this.textContent = '';
 
 			this.#highlighted = true;
 			this.classList.add('highlighted', 'syntax');
-			this.setAttribute('data-language', languageName);
 		} catch (error) {
 			this.classList.add('syntax-error');
 			this.setAttribute('data-error', error?.name || 'render-error');
@@ -238,7 +252,7 @@ export class HighlightElement extends HTMLElement {
 					detail: {error, language: this.language, element: this}
 				})
 			);
-			console.warn('<syntax-highlight> render failed:', error);
+			console.warn('<syntax-code> render failed:', error);
 		}
 	}
 }
@@ -248,38 +262,26 @@ export class HighlightElement extends HTMLElement {
  */
 if (
 	typeof customElements !== 'undefined' &&
-	!customElements.get('syntax-highlight')
+	!customElements.get('syntax-code')
 ) {
-	customElements.define('syntax-highlight', HighlightElement);
+	customElements.define('syntax-code', CodeElement);
 }
 
 /**
- * Compatibility layer - auto-upgrade existing code blocks
+ * Compatibility layer - upgrade existing code blocks to web components
  */
-export function autoUpgrade(
-	selector = 'code[lang], code[class*="language-"], code[class*="brush-"]',
-	syntax = null
-) {
+export function upgradeAll(selector, syntax = null) {
 	const elements = document.querySelectorAll(selector);
 
 	for (const element of elements) {
-		// Skip if already highlighted or is inside a syntax-highlight
-		if (
-			element.classList.contains('highlighted') ||
-			element.closest('syntax-highlight')
-		) {
-			continue;
-		}
-
-		// Create a syntax-highlight wrapper
-		const wrapper = document.createElement('syntax-highlight');
+		// Create a syntax-code wrapper
+		const wrapper = document.createElement('syntax-code');
 		if (syntax) {
 			wrapper.syntax = syntax;
 		}
 
 		// Try to detect language from various sources
-		let language =
-			element.getAttribute('lang') || element.getAttribute('language');
+		let language = element.getAttribute('lang') || element.getAttribute('language');
 
 		if (!language) {
 			// Check class names
@@ -297,13 +299,14 @@ export function autoUpgrade(
 			wrapper.setAttribute('language', language);
 		}
 
-		// Move the code content
+		// Copy the code content into the wrapper
 		wrapper.textContent = element.textContent;
 
-		// Replace the element
-		element.parentNode.replaceChild(wrapper, element);
+		// Replace <code> with <syntax-code>, leaving <pre> parent in place
+		const parent = element.parentElement;
+		parent.replaceChild(wrapper, element);
 	}
 }
 
 export {Syntax};
-export default HighlightElement;
+export default CodeElement;

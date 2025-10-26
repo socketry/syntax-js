@@ -13,7 +13,7 @@
 	<h1>Diff/Patch Syntax Highlighting</h1>
 	
 	<h2>Git Diff Example</h2>
-	<syntax-highlight language="diff">
+	<syntax-code language="diff">
 diff --git a/src/server.js b/src/server.js
 index 1234567..abcdefg 100644
 --- a/src/server.js
@@ -31,10 +31,10 @@ index 1234567..abcdefg 100644
    await database.connect();
    app.listen(PORT, () => {
      console.log(`Server running on port ${PORT}`);
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>File Modification</h2>
-	<syntax-highlight language="patch">
+	<syntax-code language="patch">
 --- a/README.md
 +++ b/README.md
 @@ -15,6 +15,7 @@ Installation
@@ -46,10 +46,10 @@ index 1234567..abcdefg 100644
  ## Usage
  
  Import and use the syntax highlighter:
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Multiple Chunks</h2>
-	<syntax-highlight language="diff">
+	<syntax-code language="diff">
 diff --git a/config.json b/config.json
 --- a/config.json
 +++ b/config.json
@@ -71,10 +71,10 @@ diff --git a/config.json b/config.json
 +    "axios": "^1.6.0"
    }
  }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Code Refactoring</h2>
-	<syntax-highlight language="diff">
+	<syntax-code language="diff">
 --- a/utils/helpers.js
 +++ b/utils/helpers.js
 @@ -10,15 +10,18 @@ export function processData(data) {
@@ -100,10 +100,10 @@ diff --git a/config.json b/config.json
 +  // Use locale-aware formatting
 +  return new Intl.DateTimeFormat('en-US').format(date);
  }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Bug Fix</h2>
-	<syntax-highlight language="patch">
+	<syntax-code language="patch">
 diff --git a/src/validator.js b/src/validator.js
 index abc123..def456 100644
 --- a/src/validator.js
@@ -116,6 +116,6 @@ index abc123..def456 100644
 +  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
    return regex.test(email);
  }
-	</syntax-highlight>
+	</syntax-code>
 </body>
 </html>

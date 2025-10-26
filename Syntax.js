@@ -78,16 +78,16 @@ export class Syntax {
 	 *
 	 * @param {Object} options - Configuration options
 	 * @param {Syntax} options.syntax - Syntax instance to use (defaults to Syntax.default)
-	 * @param {boolean} options.autoUpgrade - Whether to automatically upgrade existing elements (default: true)
-	 * @param {string} options.selector - CSS selector for auto-upgrade (default: 'code[lang], code[class*="language-"], code[class*="brush-"]')
+	 * @param {boolean} options.upgradeAll - Whether to automatically upgrade existing elements (default: true)
+	 * @param {string} options.selector - CSS selector for upgrading (default: 'code[class*="language-"]')
 	 * @param {string} options.root - Base URL for loading language modules (default: auto-detected)
 	 * @returns {Promise<void>}
 	 */
 	static async highlight(options = {}) {
 		const {
 			syntax = Syntax.default,
-			autoUpgrade = true,
-			selector = 'code[lang], code[class*="language-"], code[class*="brush-"]',
+			upgradeAll: shouldUpgradeAll = true,
+			selector = 'code[class*="language-"]',
 			root = null
 		} = options;
 
@@ -100,17 +100,17 @@ export class Syntax {
 		}
 
 		// Import and register the web component:
-		const {HighlightElement, autoUpgrade: upgradeFunction} = await import('./Syntax/HighlightElement.js');
+		const {CodeElement, upgradeAll} = await import('./Syntax/CodeElement.js');
 
-		if (!customElements.get('syntax-highlight')) {
-			customElements.define('syntax-highlight', HighlightElement);
+		if (!customElements.get('syntax-code')) {
+			customElements.define('syntax-code', CodeElement);
 		}
 
-		// Auto-upgrade existing code blocks if requested:
-		if (autoUpgrade) {
-			if (upgradeFunction) {
-				// Use the autoUpgrade function with the selector:
-				upgradeFunction(selector, syntax);
+		// Upgrade existing code blocks if requested:
+		if (shouldUpgradeAll) {
+			if (upgradeAll) {
+				// Use the upgradeAll function with the selector:
+				upgradeAll(selector, syntax);
 			} else {
 				// Fallback to customElements.upgrade if the function isn't available:
 				customElements.upgrade(document.body);

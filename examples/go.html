@@ -13,7 +13,7 @@
 	<h1>Go Syntax Highlighting</h1>
 	
 	<h2>Hello World</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import "fmt"
@@ -21,10 +21,10 @@ import "fmt"
 func main() {
 	fmt.Println("Hello, World!")
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Variables and Types</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import "fmt"
@@ -58,10 +58,10 @@ func main() {
 	
 	fmt.Printf("Name: %s, Version: %.2f, Awesome: %v\n", name, version, isAwesome)
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Structs and Methods</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import "fmt"
@@ -89,10 +89,10 @@ func main() {
 	person.UpdateAge(31)
 	fmt.Println(person.Greet())
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Interfaces</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import (
@@ -141,10 +141,10 @@ func main() {
 	printShapeInfo(circle)
 	printShapeInfo(rectangle)
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Goroutines and Channels</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import (
@@ -181,10 +181,10 @@ func main() {
 		<-results
 	}
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Error Handling</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import (
@@ -223,10 +223,10 @@ func main() {
 	// This would panic without the recover above
 	// panic("Something went wrong!")
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Slices and Maps</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import "fmt"
@@ -266,10 +266,10 @@ func main() {
 	
 	delete(ages, "Bob")
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Control Flow</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import "fmt"
@@ -326,10 +326,10 @@ func main() {
 		fmt.Printf("Unknown type\n")
 	}
 }
-	</syntax-highlight>
+	</syntax-code>
 
 	<h2>Constants and Iota</h2>
-	<syntax-highlight language="go">
+	<syntax-code language="go">
 package main
 
 import "fmt"
@@ -375,6 +375,6 @@ func main() {
 	fmt.Println("False:", false)
 	fmt.Println("Nil:", nil)
 }
-	</syntax-highlight>
+	</syntax-code>
 </body>
 </html>

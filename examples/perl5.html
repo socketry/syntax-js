@@ -11,14 +11,14 @@
 	<h1>Perl 5 Syntax Examples</h1>
 
 	<h2>Hello World</h2>
-	<syntax-highlight language="perl5">#!/usr/bin/perl
+	<syntax-code language="perl5">#!/usr/bin/perl
 use strict;
 use warnings;
 
-print "Hello, World!\n";</syntax-highlight>
+print "Hello, World!\n";</syntax-code>
 
 	<h2>Variables</h2>
-	<syntax-highlight language="perl5"># Scalar variables (single values)
+	<syntax-code language="perl5"># Scalar variables (single values)
 my $name = "Alice";
 my $age = 30;
 my $pi = 3.14159;
@@ -36,10 +36,10 @@ my %person = (
 
 # Special variables
 print $_ for @colors;    # $_ is the default variable
-my $args = @ARGV;        # @ARGV contains command-line arguments</syntax-highlight>
+my $args = @ARGV;        # @ARGV contains command-line arguments</syntax-code>
 
 	<h2>Control Flow</h2>
-	<syntax-highlight language="perl5"># If-elsif-else
+	<syntax-code language="perl5"># If-elsif-else
 my $score = 85;
 if ($score >= 90) {
 	print "A grade\n";
@@ -58,10 +58,10 @@ unless ($score < 60) {
 
 # Postfix conditionals
 print "High score\n" if $score > 90;
-print "Low score\n" unless $score > 50;</syntax-highlight>
+print "Low score\n" unless $score > 50;</syntax-code>
 
 	<h2>Loops</h2>
-	<syntax-highlight language="perl5"># For loop
+	<syntax-code language="perl5"># For loop
 for (my $i = 0; $i < 5; $i++) {
 	print "$i ";
 }
@@ -91,10 +91,10 @@ foreach my $num (1..10) {
 	last if $num > 5;        # Exit loop
 	next if $num % 2 == 0;   # Skip to next iteration
 	print "$num ";
-}</syntax-highlight>
+}</syntax-code>
 
 	<h2>Subroutines</h2>
-	<syntax-highlight language="perl5"># Basic subroutine
+	<syntax-code language="perl5"># Basic subroutine
 sub greet {
 	my ($name) = @_;
 	print "Hello, $name!\n";
@@ -127,10 +127,10 @@ sub get_stats {
 	return ($sum, $avg);
 }
 
-my ($total, $average) = get_stats(1, 2, 3, 4, 5);</syntax-highlight>
+my ($total, $average) = get_stats(1, 2, 3, 4, 5);</syntax-code>
 
 	<h2>Arrays</h2>
-	<syntax-highlight language="perl5">my @array = (1, 2, 3, 4, 5);
+	<syntax-code language="perl5">my @array = (1, 2, 3, 4, 5);
 
 # Array operations
 push @array, 6;           # Add to end
@@ -152,10 +152,10 @@ for my $i (0..$#array) {
 
 # Join and split
 my $str = join(", ", @array);
-my @words = split(/\s+/, "hello world from perl");</syntax-highlight>
+my @words = split(/\s+/, "hello world from perl");</syntax-code>
 
 	<h2>Hashes</h2>
-	<syntax-highlight language="perl5">my %hash = (
+	<syntax-code language="perl5">my %hash = (
 	name => "Alice",
 	age => 30,
 	city => "London"
@@ -183,10 +183,10 @@ foreach my $key (keys %hash) {
 }
 
 # Hash slicing
-my @values = @hash{qw(name age)};</syntax-highlight>
+my @values = @hash{qw(name age)};</syntax-code>
 
 	<h2>Regular Expressions</h2>
-	<syntax-highlight language="perl5">my $text = "The quick brown fox";
+	<syntax-code language="perl5">my $text = "The quick brown fox";
 
 # Matching
 if ($text =~ /quick/) {
@@ -212,10 +212,10 @@ if ($text =~ /(\w+) (\w+)/) {
 my @words = split(/\s+/, $text);
 
 # Match operator variations
-my $count = ($text =~ tr/a-z/A-Z/);  # Transliterate</syntax-highlight>
+my $count = ($text =~ tr/a-z/A-Z/);  # Transliterate</syntax-code>
 
 	<h2>File I/O</h2>
-	<syntax-highlight language="perl5"># Open file for reading
+	<syntax-code language="perl5"># Open file for reading
 open my $fh, "<", "input.txt" or die "Cannot open: $!";
 while (my $line = <$fh>) {
 	chomp $line;  # Remove newline
@@ -242,10 +242,10 @@ close $fh2;
 my @content = do {
 	open my $f, "<", "file.txt" or die $!;
 	<$f>;
-};</syntax-highlight>
+};</syntax-code>
 
 	<h2>References</h2>
-	<syntax-highlight language="perl5"># Array reference
+	<syntax-code language="perl5"># Array reference
 my @array = (1, 2, 3);
 my $arrayref = \@array;
 print $arrayref->[0];      # Access element
@@ -265,10 +265,10 @@ my $anonhash = {a => 1, b => 2};
 
 # Reference to subroutine
 my $subref = \&greet;
-$subref->("Alice");        # Call through reference</syntax-highlight>
+$subref->("Alice");        # Call through reference</syntax-code>
 
 	<h2>Object-Oriented Programming</h2>
-	<syntax-highlight language="perl5">package Person;
+	<syntax-code language="perl5">package Person;
 
 sub new {
 	my ($class, %args) = @_;
@@ -298,10 +298,10 @@ package main;
 
 my $person = Person->new(name => "Alice", age => 30);
 $person->greet();
-$person->set_age(31);</syntax-highlight>
+$person->set_age(31);</syntax-code>
 
 	<h2>Map and Grep</h2>
-	<syntax-highlight language="perl5">my @numbers = (1, 2, 3, 4, 5);
+	<syntax-code language="perl5">my @numbers = (1, 2, 3, 4, 5);
 
 # Map: transform each element
 my @doubled = map { $_ * 2 } @numbers;
@@ -314,10 +314,10 @@ my @large = grep { $_ > 3 } @numbers;
 # Combine map and grep
 my @result = map { $_ * 10 }
              grep { $_ % 2 == 0 }
-             (1..10);</syntax-highlight>
+             (1..10);</syntax-code>
 
 	<h2>Error Handling</h2>
-	<syntax-highlight language="perl5"># Die for fatal errors
+	<syntax-code language="perl5"># Die for fatal errors
 die "Fatal error!" unless $condition;
 die "Cannot open file: $!" unless open my $fh, "<", "file.txt";
 
@@ -340,10 +340,10 @@ eval {
 } or do {
 	my $error = $@;
 	handle_error($error);
-};</syntax-highlight>
+};</syntax-code>
 
 	<h2>Special Operators</h2>
-	<syntax-highlight language="perl5"># Spaceship operator (three-way comparison)
+	<syntax-code language="perl5"># Spaceship operator (three-way comparison)
 my $cmp = $a <=> $b;  # Returns -1, 0, or 1
 
 # String comparison
@@ -371,10 +371,10 @@ my $value = $input // "default";
 # Smart match (Perl 5.10+)
 if ($value ~~ @array) {
 	print "Value is in array\n";
-}</syntax-highlight>
+}</syntax-code>
 
 	<h2>Modules and Packages</h2>
-	<syntax-highlight language="perl5">package MyModule;
+	<syntax-code language="perl5">package MyModule;
 use strict;
 use warnings;
 
@@ -395,10 +395,10 @@ sub function2 {
 
 package main;
 use MyModule;
-function1();</syntax-highlight>
+function1();</syntax-code>
 
 	<h2>Built-in Functions</h2>
-	<syntax-highlight language="perl5"># String functions
+	<syntax-code language="perl5"># String functions
 my $upper = uc("hello");       # Uppercase
 my $lower = lc("HELLO");       # Lowercase
 my $len = length("hello");     # String length
@@ -421,7 +421,7 @@ my $sin = sin(3.14159);
 # Type checking
 my $isdef = defined $var;
 my $exists = exists $hash{key};
-my $type = ref $var;         # Returns type of reference</syntax-highlight>
+my $type = ref $var;         # Returns type of reference</syntax-code>
 
 	<script type="module">
 		import Syntax from '../Syntax.js';

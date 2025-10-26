@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wrap Attribute Demo - @socketry/syntax</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 2rem;
+			background: #f5f5f5;
+		}
+		
+		h1 {
+			color: #333;
+			border-bottom: 2px solid #4ec9b0;
+			padding-bottom: 0.5rem;
+		}
+		
+		h2 {
+			color: #569cd6;
+			margin-top: 2rem;
+		}
+		
+		.example {
+			margin: 2rem 0;
+			background: white;
+			padding: 1.5rem;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		
+		.description {
+			margin-bottom: 1rem;
+			color: #666;
+		}
+		
+		/* Style the <pre> elements */
+		pre {
+			background: #f8f8f8;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			padding: 1rem;
+			overflow: auto;
+			max-width: 100%;
+		}
+		
+		/* Inline code */
+		p syntax-code {
+			background: #f0f0f0;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-family: 'Monaco', 'Courier New', monospace;
+		}
+		
+		.note {
+			background: #fffbea;
+			border-left: 4px solid #f59e0b;
+			padding: 1rem;
+			margin: 1rem 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>Wrap Attribute Demo</h1>
+	
+	<div class="note">
+		<strong>Note:</strong> The <code>wrap</code> attribute is automatically detected:
+		<ul>
+			<li><code>&lt;pre&gt;&lt;syntax-code&gt;</code> → <code>wrap="true"</code> (flex layout for line wrapping)</li>
+			<li><code>&lt;syntax-code&gt;</code> alone → no wrap (horizontal scrolling)</li>
+		</ul>
+	</div>
+	
+	<div class="example">
+		<h2>Block Code (inside &lt;pre&gt;) - with wrap</h2>
+		<p class="description">
+			This code is inside a <code>&lt;pre&gt;</code> tag. The <code>wrap</code> attribute 
+			will be automatically set, enabling flex layout for proper line wrapping.
+		</p>
+		
+		<pre><code class="language-javascript">
+// This is a really long line of code that demonstrates how the wrap attribute enables line wrapping with proper indentation preservation
+function processUserData(userId, options = { verbose: true, timeout: 5000, retries: 3 }) {
+	const result = await fetchData(`/api/users/${userId}`, { method: 'GET', headers: { 'Authorization': `Bearer ${token}` } });
+	return result;
+}
+		</code></pre>
+	</div>
+	
+	<div class="example">
+		<h2>Inline Code - without wrap (scrolling)</h2>
+		<p class="description">
+			When used inline, like <syntax-code language="javascript">const x = 1; const y = 2; const z = 3;</syntax-code>, 
+			the element doesn't have <code>wrap</code> set, so it will scroll horizontally if needed.
+		</p>
+		
+		<p>
+			Here's a longer inline example: 
+			<syntax-code language="javascript">const reallyLongVariableName = await fetchSomethingFromTheServer({ timeout: 5000, retries: 3 });</syntax-code>
+			and it continues in the paragraph.
+		</p>
+	</div>
+	
+	<div class="example">
+		<h2>Manual wrap Attribute</h2>
+		<p class="description">
+			You can also manually set the <code>wrap</code> attribute:
+		</p>
+		
+		<syntax-code language="python" wrap>
+# This has wrap="true" manually set
+def process_data(items):
+    return [transform_item(item, options={'verbose': True, 'deep': True}) for item in items if item.is_valid()]
+		</syntax-code>
+	</div>
+	
+	<div class="example">
+		<h2>Block Code without wrap (scrolling)</h2>
+		<p class="description">
+			You can disable wrapping even in a block by setting <code>wrap="false"</code>:
+		</p>
+		
+		<pre><syntax-code language="javascript">
+// This will scroll horizontally instead of wrapping
+const configuration = { api: 'https://api.example.com', timeout: 5000, retries: 3, headers: { 'Authorization': 'Bearer token123' } };
+		</syntax-code></pre>
+	</div>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		
+		// Auto-upgrade existing code blocks to syntax-code elements
+		await Syntax.highlight({
+			upgradeAll: true,
+			selector: 'code[class*="language-"]'
+		});
+		
+		// Log which elements have wrap attribute
+		setTimeout(() => {
+			const allSyntaxCode = document.querySelectorAll('syntax-code');
+			console.log('Syntax code elements:');
+			allSyntaxCode.forEach((el, i) => {
+				console.log(`  [${i}] wrap=${el.hasAttribute('wrap')}, parent=${el.parentElement?.tagName}`);
+			});
+		}, 500);
+	</script>
+</body>
+</html>

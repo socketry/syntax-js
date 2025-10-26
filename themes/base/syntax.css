@@ -3,34 +3,34 @@
    Supports both light (default) and dark modes via prefers-color-scheme.
    Per-language files (language-*.css) can override or extend these styles. */
 
+/* When wrap attribute is present (block mode, typically inside <pre>),
+   enable line wrapping with flex layout */
+:host([wrap]) code.syntax > span {
+	display: flex;
+}
+
+/* When wrap attribute is absent (inline mode),
+   enable horizontal scrolling */
+:host(:not([wrap])) {
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
 code.syntax {
-  display: block;
-  background: #f5f5f5;
-  color: #24292e;
-  padding: 1rem;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  
-  tab-size: 2;
+	color: #24292e;
+	tab-size: 2;
 }
 
-code.syntax > span {
-  display: flex;
+:host([wrap]) code.syntax .indent {
+	flex-grow: 0;
+	flex-shrink: 0;
+	opacity: 0.5;
 }
 
-code.syntax .indent {
-  flex-grow: 0;
-  flex-shrink: 0;
-  opacity: 0.5;
-}
-
-code.syntax .text {
-  white-space: pre-wrap;
-  padding-left: 2ch;
-  text-indent: -2ch;
+:host([wrap]) code.syntax .text {
+	white-space: pre-wrap;
+	padding-left: 2ch;
+	text-indent: -2ch;
 }
 
 /* Light mode colors (default) */
@@ -54,22 +54,11 @@ code.syntax .entity { color: #000080; }
 code.syntax .doctype { color: #a90d91; }
 code.syntax .cdata { color: #5d6c79; }
 
-/* Link support */
-code.syntax a {
-  text-decoration: none;
-  color: inherit;
-}
-
-code.syntax .href {
-  color: #0000ff;
-  text-decoration: underline;
-}
-
 /* Dark mode colors */
 @media (prefers-color-scheme: dark) {
   code.syntax {
     background: #282c34;
-    color: #abb2bf;
+    /* color: #abb2bf; */
   }
   
   code.syntax .keyword { color: #c678dd; font-weight: bold; }
@@ -91,9 +80,4 @@ code.syntax .href {
   code.syntax .entity { color: #56b6c2; }
   code.syntax .doctype { color: #c678dd; }
   code.syntax .cdata { color: #5c6370; }
-  
-  code.syntax .href {
-    color: #61afef;
-    text-decoration: underline;
-  }
 }

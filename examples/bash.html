@@ -8,7 +8,7 @@
 <body>
 	<h1>Bash Script Syntax Highlighting</h1>
 	
-	<syntax-highlight language="bash-script">
+	<syntax-code language="bash-script">
 #!/bin/bash
 
 # Backup Script with Error Handling
@@ -68,7 +68,7 @@ create_backup "${SOURCE_DIR}" "${BACKUP_DIR}/${BACKUP_FILE}"
 find "${BACKUP_DIR}" -name "backup_*.tar.gz" -mtime +7 -delete
 
 log_message "Backup process completed"
-	</syntax-highlight>
+	</syntax-code>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';
