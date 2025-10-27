@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Markdown Examples - @socketry/syntax</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 2rem;
+			background: #f5f5f5;
+		}
+		
+		h1 {
+			color: #333;
+			border-bottom: 2px solid #4ec9b0;
+			padding-bottom: 0.5rem;
+		}
+		
+		.example {
+			margin: 2rem 0;
+			background: white;
+			padding: 1.5rem;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		
+		h2 {
+			color: #569cd6;
+			margin-top: 0;
+		}
+		
+		.description {
+			margin-bottom: 1rem;
+			color: #666;
+		}
+		
+		pre {
+			background: #f8f8f8;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			padding: 1rem;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<h1>Markdown Examples</h1>
+	
+	<div class="example">
+		<h2>Complete Markdown Document</h2>
+		<p class="description">A full markdown document with various elements:</p>
+		
+		<pre><code class="language-markdown"># Main Heading
+
+This is a paragraph with **bold text**, *italic text*, and `inline code`.
+
+## Subheading
+
+Here's a [link to example](https://example.com) and an ![image](image.png).
+
+### Code Block
+
+```javascript
+const greeting = "Hello, World!";
+console.log(greeting);
+```
+
+### Lists
+
+- Unordered item 1
+- Unordered item 2
+  - Nested item
+
+1. Ordered item 1
+2. Ordered item 2
+
+### Blockquote
+
+> This is a quoted text.
+> It can span multiple lines.
+
+---
+
+That's a horizontal rule above.
+</code></pre>
+	</div>
+	
+	<div class="example">
+		<h2>Headers</h2>
+		<p class="description">Different heading levels:</p>
+		
+		<pre><code class="language-markdown"># Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+</code></pre>
+	</div>
+	
+	<div class="example">
+		<h2>Text Formatting</h2>
+		<p class="description">Bold, italic, and code:</p>
+		
+		<pre><code class="language-markdown">**Bold with asterisks**
+__Bold with underscores__
+
+*Italic with asterisks*
+_Italic with underscores_
+
+`Inline code`
+
+```
+Code block
+Multiple lines
+```
+</code></pre>
+	</div>
+	
+	<div class="example">
+		<h2>Links and Images</h2>
+		<p class="description">Markdown link and image syntax (links are clickable!):</p>
+		
+		<pre><code class="language-markdown">[Link text](https://example.com)
+[Link with title](https://example.com "Title")
+
+![Alt text](image.png)
+![Image with title](image.png "Image Title")
+
+Plain URLs are also clickable:
+https://github.com/socketry/syntax-js
+http://example.com/path?query=value
+</code></pre>
+	</div>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		import registerMarkdown from '../Syntax/Language/markdown.js';
+		
+		// Register the Markdown language
+		registerMarkdown(Syntax.default);
+		
+		// Automatically upgrade code blocks
+		document.addEventListener('DOMContentLoaded', async function() {
+			await Syntax.highlight();
+		});
+	</script>
+</body>
+</html>

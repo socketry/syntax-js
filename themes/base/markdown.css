@@ -1,0 +1,12 @@
+/* Markdown syntax highlighting theme
+ * 
+ * Markdown uses standard token types from the base theme:
+ * - keyword: Headers, bold/italic markers
+ * - operator: List markers, horizontal rules
+ * - constant: Code blocks and inline code
+ * - string: Link text, image alt text
+ * - function: URLs
+ * - comment: Blockquotes
+ * 
+ * All styling is inherited from syntax.css
+ */
