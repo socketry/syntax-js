@@ -39,7 +39,8 @@ language.push({
 
 // Inline code
 language.push({
-	pattern: /`([^`]+)`/,
+	// Do not allow newlines inside inline code to avoid spanning across blocks/fences:
+	pattern: /`([^`\n\r]+)`/,
 	type: 'code'
 });
 
@@ -109,3 +110,18 @@ export default function register(syntax) {
 	syntax.register('markdown', language);
 	syntax.alias('markdown', ['md']);
 }
+
+// Ensure inline code renders without backtick delimiters
+// and avoid processing inner content of code spans.
+language.processes.code = function (container, match) {
+	// If it's a fenced code block (```), leave as-is for now:
+	const text = container.textContent || '';
+	if (text.startsWith('```')) return container;
+
+	// Inline code uses single backticks: strip the surrounding delimiters.
+	if (text.length >= 2 && text[0] === '`' && text[text.length - 1] === '`') {
+		container.textContent = text.slice(1, -1);
+	}
+
+	return container;
+};

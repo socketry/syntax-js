@@ -138,3 +138,26 @@ test('Markdown can match ordered lists', async () => {
 	
 	assertToken(code, matches, 'list-marker', '1. ');
 });
+
+test('Markdown: fenced block followed by inline code does not merge', async () => {
+	const syntax = new Syntax();
+	registerMarkdown(syntax);
+	const language = await syntax.getLanguage('markdown');
+
+	const code = "```\nfoo\n```\n\n`project`";
+	const matches = await language.getMatches(syntax, code);
+
+	// Expect a fenced code block token:
+	assertToken(code, matches, 'code', '```\nfoo\n```');
+
+	// Expect a separate inline code token for `project`:
+	assertToken(code, matches, 'code', '`project`');
+
+	// Ensure there is no token that incorrectly spans the fence backticks
+	// and the following inline backtick (e.g., "````" boundary merge):
+	const badSpan = matches.find(m =>
+		m.type === 'code' &&
+		code.substring(m.offset, m.offset + m.length).includes('````')
+	);
+	assert.strictEqual(badSpan, undefined);
+});
