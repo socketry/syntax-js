@@ -93,6 +93,8 @@ const keywords = [
 
 // Operators - ordered longest to shortest
 const operators = [
+	'...',
+	'..<',
 	'->',
 	'+',
 	'*',

@@ -5,14 +5,16 @@ import {Match} from '../Match.js';
 const language = new Language('ruby');
 
 // Ruby-style function definitions and method calls (def foo, .bar)
+// Method names can end with ? or !
 const rubyStyleFunction = {
-	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]+)/i,
+	pattern: /(?:def\s+|\.)([a-z_][a-z0-9_]*[?!]?)/i,
 	matches: Rule.extractMatches({type: 'function'})
 };
 
 // Emulate negative lookbehind to avoid matching ::symbol (only match :symbol not ::symbol)
+// Symbols can also end with ? or !
 const rubyStyleSymbol = {
-	pattern: /([:]?):\w+/,
+	pattern: /([:]?):\w+[?!]?/,
 	type: 'constant',
 	matches: function (/* syntax */ _syntax, match, expr) {
 		// If there is a preceding ':' captured, skip (handles '::symbol').
@@ -62,7 +64,7 @@ const keywords = [
 	'block_given?'
 ];
 
-const operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>'];
+const operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>', '...', '..'];
 const values = ['self', 'super', 'true', 'false', 'nil'];
 const access = ['private', 'protected', 'public'];
 
