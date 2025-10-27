@@ -237,21 +237,15 @@ export class Syntax {
 		} catch (error) {
 			throw new LanguageLoadError(name, path, {cause: error});
 		}
-
-		// After the module is imported, aliases may have been registered by another concurrent load.
-		// Re-resolve the name and return the existing language if it's now available to avoid
-		// invoking the factory multiple times.
-		const resolvedName = this.#aliases[name] || name;
-		if (loader.has(resolvedName)) {
-			return loader.get(resolvedName);
-		}
-
+		
 		// If the module exports a register function, call it with this instance
 		if (typeof module.default === 'function') {
 			module.default(this);
-			// After calling register, the language should now be in the loader:
-			return loader.get(resolvedName);
 		}
+		
+		// After calling register, aliases have been registered. Re-resolve the name:
+		let resolvedName = this.#aliases[name] || name;
+		return loader.get(resolvedName);
 	}
 
 	/**
