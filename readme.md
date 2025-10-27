@@ -117,3 +117,46 @@ const reallyLongLine = "This will wrap instead of scroll";
 const code = "This will scroll horizontally";
 </syntax-code></pre>
 ```
+
+## Command Line Tool
+
+A simple CLI tool is included to inspect the AST (Abstract Syntax Tree) of parsed code:
+
+```bash
+node bin/syntax-ast.js <language> <code>
+```
+
+Examples:
+
+```bash
+# Parse JavaScript
+node bin/syntax-ast.js javascript "const x = 1;"
+
+# Parse Markdown
+node bin/syntax-ast.js markdown '`inline code`'
+
+# Parse Python
+node bin/syntax-ast.js python "def foo(): pass"
+```
+
+Output shows all matched tokens with their type, position, length, and text:
+
+```
+Language: javascript
+Code: "const x = 1;"
+
+Matches: 3
+────────────────────────────────────────────────────────────────────────────────
+[keyword] @0..5 (5 chars)
+  Text: "const"
+[operator] @8..9 (1 chars)
+  Text: "="
+[constant] @10..11 (1 chars)
+  Text: "1"
+```
+
+This is useful for:
+- Debugging language definitions
+- Understanding how code is tokenized
+- Testing pattern matching
+- Developing new language support
