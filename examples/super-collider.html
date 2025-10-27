@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SuperCollider Syntax Example</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/super-collider.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SuperCollider Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>SuperCollider Syntax Highlighting</h1>
+	<header>
+		<h1>SuperCollider Examples</h1>
+		<p class="subtitle">SuperCollider syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>SuperCollider Syntax Highlighting</h1>
 	
 	<syntax-code language="super-collider">
 // Basic SynthDef example
@@ -35,6 +45,7 @@ var x = 123.45; var y = 0xFF; x = x + y * 2;
 // Method chains
 x.squared.clip(0, 1);
 	</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';

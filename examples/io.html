@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8"/>
-		<title>Io Code Example</title>
-		
-		<link rel="stylesheet" href="../themes/base/syntax.css" />
-		<link rel="stylesheet" href="../themes/base/io.css" />
-		<script type="module" src="../Syntax.js"></script>
-	</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Io Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
+</head>
 	<body>
-		<h1>Io Code Example</h1>
+	<header>
+		<h1>Io Examples</h1>
+		<p class="subtitle">Io syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Io Code Example</h1>
 		
 		<p>Io is a prototype-based programming language inspired by Smalltalk, Self, Lua, and others.</p>
 		
+		<div class="example">
 		<h2>Basic Syntax</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Comments start with hash
 // C++-style comments also work
 /* C-style block comments */
@@ -30,7 +40,10 @@ x ::= 42
 x println
 </code></pre>
 
+		<div class="example">
 		<h2>Objects and Cloning</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Everything is an object
 # Create a new object by cloning
 Person := Object clone
@@ -54,7 +67,10 @@ alice greet
 bob := Person clone setName("Bob") setAge(25)
 </code></pre>
 
+		<div class="example">
 		<h2>Methods</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Method with parameters
 add := method(a, b,
 	a + b
@@ -82,7 +98,10 @@ factorial := method(n,
 factorial(5) println  # Output: 120
 </code></pre>
 
+		<div class="example">
 		<h2>Control Structures</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># if-then-else
 x := 10
 if(x > 0,
@@ -124,7 +143,10 @@ for(i, 1, 10,
 )
 </code></pre>
 
+		<div class="example">
 		<h2>Lists</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Create a list
 numbers := list(1, 2, 3, 4, 5)
 
@@ -167,7 +189,10 @@ sum := numbers reduce(total, num, total + num, 0)
 # Result: 15
 </code></pre>
 
+		<div class="example">
 		<h2>Maps (Dictionaries)</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Create a map
 person := Map clone
 person atPut("name", "Alice")
@@ -199,7 +224,10 @@ person foreach(key, value,
 person removeAt("city")
 </code></pre>
 
+		<div class="example">
 		<h2>Strings</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># String literals
 greeting := "Hello, World!"
 name := 'Alice'
@@ -233,7 +261,10 @@ text slice(0, 5) println   # Output: Hello
 text slice(7) println      # Output: World!
 </code></pre>
 
+		<div class="example">
 		<h2>Numbers and Math</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Integers and floats
 x := 42
 y := 3.14
@@ -264,7 +295,10 @@ Number random println      # Random float 0-1
 (1 to(100)) random println # Random int 1-100
 </code></pre>
 
+		<div class="example">
 		<h2>Blocks and Closures</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Block (like lambda/anonymous function)
 square := block(x, x * x)
 square call(5) println  # Output: 25
@@ -288,7 +322,10 @@ list(1, 2, 3, 4, 5) map(block(x, x * 2)) println
 # Output: list(2, 4, 6, 8, 10)
 </code></pre>
 
+		<div class="example">
 		<h2>Inheritance and Prototypes</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Base object
 Animal := Object clone
 Animal name := "Unknown"
@@ -315,7 +352,10 @@ fido proto == Dog  # true
 Dog proto == Animal  # true
 </code></pre>
 
+		<div class="example">
 		<h2>Exception Handling</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># try-catch
 result := try(
 	# Code that might raise exception
@@ -341,7 +381,10 @@ try(
 )
 </code></pre>
 
+		<div class="example">
 		<h2>File I/O</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Read file
 contents := File with("data.txt") contents
 
@@ -363,7 +406,10 @@ Directory with(".") items foreach(item,
 )
 </code></pre>
 
+		<div class="example">
 		<h2>Advanced Examples</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Fibonacci sequence
 fibonacci := method(n,
 	if(n <= 1,
@@ -463,7 +509,10 @@ subject notifyObservers
 # Observer notified!
 </code></pre>
 
+		<div class="example">
 		<h2>Metaprogramming</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-io"># Get list of slots (methods/attributes)
 Person slotNames println
 

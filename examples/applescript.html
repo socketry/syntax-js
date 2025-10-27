@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>AppleScript Syntax Example</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/applescript.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AppleScript Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>AppleScript Syntax Highlighting</h1>
+	<header>
+		<h1>AppleScript Examples</h1>
+		<p class="subtitle">AppleScript syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>AppleScript Syntax Highlighting</h1>
 	
 	<syntax-code language="applescript">
 -- File Management Script
@@ -51,6 +61,7 @@ end tell
 set myString to "Hello, World!"
 set upperString to do shell script "echo " & quoted form of myString & " | tr '[:lower:]' '[:upper:]'"
 	</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>CSS Syntax Example with Color Boxes</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/css.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 	<style>
 		/* Styling for color box visualization */
 		.colour-box {
@@ -23,9 +24,22 @@
 	</style>
 </head>
 <body>
-	<h1>CSS Syntax Highlighting with Color Visualization</h1>
+	<header>
+		<h1>CSS Examples</h1>
+		<p class="subtitle">CSS syntax with color visualization boxes</p>
+	</header>
 	
-	<syntax-code language="css">
+	<nav>
+		<a href="index.html">Back to Examples</a>
+		<a href="html.html">HTML</a>
+		<a href="javascript.html">JavaScript</a>
+	</nav>
+	
+	<div class="example">
+		<h2>Complete CSS Stylesheet</h2>
+		<p class="description">CSS with colors, selectors, media queries, and animations - colors show inline preview boxes:</p>
+		
+		<syntax-code language="css">
 /* CSS Stylesheet Example */
 
 :root {
@@ -147,12 +161,19 @@ input[type="submit"]:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
-	</syntax-code>
+		</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';
+		import registerCSS from '../Syntax/Language/css.js';
 		
-		await Syntax.highlight({ autoUpgrade: true });
+		registerCSS(Syntax.default);
+		
+		await Syntax.highlight({
+			autoUpgrade: true,
+			syntax: Syntax.default
+		});
 	</script>
 </body>
 </html>

@@ -3,17 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Go Syntax Highlighting Example</title>
-	<script type="module">
-		import Syntax from '../Syntax.js';
-		await Syntax.highlight({ autoUpgrade: true });
-	</script>
+	<title>Go Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Go Syntax Highlighting</h1>
+	<header>
+		<h1>Go Examples</h1>
+		<p class="subtitle">Go syntax highlighting</p>
+	</header>
 	
-	<h2>Hello World</h2>
-	<syntax-code language="go">
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Go Syntax Highlighting</h1>
+	
+	<div class="example">
+		<h2>Hello World</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import "fmt"
@@ -23,8 +32,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Variables and Types</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Variables and Types</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import "fmt"
@@ -60,8 +72,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Structs and Methods</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Structs and Methods</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import "fmt"
@@ -91,8 +106,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Interfaces</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Interfaces</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import (
@@ -143,8 +161,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Goroutines and Channels</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Goroutines and Channels</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import (
@@ -183,8 +204,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Error Handling</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Error Handling</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import (
@@ -225,8 +249,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Slices and Maps</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Slices and Maps</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import "fmt"
@@ -268,8 +295,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Control Flow</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Control Flow</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import "fmt"
@@ -328,8 +358,11 @@ func main() {
 }
 	</syntax-code>
 
-	<h2>Constants and Iota</h2>
-	<syntax-code language="go">
+	<div class="example">
+		<h2>Constants and Iota</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="go">
 package main
 
 import "fmt"

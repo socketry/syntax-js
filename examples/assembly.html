@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Assembly Syntax Example</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/assembly.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Assembly Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Assembly Syntax Highlighting</h1>
+	<header>
+		<h1>Assembly Examples</h1>
+		<p class="subtitle">Assembly syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Assembly Syntax Highlighting</h1>
 	
 	<syntax-code language="assembly">
 ; Simple x86 Assembly Example
@@ -53,6 +63,7 @@ mydata:
     dw 0xABCD           ; word
     db 0xFF             ; byte
 	</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';

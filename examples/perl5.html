@@ -3,22 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Perl 5 Syntax Examples</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/perl5.css">
+	<title>Perl 5 Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Perl 5 Syntax Examples</h1>
+	<header>
+		<h1>Perl 5 Examples</h1>
+		<p class="subtitle">Perl 5 syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Perl 5 Syntax Examples</h1>
 
-	<h2>Hello World</h2>
-	<syntax-code language="perl5">#!/usr/bin/perl
+	<div class="example">
+		<h2>Hello World</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">#!/usr/bin/perl
 use strict;
 use warnings;
 
 print "Hello, World!\n";</syntax-code>
 
-	<h2>Variables</h2>
-	<syntax-code language="perl5"># Scalar variables (single values)
+	<div class="example">
+		<h2>Variables</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># Scalar variables (single values)
 my $name = "Alice";
 my $age = 30;
 my $pi = 3.14159;
@@ -38,8 +52,11 @@ my %person = (
 print $_ for @colors;    # $_ is the default variable
 my $args = @ARGV;        # @ARGV contains command-line arguments</syntax-code>
 
-	<h2>Control Flow</h2>
-	<syntax-code language="perl5"># If-elsif-else
+	<div class="example">
+		<h2>Control Flow</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># If-elsif-else
 my $score = 85;
 if ($score >= 90) {
 	print "A grade\n";
@@ -60,8 +77,11 @@ unless ($score < 60) {
 print "High score\n" if $score > 90;
 print "Low score\n" unless $score > 50;</syntax-code>
 
-	<h2>Loops</h2>
-	<syntax-code language="perl5"># For loop
+	<div class="example">
+		<h2>Loops</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># For loop
 for (my $i = 0; $i < 5; $i++) {
 	print "$i ";
 }
@@ -93,8 +113,11 @@ foreach my $num (1..10) {
 	print "$num ";
 }</syntax-code>
 
-	<h2>Subroutines</h2>
-	<syntax-code language="perl5"># Basic subroutine
+	<div class="example">
+		<h2>Subroutines</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># Basic subroutine
 sub greet {
 	my ($name) = @_;
 	print "Hello, $name!\n";
@@ -129,8 +152,11 @@ sub get_stats {
 
 my ($total, $average) = get_stats(1, 2, 3, 4, 5);</syntax-code>
 
-	<h2>Arrays</h2>
-	<syntax-code language="perl5">my @array = (1, 2, 3, 4, 5);
+	<div class="example">
+		<h2>Arrays</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">my @array = (1, 2, 3, 4, 5);
 
 # Array operations
 push @array, 6;           # Add to end
@@ -154,8 +180,11 @@ for my $i (0..$#array) {
 my $str = join(", ", @array);
 my @words = split(/\s+/, "hello world from perl");</syntax-code>
 
-	<h2>Hashes</h2>
-	<syntax-code language="perl5">my %hash = (
+	<div class="example">
+		<h2>Hashes</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">my %hash = (
 	name => "Alice",
 	age => 30,
 	city => "London"
@@ -185,8 +214,11 @@ foreach my $key (keys %hash) {
 # Hash slicing
 my @values = @hash{qw(name age)};</syntax-code>
 
-	<h2>Regular Expressions</h2>
-	<syntax-code language="perl5">my $text = "The quick brown fox";
+	<div class="example">
+		<h2>Regular Expressions</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">my $text = "The quick brown fox";
 
 # Matching
 if ($text =~ /quick/) {
@@ -214,8 +246,11 @@ my @words = split(/\s+/, $text);
 # Match operator variations
 my $count = ($text =~ tr/a-z/A-Z/);  # Transliterate</syntax-code>
 
-	<h2>File I/O</h2>
-	<syntax-code language="perl5"># Open file for reading
+	<div class="example">
+		<h2>File I/O</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># Open file for reading
 open my $fh, "<", "input.txt" or die "Cannot open: $!";
 while (my $line = <$fh>) {
 	chomp $line;  # Remove newline
@@ -244,8 +279,11 @@ my @content = do {
 	<$f>;
 };</syntax-code>
 
-	<h2>References</h2>
-	<syntax-code language="perl5"># Array reference
+	<div class="example">
+		<h2>References</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># Array reference
 my @array = (1, 2, 3);
 my $arrayref = \@array;
 print $arrayref->[0];      # Access element
@@ -267,8 +305,11 @@ my $anonhash = {a => 1, b => 2};
 my $subref = \&greet;
 $subref->("Alice");        # Call through reference</syntax-code>
 
-	<h2>Object-Oriented Programming</h2>
-	<syntax-code language="perl5">package Person;
+	<div class="example">
+		<h2>Object-Oriented Programming</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">package Person;
 
 sub new {
 	my ($class, %args) = @_;
@@ -300,8 +341,11 @@ my $person = Person->new(name => "Alice", age => 30);
 $person->greet();
 $person->set_age(31);</syntax-code>
 
-	<h2>Map and Grep</h2>
-	<syntax-code language="perl5">my @numbers = (1, 2, 3, 4, 5);
+	<div class="example">
+		<h2>Map and Grep</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">my @numbers = (1, 2, 3, 4, 5);
 
 # Map: transform each element
 my @doubled = map { $_ * 2 } @numbers;
@@ -316,8 +360,11 @@ my @result = map { $_ * 10 }
              grep { $_ % 2 == 0 }
              (1..10);</syntax-code>
 
-	<h2>Error Handling</h2>
-	<syntax-code language="perl5"># Die for fatal errors
+	<div class="example">
+		<h2>Error Handling</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># Die for fatal errors
 die "Fatal error!" unless $condition;
 die "Cannot open file: $!" unless open my $fh, "<", "file.txt";
 
@@ -342,8 +389,11 @@ eval {
 	handle_error($error);
 };</syntax-code>
 
-	<h2>Special Operators</h2>
-	<syntax-code language="perl5"># Spaceship operator (three-way comparison)
+	<div class="example">
+		<h2>Special Operators</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># Spaceship operator (three-way comparison)
 my $cmp = $a <=> $b;  # Returns -1, 0, or 1
 
 # String comparison
@@ -373,8 +423,11 @@ if ($value ~~ @array) {
 	print "Value is in array\n";
 }</syntax-code>
 
-	<h2>Modules and Packages</h2>
-	<syntax-code language="perl5">package MyModule;
+	<div class="example">
+		<h2>Modules and Packages</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5">package MyModule;
 use strict;
 use warnings;
 
@@ -397,8 +450,11 @@ package main;
 use MyModule;
 function1();</syntax-code>
 
-	<h2>Built-in Functions</h2>
-	<syntax-code language="perl5"># String functions
+	<div class="example">
+		<h2>Built-in Functions</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="perl5"># String functions
 my $upper = uc("hello");       # Uppercase
 my $lower = lc("HELLO");       # Lowercase
 my $len = length("hello");     # String length
@@ -422,7 +478,8 @@ my $sin = sin(3.14159);
 my $isdef = defined $var;
 my $exists = exists $hash{key};
 my $type = ref $var;         # Returns type of reference</syntax-code>
-
+	</div>
+	
 	<script type="module">
 		import Syntax from '../Syntax.js';
 		await Syntax.highlight({ autoUpgrade: true });

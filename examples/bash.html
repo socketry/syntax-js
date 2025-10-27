@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bash Syntax Example</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/bash.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bash Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Bash Script Syntax Highlighting</h1>
+	<header>
+		<h1>Bash Examples</h1>
+		<p class="subtitle">Bash syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Bash Script Syntax Highlighting</h1>
 	
 	<syntax-code language="bash-script">
 #!/bin/bash
@@ -69,6 +79,7 @@ find "${BACKUP_DIR}" -name "backup_*.tar.gz" -mtime +7 -delete
 
 log_message "Backup process completed"
 	</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';

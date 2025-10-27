@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8"/>
-		<title>OCaml Code Example</title>
-		
-		<link rel="stylesheet" href="../themes/base/syntax.css" />
-		<link rel="stylesheet" href="../themes/base/ocaml.css" />
-		<script type="module" src="../Syntax.js"></script>
-	</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>OCaml Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
+</head>
 	<body>
-		<h1>OCaml Code Example</h1>
+	<header>
+		<h1>OCaml Examples</h1>
+		<p class="subtitle">OCaml syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>OCaml Code Example</h1>
 		
 		<p>OCaml is a powerful functional programming language with strong static typing, pattern matching, and algebraic data types.</p>
 		
+		<div class="example">
 		<h2>Basic Syntax and Variables</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Single variable binding *)
 let x = 42
 
@@ -34,7 +44,10 @@ let counter = ref 0
 let () = counter := !counter + 1
 </code></pre>
 
+		<div class="example">
 		<h2>Functions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Simple function *)
 let square x = x * x
 
@@ -69,7 +82,10 @@ let apply_twice f x = f (f x)
 let result = apply_twice square 2  (* 16 *)
 </code></pre>
 
+		<div class="example">
 		<h2>Pattern Matching</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Basic pattern matching *)
 let describe_number n =
   match n with
@@ -101,7 +117,10 @@ let fib = function
   | n -> fib (n - 1) + fib (n - 2)
 </code></pre>
 
+		<div class="example">
 		<h2>Lists</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* List literals *)
 let empty = []
 let numbers = [1; 2; 3; 4; 5]
@@ -137,7 +156,10 @@ let sum = List.fold_left (+) 0 [1; 2; 3; 4; 5]
 let product = List.fold_right ( * ) [1; 2; 3; 4; 5] 1
 </code></pre>
 
+		<div class="example">
 		<h2>Tuples and Records</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Tuples *)
 let pair = (42, "answer")
 let triple = (1, 2.0, "three")
@@ -176,7 +198,10 @@ let greet person =
       Printf.sprintf "Hello, %s! You are %d years old." name age
 </code></pre>
 
+		<div class="example">
 		<h2>Algebraic Data Types (Variants)</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Simple enumeration *)
 type color = Red | Green | Blue
 
@@ -217,7 +242,10 @@ let parse_int s =
   with Failure _ -> Error "Invalid integer"
 </code></pre>
 
+		<div class="example">
 		<h2>Modules</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Module definition *)
 module Stack = struct
   type 'a t = 'a list
@@ -288,7 +316,10 @@ module Set (Elem : COMPARABLE) = struct
 end
 </code></pre>
 
+		<div class="example">
 		<h2>Polymorphic Functions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Identity function *)
 let id x = x
 
@@ -321,7 +352,10 @@ let rec filter pred = function
       else filter pred xs
 </code></pre>
 
+		<div class="example">
 		<h2>Imperative Features</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* References (mutable cells) *)
 let counter = ref 0
 
@@ -360,7 +394,10 @@ let run () =
   print_endline "Third"
 </code></pre>
 
+		<div class="example">
 		<h2>Exception Handling</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Define exception *)
 exception Invalid_argument of string
 exception Not_found
@@ -391,7 +428,10 @@ let process input =
   | Failure msg -> Error ("Failure: " ^ msg)
 </code></pre>
 
+		<div class="example">
 		<h2>Object-Oriented Programming</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Class definition *)
 class counter init = object (self)
   val mutable count = init
@@ -444,7 +484,10 @@ class counted_stack = object
 end
 </code></pre>
 
+		<div class="example">
 		<h2>Advanced Type Features</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Parametric polymorphism *)
 type 'a option =
   | Some of 'a
@@ -489,7 +532,10 @@ let rec eval : type a. a expr -> a = function
       if eval cond then eval then_e else eval else_e
 </code></pre>
 
+		<div class="example">
 		<h2>Practical Examples</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-ocaml">(* Binary search tree *)
 type 'a bst =
   | Empty

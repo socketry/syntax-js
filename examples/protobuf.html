@@ -3,27 +3,44 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Protocol Buffers Syntax Examples</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/protobuf.css">
+	<title>Protocol Buffers Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Protocol Buffers Syntax Examples</h1>
+	<header>
+		<h1>Protocol Buffers Examples</h1>
+		<p class="subtitle">Protocol Buffers syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Protocol Buffers Syntax Examples</h1>
 
-	<h2>Basic Syntax Declaration</h2>
-	<syntax-code language="protobuf">syntax = "proto3";
+	<div class="example">
+		<h2>Basic Syntax Declaration</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">syntax = "proto3";
 
 package example;</syntax-code>
 
-	<h2>Simple Message</h2>
-	<syntax-code language="protobuf">message Person {
+	<div class="example">
+		<h2>Simple Message</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message Person {
 	string name = 1;
 	int32 id = 2;
 	string email = 3;
 }</syntax-code>
 
-	<h2>Message with All Basic Types</h2>
-	<syntax-code language="protobuf">message DataTypes {
+	<div class="example">
+		<h2>Message with All Basic Types</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message DataTypes {
 	// Integer types
 	int32 integer32 = 1;
 	int64 integer64 = 2;
@@ -50,8 +67,11 @@ package example;</syntax-code>
 	bytes binary_data = 15;
 }</syntax-code>
 
-	<h2>Nested Messages</h2>
-	<syntax-code language="protobuf">message Person {
+	<div class="example">
+		<h2>Nested Messages</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message Person {
 	string name = 1;
 	int32 id = 2;
 	
@@ -69,8 +89,11 @@ enum PhoneType {
 	WORK = 2;
 }</syntax-code>
 
-	<h2>Enumerations</h2>
-	<syntax-code language="protobuf">enum Status {
+	<div class="example">
+		<h2>Enumerations</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">enum Status {
 	UNKNOWN = 0;
 	ACTIVE = 1;
 	INACTIVE = 2;
@@ -85,8 +108,11 @@ enum Priority {
 	URGENT = 2;  // Alias for HIGH
 }</syntax-code>
 
-	<h2>Field Rules (Proto2)</h2>
-	<syntax-code language="protobuf">// Proto2 syntax with field rules
+	<div class="example">
+		<h2>Field Rules (Proto2)</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">// Proto2 syntax with field rules
 syntax = "proto2";
 
 message User {
@@ -96,8 +122,11 @@ message User {
 	repeated string roles = 4;
 }</syntax-code>
 
-	<h2>Repeated Fields</h2>
-	<syntax-code language="protobuf">message SearchResults {
+	<div class="example">
+		<h2>Repeated Fields</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message SearchResults {
 	repeated string results = 1;
 	int32 total_count = 2;
 }
@@ -108,15 +137,21 @@ message Matrix {
 	int32 cols = 3;
 }</syntax-code>
 
-	<h2>Maps</h2>
-	<syntax-code language="protobuf">message Project {
+	<div class="example">
+		<h2>Maps</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message Project {
 	string name = 1;
 	map&lt;string, string&gt; labels = 2;
 	map&lt;int32, User&gt; contributors = 3;
 }</syntax-code>
 
-	<h2>Imports</h2>
-	<syntax-code language="protobuf">syntax = "proto3";
+	<div class="example">
+		<h2>Imports</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
@@ -128,8 +163,11 @@ message Event {
 	google.protobuf.Duration duration = 3;
 }</syntax-code>
 
-	<h2>Options</h2>
-	<syntax-code language="protobuf">option java_package = "com.example.tutorial";
+	<div class="example">
+		<h2>Options</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">option java_package = "com.example.tutorial";
 option java_outer_classname = "AddressBookProtos";
 option java_multiple_files = true;
 option go_package = "example.com/tutorial";
@@ -141,8 +179,11 @@ message MyMessage {
 	string name = 2 [(my_option) = "value"];
 }</syntax-code>
 
-	<h2>Services and RPC</h2>
-	<syntax-code language="protobuf">service UserService {
+	<div class="example">
+		<h2>Services and RPC</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">service UserService {
 	// Get a user by ID
 	rpc GetUser(GetUserRequest) returns (User);
 	
@@ -188,8 +229,11 @@ message DeleteUserRequest {
 
 message Empty {}</syntax-code>
 
-	<h2>Streaming RPC</h2>
-	<syntax-code language="protobuf">service ChatService {
+	<div class="example">
+		<h2>Streaming RPC</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">service ChatService {
 	// Client sends a message, server responds
 	rpc SendMessage(Message) returns (Ack);
 	
@@ -203,8 +247,11 @@ message Empty {}</syntax-code>
 	rpc Chat(stream Message) returns (stream Message);
 }</syntax-code>
 
-	<h2>Oneof Fields</h2>
-	<syntax-code language="protobuf">message SampleMessage {
+	<div class="example">
+		<h2>Oneof Fields</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message SampleMessage {
 	oneof test_oneof {
 		string name = 4;
 		int32 id = 5;
@@ -220,16 +267,22 @@ message Shape {
 	}
 }</syntax-code>
 
-	<h2>Any Type</h2>
-	<syntax-code language="protobuf">import "google/protobuf/any.proto";
+	<div class="example">
+		<h2>Any Type</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">import "google/protobuf/any.proto";
 
 message ErrorStatus {
 	string message = 1;
 	repeated google.protobuf.Any details = 2;
 }</syntax-code>
 
-	<h2>Reserved Fields</h2>
-	<syntax-code language="protobuf">message Foo {
+	<div class="example">
+		<h2>Reserved Fields</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">message Foo {
 	reserved 2, 15, 9 to 11;
 	reserved "foo", "bar";
 	
@@ -237,8 +290,11 @@ message ErrorStatus {
 	int32 id = 3;
 }</syntax-code>
 
-	<h2>Extensions (Proto2)</h2>
-	<syntax-code language="protobuf">syntax = "proto2";
+	<div class="example">
+		<h2>Extensions (Proto2)</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">syntax = "proto2";
 
 message Foo {
 	extensions 100 to 199;
@@ -252,8 +308,11 @@ message Baz {
 	optional Foo foo = 1;
 }</syntax-code>
 
-	<h2>Packages and Namespaces</h2>
-	<syntax-code language="protobuf">syntax = "proto3";
+	<div class="example">
+		<h2>Packages and Namespaces</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">syntax = "proto3";
 
 package com.example.project.v1;
 
@@ -270,8 +329,11 @@ message Result {
 	string url = 2;
 }</syntax-code>
 
-	<h2>Default Values</h2>
-	<syntax-code language="protobuf">syntax = "proto2";
+	<div class="example">
+		<h2>Default Values</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">syntax = "proto2";
 
 message Config {
 	optional int32 timeout = 1 [default = 30];
@@ -280,8 +342,11 @@ message Config {
 	optional Priority priority = 4 [default = NORMAL];
 }</syntax-code>
 
-	<h2>Well-Known Types</h2>
-	<syntax-code language="protobuf">import "google/protobuf/timestamp.proto";
+	<div class="example">
+		<h2>Well-Known Types</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
@@ -294,8 +359,11 @@ message Event {
 	google.protobuf.Int32Value optional_count = 5;
 }</syntax-code>
 
-	<h2>Complete Example: Address Book</h2>
-	<syntax-code language="protobuf">syntax = "proto3";
+	<div class="example">
+		<h2>Complete Example: Address Book</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="protobuf">syntax = "proto3";
 
 package tutorial;
 
@@ -327,7 +395,8 @@ message Person {
 message AddressBook {
 	repeated Person people = 1;
 }</syntax-code>
-
+	</div>
+	
 	<script type="module">
 		import Syntax from '../Syntax.js';
 		await Syntax.highlight({ autoUpgrade: true });

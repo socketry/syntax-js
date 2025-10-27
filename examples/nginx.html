@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8"/>
-		<title>Nginx Configuration Example</title>
-		
-		<link rel="stylesheet" href="../themes/base/syntax.css" />
-		<link rel="stylesheet" href="../themes/base/nginx.css" />
-		<script type="module" src="../Syntax.js"></script>
-	</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Nginx Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
+</head>
 	<body>
-		<h1>Nginx Configuration Example</h1>
+	<header>
+		<h1>Nginx Examples</h1>
+		<p class="subtitle">Nginx syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Nginx Configuration Example</h1>
 		
 		<p>Nginx is a high-performance web server and reverse proxy. These examples demonstrate common nginx configuration patterns.</p>
 		
+		<div class="example">
 		<h2>Basic Server Block</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx"># Basic HTTP server
 server {
 	listen 80;
@@ -35,7 +45,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>HTTPS/SSL Configuration</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx"># HTTPS server with SSL
 server {
 	listen 443 ssl http2;
@@ -79,7 +92,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Reverse Proxy</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx"># Reverse proxy to backend application
 upstream backend {
 	server 127.0.0.1:8080;
@@ -120,7 +136,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Static File Serving with Caching</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	server_name static.example.com;
@@ -153,7 +172,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>PHP-FPM Configuration</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	server_name php.example.com;
@@ -181,7 +203,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>WebSocket Proxy</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	server_name ws.example.com;
@@ -208,7 +233,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Rate Limiting</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx"># Define rate limit zones (in http context)
 # This would typically go in nginx.conf
 # limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s;
@@ -237,7 +265,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>URL Rewriting and Redirects</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	server_name example.com;
@@ -267,7 +298,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Security Headers</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 443 ssl http2;
 	server_name secure.example.com;
@@ -295,7 +329,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Load Balancing Strategies</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx"># Round-robin (default)
 upstream backend_roundrobin {
 	server backend1.example.com;
@@ -338,7 +375,10 @@ upstream backend_advanced {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Caching Proxy</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx"># Cache configuration (in http context)
 # This would typically go in nginx.conf
 # proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=60m use_temp_path=off;
@@ -380,7 +420,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Virtual Host with Multiple Domains</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	
@@ -422,7 +465,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Geo-blocking and Access Control</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	server_name restricted.example.com;
@@ -454,7 +500,10 @@ server {
 }
 </code></pre>
 
+		<div class="example">
 		<h2>Variables and Conditionals</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-nginx">server {
 	listen 80;
 	server_name example.com;

@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8"/>
-		<title>Smalltalk Code Example</title>
-		
-		<link rel="stylesheet" href="../themes/base/syntax.css" />
-		<link rel="stylesheet" href="../themes/base/smalltalk.css" />
-		<script type="module" src="../Syntax.js"></script>
-	</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Smalltalk Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
+</head>
 	<body>
-		<h1>Smalltalk Code Example</h1>
+	<header>
+		<h1>Smalltalk Examples</h1>
+		<p class="subtitle">Smalltalk syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Smalltalk Code Example</h1>
 		
+		<div class="example">
 		<h2>Basic Syntax</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"This is a comment"
 
 "Assignment"
@@ -26,7 +36,10 @@ value := false.
 object := nil.
 </code></pre>
 
+		<div class="example">
 		<h2>Messages</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Unary messages (no arguments)"
 object initialize.
 collection size.
@@ -46,7 +59,10 @@ dictionary at: key put: value.
 collection do: [:each | each printString].
 </code></pre>
 
+		<div class="example">
 		<h2>Blocks (Closures)</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Simple block"
 [3 + 4] value.
 
@@ -64,7 +80,10 @@ x > 0
 	ifFalse: [Transcript show: 'not positive'].
 </code></pre>
 
+		<div class="example">
 		<h2>Temporary Variables</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Single temporary variable"
 | temp |
 temp := 42.
@@ -76,7 +95,10 @@ y := 20.
 result := x + y.
 </code></pre>
 
+		<div class="example">
 		<h2>Method Definition</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Unary method"
 initialize
 	super initialize.
@@ -106,7 +128,10 @@ factorial: n
 	^ result.
 </code></pre>
 
+		<div class="example">
 		<h2>Collections</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Array literals"
 #(1 2 3 4 5).
 #('one' 'two' 'three').
@@ -137,7 +162,10 @@ set add: 2.
 set add: 1.  "Duplicate ignored"
 </code></pre>
 
+		<div class="example">
 		<h2>Iteration</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"do: - iterate over elements"
 #(1 2 3 4 5) do: [:each | Transcript show: each printString; cr].
 
@@ -157,7 +185,10 @@ set add: 1.  "Duplicate ignored"
 #(1 2 3 4 5) inject: 0 into: [:sum :each | sum + each].
 </code></pre>
 
+		<div class="example">
 		<h2>Control Structures</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Conditionals"
 x > 0 ifTrue: [Transcript show: 'positive'].
 x = 0 ifTrue: [Transcript show: 'zero'].
@@ -191,7 +222,10 @@ i := 1.
 ].
 </code></pre>
 
+		<div class="example">
 		<h2>Class Definition</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Defining a new class"
 Object subclass: #Person
 	instanceVariableNames: 'name age'
@@ -233,7 +267,10 @@ Person class>>named: aString aged: aNumber
 		yourself.
 </code></pre>
 
+		<div class="example">
 		<h2>Cascades</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Multiple messages to same receiver"
 Transcript
 	show: 'Hello';
@@ -256,7 +293,10 @@ stream
 	print: person age.
 </code></pre>
 
+		<div class="example">
 		<h2>Exception Handling</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Basic exception handling"
 [
 	"Code that might fail"
@@ -281,7 +321,10 @@ stream
 ].
 </code></pre>
 
+		<div class="example">
 		<h2>Streams</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Reading from a stream"
 | stream |
 stream := ReadStream on: 'Hello World'.
@@ -306,7 +349,10 @@ String streamContents: [:stream |
 ].
 </code></pre>
 
+		<div class="example">
 		<h2>Metaprogramming</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Reflection - inspecting objects"
 object class.
 object class name.
@@ -334,7 +380,10 @@ DynamicClass compile: 'slot1 ^ slot1'.
 DynamicClass compile: 'slot1: anObject slot1 := anObject'.
 </code></pre>
 
+		<div class="example">
 		<h2>Advanced Examples</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-smalltalk">"Fibonacci sequence"
 fibonacci: n
 	n <= 1 ifTrue: [^ n].

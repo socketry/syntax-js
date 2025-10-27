@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8"/>
-		<title>Lisp Code Example</title>
-		
-		<link rel="stylesheet" href="../themes/base/syntax.css" />
-		<link rel="stylesheet" href="../themes/base/lisp.css" />
-		<script type="module" src="../Syntax.js"></script>
-	</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lisp Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
+</head>
 	<body>
-		<h1>Lisp Code Example</h1>
+	<header>
+		<h1>Lisp Examples</h1>
+		<p class="subtitle">Lisp syntax highlighting</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Lisp Code Example</h1>
 		
 		<p>This is a general syntax for Lisp-like languages including Common Lisp, Scheme, Clojure, and others.</p>
 		
+		<div class="example">
 		<h2>Basic Expressions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Comments start with semicolon
 ;; Double semicolon for inline comments
 ;;; Triple semicolon for section headers
@@ -35,7 +45,10 @@
 (>= 10 5)       ; => #t
 </code></pre>
 
+		<div class="example">
 		<h2>Variables and Definitions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Define a variable (Scheme)
 (define x 42)
 (define pi 3.14159)
@@ -56,7 +69,10 @@
   y)  ; => 10
 </code></pre>
 
+		<div class="example">
 		<h2>Functions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Define a function (Scheme)
 (define (square x)
   (* x x))
@@ -92,7 +108,10 @@
 (fib 10)  ; => 55
 </code></pre>
 
+		<div class="example">
 		<h2>Lambda Expressions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Anonymous function
 (lambda (x) (* x x))
 
@@ -112,7 +131,10 @@
 (apply-twice (lambda (x) (* x 2)) 5)  ; => 20
 </code></pre>
 
+		<div class="example">
 		<h2>Conditionals</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; if expression
 (if (> x 0)
     "positive"
@@ -141,7 +163,10 @@
   (display "non-zero"))
 </code></pre>
 
+		<div class="example">
 		<h2>Lists</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Empty list
 '()
 (list)
@@ -169,7 +194,10 @@
 (nth 2 '(a b c))  ; => c
 </code></pre>
 
+		<div class="example">
 		<h2>Higher-Order Functions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; map - apply function to each element
 (map (lambda (x) (* x 2)) '(1 2 3 4))
 ; => (2 4 6 8)
@@ -185,7 +213,10 @@
 (apply + '(1 2 3 4))  ; => 10
 </code></pre>
 
+		<div class="example">
 		<h2>Quoted Expressions</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Quote - prevent evaluation
 'x              ; => x (symbol)
 '(1 2 3)        ; => (1 2 3) (list)
@@ -203,7 +234,10 @@
 `(1 ,@(list 2 3) 4)  ; => (1 2 3 4)
 </code></pre>
 
+		<div class="example">
 		<h2>Strings</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; String literals
 "Hello, World!"
 "Multi-line
@@ -228,7 +262,10 @@ string"
 "Tab\there"
 </code></pre>
 
+		<div class="example">
 		<h2>Numbers</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Integers
 42
 -17
@@ -260,7 +297,10 @@ string"
 (negative? -3)  ; => #t
 </code></pre>
 
+		<div class="example">
 		<h2>Boolean and Logic</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Boolean values
 #t  ; true
 #f  ; false
@@ -278,7 +318,10 @@ string"
 (or (= x 0) (= x 1))
 </code></pre>
 
+		<div class="example">
 		<h2>Type Predicates</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Check types
 (number? 42)       ; => #t
 (string? "hello")  ; => #t
@@ -290,7 +333,10 @@ string"
 (procedure? +)     ; => #t
 </code></pre>
 
+		<div class="example">
 		<h2>Associations and Hash Tables</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Association lists
 (define alist '((name . "Alice") (age . 30)))
 
@@ -307,7 +353,10 @@ string"
 (gethash 'name ht)  ; => "Alice"
 </code></pre>
 
+		<div class="example">
 		<h2>Loops and Iteration</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Recursive loop
 (define (sum-list lst)
   (if (null? lst)
@@ -334,7 +383,10 @@ string"
     ((>= i 10) sum))
 </code></pre>
 
+		<div class="example">
 		<h2>Macros (Advanced)</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Simple macro (Scheme)
 (define-syntax when
   (syntax-rules ()
@@ -359,7 +411,10 @@ string"
        (progn ,@body)))
 </code></pre>
 
+		<div class="example">
 		<h2>Advanced Examples</h2>
+		<p class="description">Example:</p>
+		
 		<pre><code class="language-lisp">; Quicksort
 (define (quicksort lst)
   (if (null? lst)

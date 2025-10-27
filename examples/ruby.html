@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Ruby Syntax Example</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/ruby.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ruby Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Ruby Syntax Highlighting</h1>
+	<header>
+		<h1>Ruby Examples</h1>
+		<p class="subtitle">Ruby syntax with classes, symbols, and metaprogramming</p>
+	</header>
 	
-	<syntax-code language="ruby">
+	<nav>
+		<a href="index.html">Back to Examples</a>
+		<a href="python.html">Python</a>
+		<a href="bash.html">Bash</a>
+	</nav>
+	
+	<div class="example">
+		<h2>Ruby Class Example</h2>
+		<p class="description">Object-oriented programming with Ruby:</p>
+		
+		<syntax-code language="ruby">
 # Simple class
 class Greeter
   def initialize(name)
@@ -33,7 +47,8 @@ words = %w{alpha beta gamma}
 
 # Command
 output = `uname -a`
-	</syntax-code>
+		</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';

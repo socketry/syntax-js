@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Python Syntax Example</title>
-	<link rel="stylesheet" href="../themes/base/syntax.css">
-	<link rel="stylesheet" href="../themes/base/python.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Python Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Python Syntax Highlighting</h1>
+	<header>
+		<h1>Python Examples</h1>
+		<p class="subtitle">Python syntax highlighting with classes and decorators</p>
+	</header>
 	
-	<syntax-code language="python">
+	<nav>
+		<a href="index.html">Back to Examples</a>
+		<a href="javascript.html">JavaScript</a>
+		<a href="ruby.html">Ruby</a>
+	</nav>
+	
+	<div class="example">
+		<h2>Complete Python Program</h2>
+		<p class="description">Fibonacci sequence, classes, decorators, and more:</p>
+		
+		<syntax-code language="python">
 def fibonacci(n):
     """Generate Fibonacci sequence up to n terms."""
     a, b = 0, 1
@@ -56,7 +70,8 @@ if __name__ == "__main__":
         'timeout': 30,
         'servers': ['localhost', '127.0.0.1']
     }
-	</syntax-code>
+		</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';

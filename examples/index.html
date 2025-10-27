@@ -4,144 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@socketry/syntax - Examples</title>
-	<style>
-		* {
-			box-sizing: border-box;
-		}
-		
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-			max-width: 1400px;
-			margin: 0 auto;
-			padding: 2rem;
-			background: #ffffff;
-			color: #24292e;
-			line-height: 1.6;
-		}
-		
-		h1 {
-			color: #0366d6;
-			border-bottom: 3px solid #0366d6;
-			padding-bottom: 0.5rem;
-			margin-bottom: 1rem;
-		}
-		
-		.subtitle {
-			color: #586069;
-			font-size: 1.1rem;
-			margin-bottom: 2rem;
-		}
-		
-		h2 {
-			color: #0366d6;
-			margin-top: 2.5rem;
-			margin-bottom: 1rem;
-			border-bottom: 1px solid #e1e4e8;
-			padding-bottom: 0.3rem;
-		}
-		
-		.language-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-			gap: 0.5rem;
-			margin: 1rem 0 2rem;
-		}
-		
-		.language-grid a {
-			background: #f6f8fa;
-			padding: 0.75rem 1rem;
-			border-radius: 6px;
-			color: #0366d6;
-			text-decoration: none;
-			transition: all 0.2s;
-			border: 1px solid #e1e4e8;
-		}
-		
-		.language-grid a:hover {
-			background: #0366d6;
-			color: #ffffff;
-			border-color: #0366d6;
-			transform: translateY(-2px);
-		}
-		
-		.feature-list {
-			background: #f6f8fa;
-			padding: 1.5rem;
-			border-radius: 8px;
-			border-left: 4px solid #0366d6;
-			margin: 1rem 0;
-		}
-		
-		.feature-list ul {
-			margin: 0;
-			padding-left: 1.5rem;
-		}
-		
-		.feature-list li {
-			margin: 0.5rem 0;
-			color: #24292e;
-		}
-		
-		.feature-list code {
-			background: #ffffff;
-			padding: 2px 6px;
-			border-radius: 3px;
-			color: #e36209;
-			border: 1px solid #e1e4e8;
-		}
-		
-		/* Dark mode */
-		@media (prefers-color-scheme: dark) {
-			body {
-				background: #1e1e1e;
-				color: #d4d4d4;
-			}
-			
-			h1 {
-				color: #4ec9b0;
-				border-bottom-color: #4ec9b0;
-			}
-			
-			.subtitle {
-				color: #9cdcfe;
-			}
-			
-			h2 {
-				color: #569cd6;
-				border-bottom-color: #3e3e42;
-			}
-			
-			.language-grid a {
-				background: #252526;
-				color: #569cd6;
-				border-color: #3e3e42;
-			}
-			
-			.language-grid a:hover {
-				background: #2d2d30;
-				border-color: #569cd6;
-			}
-			
-			.feature-list {
-				background: #252526;
-				border-left-color: #4ec9b0;
-			}
-			
-			.feature-list li {
-				color: #d4d4d4;
-			}
-			
-			.feature-list code {
-				background: #1e1e1e;
-				color: #ce9178;
-				border-color: #3e3e42;
-			}
-		}
-	</style>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>@socketry/syntax</h1>
-	<p class="subtitle">A modern, framework-agnostic syntax highlighter built with Web Components</p>
+	<header>
+		<h1>@socketry/syntax</h1>
+		<p class="subtitle">A modern, framework-agnostic syntax highlighter built with Web Components</p>
+	</header>
 	
 	<div class="feature-list">
 		<strong>Features:</strong>
@@ -212,6 +81,7 @@
 		<a href="protobuf.html">Protocol Buffers</a>
 		<a href="diff.html">Diff/Patch</a>
 		<a href="plain.html">Plain Text</a>
+		<a href="markdown.html">Markdown</a>
 	</div>
 	
 	<script type="module">

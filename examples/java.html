@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8"/>
-		<title>Java Code Example</title>
-		
-		<link rel="stylesheet" href="../themes/base/syntax.css" />
-		<link rel="stylesheet" href="../themes/base/java.css" />
-		<script type="module" src="../Syntax.js"></script>
-	</head>
-	<body>
-		<h1>Java Code Example</h1>
-		
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Java Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
+</head>
+<body>
+	<header>
+		<h1>Java Examples</h1>
+		<p class="subtitle">Object-oriented programming with Java</p>
+	</header>
+	
+	<nav>
+		<a href="index.html">Back to Examples</a>
+		<a href="javascript.html">JavaScript</a>
+		<a href="scala.html">Scala</a>
+	</nav>
+	
+	<div class="example">
 		<h2>Basic Class Definition</h2>
+		<p class="description">Simple class example with constructors, getters, and setters:</p>
+		
 		<pre><code class="language-java">// Simple class example
 public class Person {
 	// Instance variables
@@ -45,8 +55,12 @@ public class Person {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Control Flow</h2>
+		<p class="description">If-else statements, switch, and ternary operators:</p>
+		
 		<pre><code class="language-java">public class ControlFlow {
 	// if-else statement
 	public static String checkNumber(int num) {
@@ -87,8 +101,12 @@ public class Person {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Loops</h2>
+		<p class="description">For loops, while loops, and enhanced for loops:</p>
+		
 		<pre><code class="language-java">public class Loops {
 	// for loop
 	public static void printNumbers() {
@@ -138,8 +156,12 @@ public class Person {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Arrays and Collections</h2>
+		<p class="description">Working with arrays, ArrayList, HashMap, and HashSet:</p>
+		
 		<pre><code class="language-java">import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -208,8 +230,12 @@ public class Collections {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Exception Handling</h2>
+		<p class="description">Try-catch-finally, try-with-resources, and custom exceptions:</p>
+		
 		<pre><code class="language-java">public class ExceptionHandling {
 	// Try-catch
 	public static int divide(int a, int b) {
@@ -266,8 +292,12 @@ public class Collections {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Inheritance</h2>
+		<p class="description">Base classes, derived classes, and method overriding:</p>
+		
 		<pre><code class="language-java">// Base class
 public class Animal {
 	protected String name;
@@ -322,8 +352,12 @@ public class Cat extends Animal {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Interfaces</h2>
+		<p class="description">Interface definitions and implementations:</p>
+		
 		<pre><code class="language-java">// Interface definition
 public interface Drawable {
 	void draw();
@@ -396,8 +430,12 @@ public class Rectangle implements Drawable, Resizable {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Abstract Classes</h2>
+		<p class="description">Abstract classes with abstract and concrete methods:</p>
+		
 		<pre><code class="language-java">// Abstract class
 public abstract class Shape {
 	protected String color;
@@ -446,8 +484,12 @@ public class Triangle extends Shape {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Generics</h2>
+		<p class="description">Generic classes, methods, and bounded type parameters:</p>
+		
 		<pre><code class="language-java">// Generic class
 public class Box<T> {
 	private T value;
@@ -490,8 +532,12 @@ public interface Pair<K, V> {
 	V getValue();
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Enumerations</h2>
+		<p class="description">Simple and complex enum definitions:</p>
+		
 		<pre><code class="language-java">// Simple enum
 public enum Day {
 	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
@@ -548,8 +594,12 @@ public static void enumExample() {
 	double earthGravity = Planet.EARTH.surfaceGravity();
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Static and Final</h2>
+		<p class="description">Static members, constants, and final classes:</p>
+		
 		<pre><code class="language-java">public class MathUtils {
 	// Static constant
 	public static final double PI = 3.14159;
@@ -601,8 +651,12 @@ public final class ImmutableClass {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Lambda Expressions (Java 8+)</h2>
+		<p class="description">Functional interfaces, lambdas, and method references:</p>
+		
 		<pre><code class="language-java">import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -658,8 +712,12 @@ public class LambdaExamples {
 	}
 }
 </code></pre>
+	</div>
 
+	<div class="example">
 		<h2>Streams (Java 8+)</h2>
+		<p class="description">Stream API for functional-style operations on collections:</p>
+		
 		<pre><code class="language-java">import java.util.*;
 import java.util.stream.*;
 
@@ -711,6 +769,18 @@ public class StreamExamples {
 	}
 }
 </code></pre>
-
-	</body>
+	</div>
+	
+	<script type="module">
+		import Syntax from '../Syntax.js';
+		import registerJava from '../Syntax/Language/java.js';
+		
+		registerJava(Syntax.default);
+		
+		await Syntax.highlight({
+			autoUpgrade: true,
+			syntax: Syntax.default
+		});
+	</script>
+</body>
 </html>

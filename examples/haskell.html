@@ -3,25 +3,37 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Haskell Syntax Highlighting Example</title>
-	<script type="module">
-		import Syntax from '../Syntax.js';
-		await Syntax.highlight({ autoUpgrade: true });
-	</script>
+	<title>Haskell Examples - @socketry/syntax</title>
+	<link rel="stylesheet" href="examples.css">
 </head>
 <body>
-	<h1>Haskell Syntax Highlighting</h1>
+	<header>
+		<h1>Haskell Examples</h1>
+		<p class="subtitle">Haskell syntax highlighting</p>
+	</header>
 	
-	<h2>Hello World</h2>
-	<syntax-code language="haskell">
+	<nav>
+		<a href="index.html">Back to Examples</a>
+	</nav>
+	
+<h1>Haskell Syntax Highlighting</h1>
+	
+	<div class="example">
+		<h2>Hello World</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Main where
 
 main :: IO ()
 main = putStrLn "Hello, World!"
 	</syntax-code>
 
-	<h2>Functions and Pattern Matching</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Functions and Pattern Matching</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Factorial where
 
 -- Recursive factorial with pattern matching
@@ -43,8 +55,11 @@ describeNumber n = case n of
   _ -> "many"
 	</syntax-code>
 
-	<h2>Data Types and Type Classes</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Data Types and Type Classes</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Types where
 
 -- Algebraic data types
@@ -78,8 +93,11 @@ instance Describable Person where
   describe p = name p ++ " is " ++ show (age p) ++ " years old"
 	</syntax-code>
 
-	<h2>Higher-Order Functions and Lambdas</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Higher-Order Functions and Lambdas</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module HigherOrder where
 
 -- Map, filter, and fold
@@ -112,8 +130,11 @@ divBy :: Int -> Int -> Int
 divBy x y = x `div` y
 	</syntax-code>
 
-	<h2>List Comprehensions</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>List Comprehensions</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Lists where
 
 -- Basic list comprehension
@@ -144,8 +165,11 @@ uppercase str = [toUpper c | c <- str]
                 else c
 	</syntax-code>
 
-	<h2>Monads and Do Notation</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Monads and Do Notation</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Monads where
 
 import Control.Monad (when, unless)
@@ -186,8 +210,11 @@ positiveProducts xs ys = do
     else []
 	</syntax-code>
 
-	<h2>Functors, Applicatives, and Monads</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Functors, Applicatives, and Monads</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Abstractions where
 
 -- Functor instance for custom type
@@ -219,8 +246,11 @@ chainBox :: Box Int -> Box Int
 chainBox x = x >>= \n -> Box (n + 1)
 	</syntax-code>
 
-	<h2>Type Families and GADTs</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Type Families and GADTs</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE GADTs #-}
 
@@ -257,8 +287,11 @@ eval (Equals x y) = eval x == eval y
 eval (If cond t e) = if eval cond then eval t else eval e
 	</syntax-code>
 
-	<h2>Recursive Data Structures</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Recursive Data Structures</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Recursion where
 
 -- Binary tree
@@ -296,8 +329,11 @@ listMap _ Nil = Nil
 listMap f (Cons x xs) = Cons (f x) (listMap f xs)
 	</syntax-code>
 
-	<h2>Lazy Evaluation and Infinite Lists</h2>
-	<syntax-code language="haskell">
+	<div class="example">
+		<h2>Lazy Evaluation and Infinite Lists</h2>
+		<p class="description">Example:</p>
+		
+		<syntax-code language="haskell">
 module Lazy where
 
 -- Infinite list of natural numbers
