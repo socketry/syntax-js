@@ -35,7 +35,7 @@ test('Markdown can match headers', async () => {
 	const code = '# Heading 1';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'keyword', '# Heading 1');
+	assertToken(code, matches, 'heading', '# Heading 1');
 });
 
 test('Markdown can match bold text', async () => {
@@ -46,7 +46,7 @@ test('Markdown can match bold text', async () => {
 	const code = '**bold text**';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'keyword', '**bold text**');
+	assertToken(code, matches, 'strong', '**bold text**');
 });
 
 test('Markdown can match italic text', async () => {
@@ -57,7 +57,7 @@ test('Markdown can match italic text', async () => {
 	const code = '*italic text*';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'string', '*italic text*');
+	assertToken(code, matches, 'emphasis', '*italic text*');
 });
 
 test('Markdown can match inline code', async () => {
@@ -68,7 +68,7 @@ test('Markdown can match inline code', async () => {
 	const code = '`code here`';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'constant', '`code here`');
+	assertToken(code, matches, 'code', '`code here`');
 });
 
 test('Markdown can match code blocks', async () => {
@@ -79,7 +79,7 @@ test('Markdown can match code blocks', async () => {
 	const code = '```javascript\nconst x = 1;\n```';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'constant', '```javascript\nconst x = 1;\n```');
+	assertToken(code, matches, 'code', '```javascript\nconst x = 1;\n```');
 });
 
 test('Markdown can match links', async () => {
@@ -92,7 +92,7 @@ test('Markdown can match links', async () => {
 	
 	// Should match the link text and URL as separate tokens
 	assertToken(code, matches, 'string', 'text');
-	assertToken(code, matches, 'function', 'http://example.com');
+	assertToken(code, matches, 'link', 'http://example.com');
 });
 
 test('Markdown can match images', async () => {
@@ -103,7 +103,7 @@ test('Markdown can match images', async () => {
 	const code = '![alt text](image.png)';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'function', '![alt text](image.png)');
+	assertToken(code, matches, 'link', '![alt text](image.png)');
 });
 
 test('Markdown can match blockquotes', async () => {
@@ -114,7 +114,7 @@ test('Markdown can match blockquotes', async () => {
 	const code = '> This is a quote';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'comment', '> This is a quote');
+	assertToken(code, matches, 'quote', '> This is a quote');
 });
 
 test('Markdown can match unordered lists', async () => {
@@ -125,7 +125,7 @@ test('Markdown can match unordered lists', async () => {
 	const code = '- List item';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'operator', '- ');
+	assertToken(code, matches, 'list-marker', '- ');
 });
 
 test('Markdown can match ordered lists', async () => {
@@ -136,5 +136,5 @@ test('Markdown can match ordered lists', async () => {
 	const code = '1. List item';
 	const matches = await language.getMatches(syntax, code);
 	
-	assertToken(code, matches, 'operator', '1. ');
+	assertToken(code, matches, 'list-marker', '1. ');
 });

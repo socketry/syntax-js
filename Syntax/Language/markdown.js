@@ -6,51 +6,51 @@ const language = new Language('markdown');
 // Headers
 language.push({
 	pattern: /^#{1,6}\s+.+$/m,
-	type: 'keyword'
+	type: 'heading'
 });
 
-// Bold
+// Bold (strong emphasis)
 language.push({
 	pattern: /\*\*(.+?)\*\*/,
-	type: 'keyword'
+	type: 'strong'
 });
 
 language.push({
 	pattern: /__(.+?)__/,
-	type: 'keyword'
+	type: 'strong'
 });
 
-// Italic
+// Italic (emphasis)
 language.push({
 	pattern: /\*(.+?)\*/,
-	type: 'string'
+	type: 'emphasis'
 });
 
 language.push({
 	pattern: /_(.+?)_/,
-	type: 'string'
+	type: 'emphasis'
 });
 
 // Code blocks with language
 language.push({
 	pattern: /^```[\w-]*\n[\s\S]*?\n```$/m,
-	type: 'constant'
+	type: 'code'
 });
 
 // Inline code
 language.push({
 	pattern: /`([^`]+)`/,
-	type: 'constant'
+	type: 'code'
 });
 
 // Links - make them clickable
 language.push({
 	pattern: /\[([^\]]+)\]\(([^)]+)\)/,
-	type: 'function',
+	type: 'link',
 	matches: Rule.extractMatches(
 		{type: 'string'}, // Link text
 		{
-			type: 'function',
+			type: 'link',
 			process: function (container, match) {
 				const anchor = document.createElement('a');
 				anchor.className = container.className;
@@ -65,25 +65,25 @@ language.push({
 // Images
 language.push({
 	pattern: /!\[([^\]]*)\]\(([^)]+)\)/,
-	type: 'function'
+	type: 'link'
 });
 
 // Blockquotes
 language.push({
 	pattern: /^>\s+.+$/m,
-	type: 'comment'
+	type: 'quote'
 });
 
 // Unordered lists
 language.push({
 	pattern: /^[\s]*[-*+]\s+/m,
-	type: 'operator'
+	type: 'list-marker'
 });
 
 // Ordered lists
 language.push({
 	pattern: /^[\s]*\d+\.\s+/m,
-	type: 'operator'
+	type: 'list-marker'
 });
 
 // Horizontal rules
@@ -95,6 +95,7 @@ language.push({
 // URLs - make them clickable
 language.push({
 	...Rule.webLink,
+	type: 'link',
 	process: function (container, match) {
 		const anchor = document.createElement('a');
 		anchor.className = container.className;
