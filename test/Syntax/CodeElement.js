@@ -304,3 +304,105 @@ test('syntax-code behaves as block when inside <pre>', async () => {
 		'<code> should be direct child of shadow root'
 	);
 });
+
+test('ready promise resolves after rendering completes', async () => {
+	document.body.innerHTML = `
+		<syntax-code language="javascript">const x = 1;\nconst y = 2;</syntax-code>
+	`;
+
+	const element = document.querySelector('syntax-code');
+
+	// ready should be a Promise
+	assert.ok(element.ready instanceof Promise, 'ready should be a Promise');
+
+	// Awaiting it should not hang
+	await element.ready;
+
+	// After ready resolves, the shadow root should exist and contain rendered content
+	const shadowRoot = element.shadowRoot;
+	assert.ok(shadowRoot, 'Shadow root should exist after ready');
+	assert.ok(shadowRoot.querySelector('code'), 'Shadow DOM should contain <code> after ready');
+});
+
+test('ready promise resets and re-resolves when language attribute changes', async () => {
+	document.body.innerHTML = `
+		<syntax-code language="javascript">const x = 1;</syntax-code>
+	`;
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const firstReady = element.ready;
+
+	// Change the language attribute — this resets the ready promise
+	element.setAttribute('language', 'python');
+
+	// The promise should have been replaced
+	assert.notEqual(element.ready, firstReady, 'ready should be a new Promise after attribute change');
+
+	// The new promise should also resolve
+	await element.ready;
+	assert.ok(element.shadowRoot.querySelector('code'), 'Shadow DOM should be re-rendered');
+});
+
+test('lineCount returns 0 before element is connected', async () => {
+	const {CodeElement} = await import('../../Syntax/CodeElement.js');
+	const element = new CodeElement();
+	assert.equal(element.lineCount, 0, 'lineCount should be 0 before connection');
+});
+
+test('lineCount returns the number of rendered lines after ready', async () => {
+	const threeLineCode = 'const a = 1;\nconst b = 2;\nconst c = 3;';
+
+	document.body.innerHTML = `
+		<syntax-code language="javascript">${threeLineCode}</syntax-code>
+	`;
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	assert.ok(element.lineCount > 0, 'lineCount should be greater than 0 after rendering');
+	assert.equal(element.lineCount, element.shadowRoot.querySelector('code').children.length, 'lineCount should match actual child count');
+});
+
+test('getLineBoundingClientRect returns null before element is connected', async () => {
+	const {CodeElement} = await import('../../Syntax/CodeElement.js');
+	const element = new CodeElement();
+	assert.equal(element.getLineBoundingClientRect(1), null, 'Should return null before shadow DOM exists');
+});
+
+test('getLineBoundingClientRect returns null for out-of-range line numbers', async () => {
+	document.body.innerHTML = `
+		<syntax-code language="javascript">const x = 1;</syntax-code>
+	`;
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	assert.equal(element.getLineBoundingClientRect(0), null, 'Line 0 (below 1-based range) should return null');
+	assert.equal(element.getLineBoundingClientRect(-1), null, 'Negative line number should return null');
+
+	const count = element.lineCount;
+	assert.equal(element.getLineBoundingClientRect(count + 1), null, 'Line beyond lineCount should return null');
+});
+
+test('getLineBoundingClientRect returns a DOMRect for valid line numbers', async () => {
+	const twoLineCode = 'const a = 1;\nconst b = 2;';
+
+	document.body.innerHTML = `
+		<syntax-code language="javascript">${twoLineCode}</syntax-code>
+	`;
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const count = element.lineCount;
+	assert.ok(count >= 1, 'Should have at least one rendered line');
+
+	for (let i = 1; i <= count; i++) {
+		const rect = element.getLineBoundingClientRect(i);
+		assert.ok(rect !== null, `Line ${i} should return a DOMRect, not null`);
+		assert.ok(typeof rect.top === 'number', 'DOMRect should have a numeric top property');
+		assert.ok(typeof rect.height === 'number', 'DOMRect should have a numeric height property');
+	}
+});
