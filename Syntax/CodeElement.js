@@ -312,6 +312,12 @@ export function upgradeAll(selector, syntax = null) {
 	const elements = document.querySelectorAll(selector);
 
 	for (const element of elements) {
+		// Existing markup may contain links or other semantics which cannot be
+		// reconstructed from text content after highlighting.
+		if (element.childElementCount > 0) {
+			continue;
+		}
+
 		// Create a syntax-code wrapper
 		const wrapper = document.createElement('syntax-code');
 		if (syntax) {

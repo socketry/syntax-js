@@ -242,6 +242,23 @@ test('upgradeAll can handle standalone <code> blocks with custom selector', asyn
 	);
 });
 
+test('upgradeAll preserves code containing markup', async () => {
+	const {upgradeAll} = await import('../../Syntax/CodeElement.js');
+
+	document.body.innerHTML = `
+		<code class="language-ruby">class <a href="/source/Foo">Foo</a></code>
+	`;
+
+	upgradeAll('code[class*="language-"]');
+
+	const code = document.querySelector('code');
+	const link = code.querySelector('a');
+
+	assert.equal(document.querySelector('syntax-code'), null);
+	assert.equal(code.textContent, 'class Foo');
+	assert.equal(link.getAttribute('href'), '/source/Foo');
+});
+
 test('syntax-code behaves semantically like <code> when inline', async () => {
 	const {CodeElement} = await import('../../Syntax/CodeElement.js');
 
