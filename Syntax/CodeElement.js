@@ -5,6 +5,9 @@ const supportsAdopted =
 	typeof CSSStyleSheet !== 'undefined' &&
 	'adoptedStyleSheets' in Document.prototype;
 
+// These values are defined by the DOM standard. Keep them local so this code
+// does not depend on a global `Node`, which may be unavailable in non-browser
+// DOM implementations.
 const ELEMENT_NODE = 1;
 const TEXT_NODE = 3;
 const CDATA_SECTION_NODE = 4;
