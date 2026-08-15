@@ -22,19 +22,16 @@ export class CodeElement extends HTMLElement {
 	#rendered = null;
 	#adoptedHrefs = new Set();
 	#highlighted = false;
-	#readyResolve = null;
 
 	constructor() {
 		super();
 		
 		/**
-		 * A promise that resolves when the element has been fully rendered.
-		 * Use this to ensure line measurement APIs return valid results.
+		 * A promise that resolves when the current highlighting attempt completes.
+		 * Check `highlighted` before using line measurement APIs.
 		 * @type {Promise<void>}
 		 */
-		this.ready = new Promise(resolve => {
-			this.#readyResolve = resolve;
-		});
+		this.ready = Promise.resolve();
 	}
 
 	get syntax() {
@@ -45,7 +42,7 @@ export class CodeElement extends HTMLElement {
 		this.#syntax = value;
 		// Re-render with new syntax instance if already connected:
 		if (this.isConnected && !this.#highlighted) {
-			this.#render();
+			this.ready = this.#render();
 		}
 	}
 
@@ -117,6 +114,14 @@ export class CodeElement extends HTMLElement {
 		
 		return code.children.length;
 	}
+
+	/**
+	 * Whether the current highlighting attempt has completed successfully.
+	 * @returns {boolean}
+	 */
+	get highlighted() {
+		return this.#highlighted;
+	}
 	
 	connectedCallback() {
 		// Detect if we're inside a <pre> element and set wrap attribute
@@ -135,7 +140,7 @@ export class CodeElement extends HTMLElement {
 			this.#shadow.appendChild(this.#slot);
 		}
 
-		this.#render();
+		this.ready = this.#render();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -148,13 +153,10 @@ export class CodeElement extends HTMLElement {
 			this.isConnected &&
 			this.#shadow
 		) {
-			// Reset highlighted flag and ready promise to allow re-rendering
+			// Reset highlighted state and track the new render attempt:
 			this.#highlighted = false;
-			this.ready = new Promise(resolve => {
-				this.#readyResolve = resolve;
-			});
 			this.#adoptedHrefs.clear();
-			this.#render();
+			this.ready = this.#render();
 		}
 	}
 
@@ -245,8 +247,6 @@ export class CodeElement extends HTMLElement {
 	 * Perform syntax highlighting and render into shadow DOM
 	 */
 	async #render() {
-		const readyResolve = this.#readyResolve;
-
 		try {
 			const languageName = this.language;
 			const code = this.#getCodeContent();
@@ -291,10 +291,6 @@ export class CodeElement extends HTMLElement {
 			this.#highlighted = true;
 		} catch (error) {
 			console.warn('<syntax-code> render failed:', error);
-		} finally {
-			// Rendering failures leave the original source (or previous rendering)
-			// intact, but should not leave callers waiting indefinitely.
-			readyResolve?.();
 		}
 	}
 }

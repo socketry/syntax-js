@@ -128,6 +128,9 @@ const code = document.querySelector('syntax-code');
 // Wait for rendering to complete:
 await code.ready;
 
+// Highlighting may fail while leaving the original source visible:
+if (!code.highlighted) return;
+
 // Get the number of rendered lines:
 console.log(code.lineCount); // 42
 
@@ -136,7 +139,8 @@ const rect = code.getLineBoundingClientRect(5);
 console.log(rect.top, rect.bottom, rect.height);
 ```
 
-- **`ready`** — A `Promise` that resolves when the element has been fully rendered. Await this before calling measurement methods to ensure valid results.
+- **`ready`** — A `Promise` that resolves when the current highlighting attempt completes, whether it succeeds or fails.
+- **`highlighted`** — Returns `true` when the current highlighting attempt has completed successfully. It is `false` while highlighting is pending or after a failure; existing content remains visible in either case.
 - **`lineCount`** — Returns the total number of rendered lines, or `0` if not yet highlighted.
 - **`getLineBoundingClientRect(lineNumber)`** — Returns a `DOMRect` for the given 1-based line number, or `null` if the line doesn't exist. Coordinates are relative to the viewport, just like `Element.getBoundingClientRect()`.
 
