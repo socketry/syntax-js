@@ -242,7 +242,7 @@ test('upgradeAll can handle standalone <code> blocks with custom selector', asyn
 	);
 });
 
-test('upgradeAll preserves code containing markup', async () => {
+test('upgradeAll preserves and highlights code containing markup', async () => {
 	const {upgradeAll} = await import('../../Syntax/CodeElement.js');
 
 	document.body.innerHTML = `
@@ -251,12 +251,42 @@ test('upgradeAll preserves code containing markup', async () => {
 
 	upgradeAll('code[class*="language-"]');
 
-	const code = document.querySelector('code');
-	const link = code.querySelector('a');
+	const element = document.querySelector('syntax-code');
+	await element.ready;
 
-	assert.equal(document.querySelector('syntax-code'), null);
-	assert.equal(code.textContent, 'class Foo');
-	assert.equal(link.getAttribute('href'), '/source/Foo');
+	const sourceLink = element.querySelector('a');
+	const renderedLink = element.shadowRoot.querySelector('a');
+
+	assert.equal(element.textContent, 'class Foo');
+	assert.equal(sourceLink.getAttribute('href'), '/source/Foo');
+	assert.equal(renderedLink.getAttribute('href'), '/source/Foo');
+	assert.equal(renderedLink.textContent, 'Foo');
+	assert.ok(
+		renderedLink.closest('.type'),
+		'linked source should still receive syntax highlighting'
+	);
+});
+
+test('upgradeAll preserves nested markup structure', async () => {
+	const {upgradeAll} = await import('../../Syntax/CodeElement.js');
+
+	document.body.innerHTML = `
+		<code class="language-ruby"><a href="/source/Foo"><strong>Foo</strong>::Bar</a></code>
+	`;
+
+	upgradeAll('code[class*="language-"]');
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const renderedLink = element.shadowRoot.querySelector('a');
+	const renderedStrong = renderedLink.querySelector('strong');
+
+	assert.equal(renderedLink.getAttribute('href'), '/source/Foo');
+	assert.equal(renderedLink.textContent, 'Foo::Bar');
+	assert.equal(renderedStrong.textContent, 'Foo');
+	assert.ok(renderedStrong.closest('.type'));
+	assert.equal(renderedLink.querySelectorAll('.type').length, 2);
 });
 
 test('syntax-code behaves semantically like <code> when inline', async () => {
