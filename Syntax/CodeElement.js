@@ -20,7 +20,6 @@ export class CodeElement extends HTMLElement {
 	#shadow;
 	#slot = null;
 	#rendered = null;
-	#source = null;
 	#adoptedHrefs = new Set();
 	#highlighted = false;
 	#readyResolve = null;
@@ -250,8 +249,7 @@ export class CodeElement extends HTMLElement {
 
 		try {
 			const languageName = this.language;
-			const code = this.#source ?? this.#getCodeContent();
-			this.#source = code;
+			const code = this.#getCodeContent();
 
 			if (!languageName) {
 				console.warn('<syntax-code>: No language specified');
@@ -289,9 +287,6 @@ export class CodeElement extends HTMLElement {
 			}
 
 			this.#rendered = highlighted;
-
-			// Clear light DOM only after successful render to avoid losing content on errors:
-			this.textContent = '';
 
 			this.#highlighted = true;
 		} catch (error) {

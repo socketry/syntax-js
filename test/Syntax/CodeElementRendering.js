@@ -52,7 +52,7 @@ function createDeferredSyntax() {
 }
 
 test(
-	'source content remains visible until highlighting completes',
+	'source content remains available during and after highlighting',
 	{timeout: 1000},
 	async t => {
 		const previousSyntax = Syntax.default;
@@ -80,10 +80,23 @@ test(
 		await element.ready;
 
 		assert.equal(element.shadowRoot.querySelector('slot'), null);
-		assert.equal(element.textContent, '');
+		assert.equal(
+			element.textContent,
+			'first line\nsecond line',
+			'light-DOM source should remain available for re-rendering'
+		);
 		assert.equal(
 			element.shadowRoot.querySelector('code').textContent,
 			'first line\nsecond line'
+		);
+
+		element.setAttribute('language', 'test-again');
+		await element.ready;
+
+		assert.equal(
+			element.shadowRoot.querySelector('code').textContent,
+			'first line\nsecond line',
+			're-rendering should read from the retained light-DOM source'
 		);
 	}
 );
