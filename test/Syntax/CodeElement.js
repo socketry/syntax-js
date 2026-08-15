@@ -242,6 +242,99 @@ test('upgradeAll can handle standalone <code> blocks with custom selector', asyn
 	);
 });
 
+test('upgradeAll preserves and highlights code containing markup', async () => {
+	const {upgradeAll} = await import('../../Syntax/CodeElement.js');
+
+	document.body.innerHTML = `
+		<code class="language-ruby">class <a href="/source/Foo">Foo</a></code>
+	`;
+
+	upgradeAll('code[class*="language-"]');
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const sourceLink = element.querySelector('a');
+	const renderedLink = element.shadowRoot.querySelector('a');
+
+	assert.equal(element.textContent, 'class Foo');
+	assert.equal(sourceLink.getAttribute('href'), '/source/Foo');
+	assert.equal(renderedLink.getAttribute('href'), '/source/Foo');
+	assert.equal(renderedLink.textContent, 'Foo');
+	assert.ok(
+		renderedLink.closest('.type'),
+		'linked source should still receive syntax highlighting'
+	);
+});
+
+test('upgradeAll preserves nested markup structure', async () => {
+	const {upgradeAll} = await import('../../Syntax/CodeElement.js');
+
+	document.body.innerHTML = `
+		<code class="language-ruby"><a href="/source/Foo"><strong>Foo</strong>::Bar</a></code>
+	`;
+
+	upgradeAll('code[class*="language-"]');
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const renderedLink = element.shadowRoot.querySelector('a');
+	const renderedStrong = renderedLink.querySelector('strong');
+
+	assert.equal(renderedLink.getAttribute('href'), '/source/Foo');
+	assert.equal(renderedLink.textContent, 'Foo::Bar');
+	assert.equal(renderedStrong.textContent, 'Foo');
+	assert.ok(renderedStrong.closest('.type'));
+	assert.equal(renderedLink.querySelectorAll('.type').length, 2);
+});
+
+test('upgradeAll preserves markup spanning multiple lines', async () => {
+	const {upgradeAll} = await import('../../Syntax/CodeElement.js');
+
+	document.body.innerHTML =
+		'<code class="language-ruby"><a href="/source/Foo">Foo\nBar</a></code>';
+
+	upgradeAll('code[class*="language-"]');
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const renderedLinks = [...element.shadowRoot.querySelectorAll('a')];
+
+	assert.equal(element.lineCount, 2);
+	assert.deepEqual(
+		renderedLinks.map(link => link.textContent),
+		['Foo\n', 'Bar']
+	);
+	assert.ok(
+		renderedLinks.every(link => link.getAttribute('href') === '/source/Foo')
+	);
+});
+
+test('syntax-code preserves markup when re-rendering', async () => {
+	await import('../../Syntax/CodeElement.js');
+
+	document.body.innerHTML =
+		'<syntax-code language="ruby"><a href="/source/Foo" data-kind="class">Foo</a></syntax-code>';
+
+	const element = document.querySelector('syntax-code');
+	await element.ready;
+
+	const firstLink = element.shadowRoot.querySelector('a');
+	assert.equal(firstLink.getAttribute('href'), '/source/Foo');
+	assert.equal(firstLink.dataset.kind, 'class');
+
+	element.language = 'python';
+	await element.ready;
+
+	const secondLink = element.shadowRoot.querySelector('a');
+	assert.notEqual(secondLink, firstLink);
+	assert.equal(secondLink.getAttribute('href'), '/source/Foo');
+	assert.equal(secondLink.dataset.kind, 'class');
+	assert.equal(secondLink.textContent, 'Foo');
+});
+
 test('syntax-code behaves semantically like <code> when inline', async () => {
 	const {CodeElement} = await import('../../Syntax/CodeElement.js');
 
