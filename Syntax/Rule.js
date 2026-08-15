@@ -288,6 +288,22 @@ export class Rule {
 	 */
 	static webLinkProcess(baseUrl) {
 		return function (container, match, options) {
+			// Authored links take precedence over generated documentation links.
+			// Depending on the source ranges, the authored link may be either an
+			// ancestor or a descendant of this syntax match.
+			let current = match;
+			while (current) {
+				if (current.expression?.element?.tagName === 'A') {
+					return container;
+				}
+
+				current = current.parent;
+			}
+
+			if (container.matches('a') || container.querySelector('a')) {
+				return container;
+			}
+
 			// Replace the span with an anchor element
 			const anchor = document.createElement('a');
 

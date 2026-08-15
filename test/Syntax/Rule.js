@@ -249,3 +249,38 @@ test('webLinkProcess preserves nested HTML', () => {
 	);
 	assert.strictEqual(result.className, 'function');
 });
+
+test('webLinkProcess preserves a nested authored link', () => {
+	const process = Rule.webLinkProcess('http://docs.example.com/');
+	const container = document.createElement('span');
+	container.innerHTML = '<a href="/source/Foo">Foo</a>';
+
+	const match = {
+		value: 'Foo',
+		expression: {type: 'type'}
+	};
+
+	assert.strictEqual(process(container, match, {}), container);
+	assert.strictEqual(
+		container.querySelector('a').getAttribute('href'),
+		'/source/Foo'
+	);
+});
+
+test('webLinkProcess preserves an authored link from a parent match', () => {
+	const process = Rule.webLinkProcess('http://docs.example.com/');
+	const container = document.createElement('span');
+	container.textContent = 'Foo';
+
+	const sourceLink = document.createElement('a');
+	const match = {
+		value: 'Foo',
+		expression: {type: 'type'},
+		parent: {
+			expression: {element: sourceLink},
+			parent: null
+		}
+	};
+
+	assert.strictEqual(process(container, match, {}), container);
+});
