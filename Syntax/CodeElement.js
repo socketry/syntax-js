@@ -18,6 +18,9 @@ export class CodeElement extends HTMLElement {
 
 	#syntax = null;
 	#shadow;
+	#slot = null;
+	#rendered = null;
+	#source = null;
 	#adoptedHrefs = new Set();
 	#highlighted = false;
 	#readyResolve = null;
@@ -129,6 +132,8 @@ export class CodeElement extends HTMLElement {
 
 		if (!this.#shadow) {
 			this.#shadow = this.attachShadow({mode: 'open'});
+			this.#slot = document.createElement('slot');
+			this.#shadow.appendChild(this.#slot);
 		}
 
 		this.#render();
@@ -241,8 +246,12 @@ export class CodeElement extends HTMLElement {
 	 * Perform syntax highlighting and render into shadow DOM
 	 */
 	async #render() {
+		const readyResolve = this.#readyResolve;
+
 		try {
 			const languageName = this.language;
+			const code = this.#source ?? this.#getCodeContent();
+			this.#source = code;
 
 			if (!languageName) {
 				console.warn('<syntax-code>: No language specified');
@@ -262,22 +271,35 @@ export class CodeElement extends HTMLElement {
 			// Load theme CSS into shadow root using the language's canonical name
 			await this.#loadStylesheets(language.name);
 
-			const code = this.#getCodeContent();
-
-			// Clear shadow DOM before rendering (must happen before appendChild to remove old content, but after loadStylesheets since fallback path may have appended <style> elements):
-			this.#shadow.innerHTML = '';
-
-			// Highlight and append - language.process() returns a <code> element:
+			// Highlight off-DOM so the original source remains visible while all
+			// asynchronous work is in progress:
 			const highlighted = await language.process(this.syntax, code);
-			this.#shadow.appendChild(highlighted);
+
+			// Swap the completed rendering in synchronously. On the first render,
+			// the slot keeps the light-DOM source visible. On subsequent renders,
+			// keep the previous highlighted content visible until its replacement
+			// is ready.
+			if (this.#rendered) {
+				this.#rendered.replaceWith(highlighted);
+			} else if (this.#slot) {
+				this.#slot.replaceWith(highlighted);
+				this.#slot = null;
+			} else {
+				this.#shadow.appendChild(highlighted);
+			}
+
+			this.#rendered = highlighted;
 
 			// Clear light DOM only after successful render to avoid losing content on errors:
 			this.textContent = '';
 
 			this.#highlighted = true;
-			this.#readyResolve?.();
 		} catch (error) {
 			console.warn('<syntax-code> render failed:', error);
+		} finally {
+			// Rendering failures leave the original source (or previous rendering)
+			// intact, but should not leave callers waiting indefinitely.
+			readyResolve?.();
 		}
 	}
 }
