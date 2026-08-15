@@ -108,6 +108,7 @@ export class Match {
 
 		for (const child of this.children) {
 			const end = child.offset;
+			child.parent = this;
 
 			if (child.offset < this.offset) {
 				console.warn(
