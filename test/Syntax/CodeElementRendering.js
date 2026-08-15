@@ -75,10 +75,12 @@ test(
 			element.shadowRoot.querySelector('slot'),
 			'source should remain visible through a slot'
 		);
+		assert.equal(element.highlighted, false);
 
 		deferred.release();
 		await element.ready;
 
+		assert.equal(element.highlighted, true);
 		assert.equal(element.shadowRoot.querySelector('slot'), null);
 		assert.equal(
 			element.textContent,
@@ -91,8 +93,10 @@ test(
 		);
 
 		element.setAttribute('language', 'test-again');
+		assert.equal(element.highlighted, false);
 		await element.ready;
 
+		assert.equal(element.highlighted, true);
 		assert.equal(
 			element.shadowRoot.querySelector('code').textContent,
 			'first line\nsecond line',
@@ -131,6 +135,7 @@ test(
 		const element = document.querySelector('syntax-code');
 		await element.ready;
 
+		assert.equal(element.highlighted, false);
 		assert.equal(element.textContent, 'original source');
 		assert.ok(element.shadowRoot.querySelector('slot'));
 		assert.equal(element.shadowRoot.querySelector('code'), null);
