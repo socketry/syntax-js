@@ -56,7 +56,8 @@ test('HTML: embedded JavaScript in script tag without type', async () => {
 
 test('HTML: embedded JSON in importmap', async () => {
 	const language = await getLanguage();
-	const code = '<script type="importmap">{"imports": {"vue": "/vue.js"}}</script>';
+	const code =
+		'<script type="importmap">{"imports": {"vue": "/vue.js"}}</script>';
 	const matches = await language.getMatches(Syntax.default, code);
 	// Should have embedded JSON language
 	ok(matches.some(m => m.expression && m.expression.language === 'json'));

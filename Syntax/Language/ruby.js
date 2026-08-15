@@ -64,7 +64,22 @@ const keywords = [
 	'block_given?'
 ];
 
-const operators = ['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>', '...', '..'];
+const operators = [
+	'+',
+	'*',
+	'/',
+	'-',
+	'&',
+	'|',
+	'~',
+	'!',
+	'%',
+	'<',
+	'=',
+	'>',
+	'...',
+	'..'
+];
 const values = ['self', 'super', 'true', 'false', 'nil'];
 const access = ['private', 'protected', 'public'];
 

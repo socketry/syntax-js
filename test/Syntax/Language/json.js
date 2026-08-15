@@ -30,7 +30,9 @@ test('JSON: integer numbers', async () => {
 	const language = await getLanguage();
 	const code = '0 42 -17 999';
 	const matches = await language.getMatches(Syntax.default, code);
-	const numbers = matches.filter(m => m.expression.type === 'constant' && /^-?\d/.test(m.value));
+	const numbers = matches.filter(
+		m => m.expression.type === 'constant' && /^-?\d/.test(m.value)
+	);
 	ok(numbers.length >= 4);
 });
 
@@ -38,7 +40,9 @@ test('JSON: float numbers', async () => {
 	const language = await getLanguage();
 	const code = '3.14 -0.5 123.456';
 	const matches = await language.getMatches(Syntax.default, code);
-	const numbers = matches.filter(m => m.expression.type === 'constant' && m.value.includes('.'));
+	const numbers = matches.filter(
+		m => m.expression.type === 'constant' && m.value.includes('.')
+	);
 	ok(numbers.length >= 3);
 });
 
@@ -46,7 +50,9 @@ test('JSON: scientific notation', async () => {
 	const language = await getLanguage();
 	const code = '1e10 2.5e-3 -1.23E+5';
 	const matches = await language.getMatches(Syntax.default, code);
-	const numbers = matches.filter(m => m.expression.type === 'constant' && /e/i.test(m.value));
+	const numbers = matches.filter(
+		m => m.expression.type === 'constant' && /e/i.test(m.value)
+	);
 	ok(numbers.length >= 3);
 });
 
@@ -94,7 +100,8 @@ test('JSON: array', async () => {
 
 test('JSON: complex structure', async () => {
 	const language = await getLanguage();
-	const code = '{"items": [{"id": 1, "active": true}, {"id": 2, "active": false}]}';
+	const code =
+		'{"items": [{"id": 1, "active": true}, {"id": 2, "active": false}]}';
 	const matches = await language.getMatches(Syntax.default, code);
 	const keys = matches.filter(m => m.expression.type === 'key');
 	ok(keys.length >= 5);

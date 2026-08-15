@@ -202,7 +202,7 @@ test('upgradeAll handles <pre><code> blocks without double-nesting', async () =>
 		'const x = 1;',
 		'Code content should be preserved'
 	);
-	
+
 	// Verify wrap attribute is set (because it's inside <pre>)
 	// Note: This happens in connectedCallback, which may not fire in JSDOM
 	// We'll just verify structure for now
@@ -346,21 +346,25 @@ test('syntax-code behaves semantically like <code> when inline', async () => {
 	`;
 
 	const element = document.querySelector('syntax-code');
-	
+
 	// Wait for rendering to complete
 	await new Promise(resolve => setTimeout(resolve, 100));
 
 	// Verify it's inline (like <code>) by checking the shadow DOM structure
 	const shadowRoot = element.shadowRoot;
 	assert.ok(shadowRoot, 'Shadow root should exist');
-	
+
 	// Should contain a <code> element, not wrapped in <pre>
 	const codeElement = shadowRoot.querySelector('code');
 	assert.ok(codeElement, 'Shadow DOM should contain <code> element');
-	
+
 	const preElement = shadowRoot.querySelector('pre');
-	assert.equal(preElement, null, 'Shadow DOM should NOT contain <pre> wrapper for inline usage');
-	
+	assert.equal(
+		preElement,
+		null,
+		'Shadow DOM should NOT contain <pre> wrapper for inline usage'
+	);
+
 	// The code element should be a direct child of shadow root
 	assert.ok(
 		Array.from(shadowRoot.children).includes(codeElement),
@@ -379,18 +383,21 @@ test('syntax-code behaves as block when inside <pre>', async () => {
 	`;
 
 	const element = document.querySelector('syntax-code');
-	
+
 	// Wait for rendering to complete
 	await new Promise(resolve => setTimeout(resolve, 100));
 
 	// Check that wrap attribute was set (because it's inside <pre>)
-	assert.ok(element.hasAttribute('wrap'), 'wrap attribute should be set when inside <pre>');
-	
+	assert.ok(
+		element.hasAttribute('wrap'),
+		'wrap attribute should be set when inside <pre>'
+	);
+
 	// After rendering, light DOM is cleared, so check shadow DOM
 	const shadowRoot = element.shadowRoot;
 	const codeElement = shadowRoot.querySelector('code');
 	assert.ok(codeElement, 'Shadow DOM should contain <code> element');
-	
+
 	// The <code> should be a direct child of shadow root (no <pre> wrapper needed inside)
 	assert.ok(
 		Array.from(shadowRoot.children).includes(codeElement),
@@ -414,7 +421,10 @@ test('ready promise resolves after rendering completes', async () => {
 	// After ready resolves, the shadow root should exist and contain rendered content
 	const shadowRoot = element.shadowRoot;
 	assert.ok(shadowRoot, 'Shadow root should exist after ready');
-	assert.ok(shadowRoot.querySelector('code'), 'Shadow DOM should contain <code> after ready');
+	assert.ok(
+		shadowRoot.querySelector('code'),
+		'Shadow DOM should contain <code> after ready'
+	);
 });
 
 test('ready promise resets and re-resolves when language attribute changes', async () => {
@@ -431,11 +441,18 @@ test('ready promise resets and re-resolves when language attribute changes', asy
 	element.setAttribute('language', 'python');
 
 	// The promise should have been replaced
-	assert.notEqual(element.ready, firstReady, 'ready should be a new Promise after attribute change');
+	assert.notEqual(
+		element.ready,
+		firstReady,
+		'ready should be a new Promise after attribute change'
+	);
 
 	// The new promise should also resolve
 	await element.ready;
-	assert.ok(element.shadowRoot.querySelector('code'), 'Shadow DOM should be re-rendered');
+	assert.ok(
+		element.shadowRoot.querySelector('code'),
+		'Shadow DOM should be re-rendered'
+	);
 });
 
 test('lineCount returns 0 before element is connected', async () => {
@@ -454,14 +471,25 @@ test('lineCount returns the number of rendered lines after ready', async () => {
 	const element = document.querySelector('syntax-code');
 	await element.ready;
 
-	assert.ok(element.lineCount > 0, 'lineCount should be greater than 0 after rendering');
-	assert.equal(element.lineCount, element.shadowRoot.querySelector('code').children.length, 'lineCount should match actual child count');
+	assert.ok(
+		element.lineCount > 0,
+		'lineCount should be greater than 0 after rendering'
+	);
+	assert.equal(
+		element.lineCount,
+		element.shadowRoot.querySelector('code').children.length,
+		'lineCount should match actual child count'
+	);
 });
 
 test('getLineBoundingClientRect returns null before element is connected', async () => {
 	const {CodeElement} = await import('../../Syntax/CodeElement.js');
 	const element = new CodeElement();
-	assert.equal(element.getLineBoundingClientRect(1), null, 'Should return null before shadow DOM exists');
+	assert.equal(
+		element.getLineBoundingClientRect(1),
+		null,
+		'Should return null before shadow DOM exists'
+	);
 });
 
 test('getLineBoundingClientRect returns null for out-of-range line numbers', async () => {
@@ -472,11 +500,23 @@ test('getLineBoundingClientRect returns null for out-of-range line numbers', asy
 	const element = document.querySelector('syntax-code');
 	await element.ready;
 
-	assert.equal(element.getLineBoundingClientRect(0), null, 'Line 0 (below 1-based range) should return null');
-	assert.equal(element.getLineBoundingClientRect(-1), null, 'Negative line number should return null');
+	assert.equal(
+		element.getLineBoundingClientRect(0),
+		null,
+		'Line 0 (below 1-based range) should return null'
+	);
+	assert.equal(
+		element.getLineBoundingClientRect(-1),
+		null,
+		'Negative line number should return null'
+	);
 
 	const count = element.lineCount;
-	assert.equal(element.getLineBoundingClientRect(count + 1), null, 'Line beyond lineCount should return null');
+	assert.equal(
+		element.getLineBoundingClientRect(count + 1),
+		null,
+		'Line beyond lineCount should return null'
+	);
 });
 
 test('getLineBoundingClientRect returns a DOMRect for valid line numbers', async () => {
@@ -495,7 +535,13 @@ test('getLineBoundingClientRect returns a DOMRect for valid line numbers', async
 	for (let i = 1; i <= count; i++) {
 		const rect = element.getLineBoundingClientRect(i);
 		assert.ok(rect !== null, `Line ${i} should return a DOMRect, not null`);
-		assert.ok(typeof rect.top === 'number', 'DOMRect should have a numeric top property');
-		assert.ok(typeof rect.height === 'number', 'DOMRect should have a numeric height property');
+		assert.ok(
+			typeof rect.top === 'number',
+			'DOMRect should have a numeric top property'
+		);
+		assert.ok(
+			typeof rect.height === 'number',
+			'DOMRect should have a numeric height property'
+		);
 	}
 });

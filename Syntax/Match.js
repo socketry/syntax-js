@@ -287,11 +287,7 @@ export class Match {
 
 			// Element-backed matches describe authored markup and must retain their
 			// original expression so reduction can recreate that element.
-			if (
-				this.expression &&
-				this.expression.owner &&
-				!match.expression.element
-			) {
+			if (this.expression && this.expression.owner && !match.expression.element) {
 				match.expression =
 					this.expression.owner.getRuleForType(match.expression.type) ||
 					match.expression;

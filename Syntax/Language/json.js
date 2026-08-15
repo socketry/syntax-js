@@ -21,11 +21,7 @@ language.push({
 // Object keys (strings followed by colon)
 language.push({
 	pattern: /("(?:[^"\\]|\\.)*")(\s*)(:)/,
-	matches: Rule.extractMatches(
-		{type: 'key'},
-		null,
-		{type: 'operator'}
-	)
+	matches: Rule.extractMatches({type: 'key'}, null, {type: 'operator'})
 });
 
 // Structural characters

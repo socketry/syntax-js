@@ -50,9 +50,12 @@ language.push(
 );
 
 // Operators
-language.push(['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>', '...'], {
-	type: 'operator'
-});
+language.push(
+	['+', '*', '/', '-', '&', '|', '~', '!', '%', '<', '=', '>', '...'],
+	{
+		type: 'operator'
+	}
+);
 
 // Access modifiers
 language.push(

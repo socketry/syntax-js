@@ -8,7 +8,10 @@ language.push({
 	pattern: /<script(\s+[^>]*?)?>((.|\n)*?)<\/script>/im,
 	matches: Rule.extractConditionalMatch(1, 2, [
 		{pattern: /type\s*=\s*["']importmap["']/i, language: 'json'},
-		{pattern: /type\s*=\s*["'](?:text|application)\/javascript["']/i, language: 'javascript'},
+		{
+			pattern: /type\s*=\s*["'](?:text|application)\/javascript["']/i,
+			language: 'javascript'
+		},
 		{language: 'javascript'} // Fallback: no type or unknown type defaults to JavaScript (HTML5)
 	])
 });
