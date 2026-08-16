@@ -202,7 +202,7 @@ test('upgradeAll handles <pre><code> blocks without double-nesting', async () =>
 		'const x = 1;',
 		'Code content should be preserved'
 	);
-	
+
 	// Verify wrap attribute is set (because it's inside <pre>)
 	// Note: This happens in connectedCallback, which may not fire in JSDOM
 	// We'll just verify structure for now
@@ -346,21 +346,21 @@ test('syntax-code behaves semantically like <code> when inline', async () => {
 	`;
 
 	const element = document.querySelector('syntax-code');
-	
+
 	// Wait for rendering to complete
 	await new Promise(resolve => setTimeout(resolve, 100));
 
 	// Verify it's inline (like <code>) by checking the shadow DOM structure
 	const shadowRoot = element.shadowRoot;
 	assert.ok(shadowRoot, 'Shadow root should exist');
-	
+
 	// Should contain a <code> element, not wrapped in <pre>
 	const codeElement = shadowRoot.querySelector('code');
 	assert.ok(codeElement, 'Shadow DOM should contain <code> element');
-	
+
 	const preElement = shadowRoot.querySelector('pre');
 	assert.equal(preElement, null, 'Shadow DOM should NOT contain <pre> wrapper for inline usage');
-	
+
 	// The code element should be a direct child of shadow root
 	assert.ok(
 		Array.from(shadowRoot.children).includes(codeElement),
@@ -379,18 +379,18 @@ test('syntax-code behaves as block when inside <pre>', async () => {
 	`;
 
 	const element = document.querySelector('syntax-code');
-	
+
 	// Wait for rendering to complete
 	await new Promise(resolve => setTimeout(resolve, 100));
 
 	// Check that wrap attribute was set (because it's inside <pre>)
 	assert.ok(element.hasAttribute('wrap'), 'wrap attribute should be set when inside <pre>');
-	
+
 	// After rendering, light DOM is cleared, so check shadow DOM
 	const shadowRoot = element.shadowRoot;
 	const codeElement = shadowRoot.querySelector('code');
 	assert.ok(codeElement, 'Shadow DOM should contain <code> element');
-	
+
 	// The <code> should be a direct child of shadow root (no <pre> wrapper needed inside)
 	assert.ok(
 		Array.from(shadowRoot.children).includes(codeElement),

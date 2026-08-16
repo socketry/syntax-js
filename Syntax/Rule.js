@@ -134,14 +134,14 @@ export class Rule {
 	 * Create a conditional matcher that selects a rule based on another capture group.
 	 * Tests a condition capture group against patterns to determine which rule to apply
 	 * to a content capture group.
-	 * 
+	 *
 	 * @param {number} conditionIndex - Capture group index to test against patterns
 	 * @param {number} contentIndex - Capture group index containing content to match
 	 * @param {Array<{pattern?: RegExp, ...rule}>} conditions - Array of condition objects. Each can have:
 	 *   - pattern: RegExp to test against the condition group (optional - if omitted, acts as fallback)
 	 *   - Any rule properties (language, type, etc.) to apply when pattern matches
 	 * @returns {Function} A matches function for use in language rules
-	 * 
+	 *
 	 * @example
 	 * // Script tags with type-based language selection
 	 * language.push({
@@ -152,7 +152,7 @@ export class Rule {
 	 *     {language: 'javascript'} // Fallback for no type or unknown types
 	 *   ])
 	 * });
-	 * 
+	 *
 	 * @example
 	 * // Code fence with language specifier
 	 * language.push({
@@ -163,7 +163,7 @@ export class Rule {
 	 *     {language: 'plaintext'} // Fallback
 	 *   ])
 	 * });
-	 * 
+	 *
 	 * @example
 	 * // Conditional type based on prefix
 	 * language.push({
@@ -201,7 +201,7 @@ export class Rule {
 
 			// Build syntax tree or create match based on rule properties
 			const offset = match.index + match[0].indexOf(content);
-			
+
 			if (ruleProps.language) {
 				return [
 					await Language.buildTree(
