@@ -36,18 +36,6 @@
 		</syntax-code>
 	</div>
 	
-	<script type="module">
-		import Syntax from '../Syntax.js';
-		import register[Language] from '../Syntax/Language/[language].js';
-		
-		// Register the language (if needed - some are auto-registered)
-		register[Language](Syntax.default);
-		
-		// Initialize highlighting
-		await Syntax.highlight({
-			autoUpgrade: true,
-			syntax: Syntax.default
-		});
-	</script>
+	<script type="module" src="application.js"></script>
 </body>
 </html>

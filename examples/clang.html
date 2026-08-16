@@ -188,15 +188,6 @@ int main(int argc, char *argv[]) {
 		</syntax-code>
 	</div>
 	
-	<script type="module">
-		import Syntax from '../Syntax.js';
-		import '../Syntax/CodeElement.js';
-		import clang from '../Syntax/Language/clang.js';
-		
-		const syntax = Syntax.default;
-		clang(syntax);
-		
-		console.log('Clang language registered with aliases:', ['c', 'cpp', 'c++', 'objective-c']);
-	</script>
+	<script type="module" src="application.js"></script>
 </body>
 </html>
