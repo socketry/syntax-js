@@ -89,7 +89,13 @@ pre {
 
 syntax-code {
 	display: block;
+	overflow-x: auto;
+	white-space: pre;
 	margin: 1rem 0;
+}
+
+syntax-code[wrap] {
+	white-space: pre-wrap;
 }
 
 /* Feature boxes (for index page) */
