@@ -83,7 +83,7 @@ export class CodeElement extends HTMLElement {
 
 	constructor() {
 		super();
-		
+
 		/**
 		 * A promise that resolves when the current highlighting attempt completes.
 		 * Check `highlighted` before using line measurement APIs.
@@ -150,26 +150,26 @@ export class CodeElement extends HTMLElement {
 	 */
 	getLineBoundingClientRect(lineNumber) {
 		if (!this.#shadow) return null;
-		
+
 		const code = this.#shadow.querySelector('code');
 		if (!code) return null;
-		
+
 		const lines = code.children;
 		if (lineNumber < 1 || lineNumber > lines.length) return null;
-		
+
 		return lines[lineNumber - 1].getBoundingClientRect();
 	}
-	
+
 	/**
 	 * Get the total number of rendered lines.
 	 * @returns {number} The line count, or 0 if not yet rendered.
 	 */
 	get lineCount() {
 		if (!this.#shadow) return 0;
-		
+
 		const code = this.#shadow.querySelector('code');
 		if (!code) return 0;
-		
+
 		return code.children.length;
 	}
 
@@ -180,7 +180,7 @@ export class CodeElement extends HTMLElement {
 	get highlighted() {
 		return this.#highlighted;
 	}
-	
+
 	connectedCallback() {
 		// Detect if we're inside a <pre> element and set wrap attribute
 		if (this.parentElement?.tagName === 'PRE') {

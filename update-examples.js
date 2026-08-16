@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync, readdirSync } from 'fs';
-import { join } from 'path';
+import {readFileSync, writeFileSync, readdirSync} from 'fs';
+import {join} from 'path';
 
 const examplesDir = './examples';
 const excludeFiles = new Set([
@@ -56,7 +56,7 @@ const languageNames = {
 };
 
 // Process each file
-const files = readdirSync(examplesDir).filter(f => 
+const files = readdirSync(examplesDir).filter(f =>
 	f.endsWith('.html') && !excludeFiles.has(f)
 );
 
@@ -65,18 +65,18 @@ console.log(`Processing ${files.length} files...`);
 files.forEach(file => {
 	const filePath = join(examplesDir, file);
 	let content = readFileSync(filePath, 'utf8');
-	
+
 	const baseName = file.replace('.html', '');
 	const langName = languageNames[baseName] || baseName;
-	
+
 	// Check if already updated
 	if (content.includes('examples.css')) {
 		console.log(`✓ ${file} already updated`);
 		return;
 	}
-	
+
 	console.log(`Updating ${file}...`);
-	
+
 	// Replace <head> with inline styles
 	content = content.replace(
 		/<head>[\s\S]*?<\/head>/,
@@ -87,7 +87,7 @@ files.forEach(file => {
 	<link rel="stylesheet" href="examples.css">
 </head>`
 	);
-	
+
 	// Add header if not present
 	if (!content.includes('<header>')) {
 		content = content.replace(
@@ -105,7 +105,7 @@ files.forEach(file => {
 `
 		);
 	}
-	
+
 	// Wrap examples in div.example if needed
 	if (!content.includes('class="example"')) {
 		// Simple wrapping for code blocks
@@ -127,7 +127,7 @@ files.forEach(file => {
 			'$1\n\t</div>\n\t\n\t<script'
 		);
 	}
-	
+
 	writeFileSync(filePath, content, 'utf8');
 	console.log(`✓ Updated ${file}`);
 });
