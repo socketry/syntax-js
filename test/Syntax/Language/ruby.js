@@ -1,6 +1,6 @@
 import Syntax from '../../../Syntax.js';
 import registerRuby from '../../../Syntax/Language/ruby.js';
-import {strictEqual} from 'node:assert';
+import {deepStrictEqual, strictEqual} from 'node:assert';
 import test from 'node:test';
 
 async function getTypesFor(code) {
@@ -67,4 +67,29 @@ test('Ruby: symbols', async () => {
 test('Ruby: function detection', async () => {
 	const types = await getTypesFor('def compute\nend\nobject.method');
 	strictEqual(types.includes('function'), true);
+});
+
+test('Ruby: predicate and bang method detection', async () => {
+	const syntax = new Syntax();
+	registerRuby(syntax);
+	const language = await syntax.getLanguage('ruby');
+	const matches = await language.getMatches(
+		syntax,
+		'def valid?\nend\nobject.save!\nvalid?(value)\nsave! value\nready?'
+	);
+	const functions = matches
+		.filter(match => match.expression.type === 'function')
+		.map(match => match.value);
+
+	deepStrictEqual(functions, ['valid?', 'save!', 'valid?', 'save!', 'ready?']);
+});
+
+test('Ruby: predicate and bang symbols are not methods', async () => {
+	const syntax = new Syntax();
+	registerRuby(syntax);
+	const language = await syntax.getLanguage('ruby');
+	const matches = await language.getMatches(syntax, ':valid?\n:save!\nvalid?: true');
+	const functions = matches.filter(match => match.expression.type === 'function');
+
+	deepStrictEqual(functions, []);
 });
