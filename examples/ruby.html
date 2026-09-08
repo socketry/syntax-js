@@ -49,6 +49,87 @@ words = %w{alpha beta gamma}
 output = `uname -a`
 		</syntax-code>
 	</div>
+
+	<div class="example">
+		<h2>Predicate and Bang Methods</h2>
+		<p class="description">Methods ending in <code>?</code> express queries, while methods ending in <code>!</code> commonly signal mutation or failure:</p>
+
+		<syntax-code language="ruby">
+class Document
+  def initialize
+    @published_at = nil
+  end
+
+  def published?
+    !@published_at.nil?
+  end
+
+  def publish!
+    raise 'Already published' if published?
+
+    @published_at = Time.now
+  end
+end
+
+document = Document.new
+document.published?
+document.publish!
+
+# Predicate and bang calls can also omit a receiver.
+publish! if ready?
+save! document if valid?
+
+# Question marks and bangs are also valid in symbols.
+callbacks = [:ready?, :save!]
+		</syntax-code>
+	</div>
+
+	<div class="example">
+		<h2>Blocks and Enumerable</h2>
+		<p class="description">Collections, blocks, ranges, and chained method calls:</p>
+
+		<syntax-code language="ruby">
+numbers = (1..10).to_a
+
+even_squares = numbers
+  .select { |number| number.even? }
+  .map { |number| number * number }
+
+total = even_squares.reduce(0) do |sum, number|
+  sum + number
+end
+
+puts "Even squares: #{even_squares.join(', ')}"
+puts "Total: #{total}"
+		</syntax-code>
+	</div>
+
+	<div class="example">
+		<h2>Metaprogramming</h2>
+		<p class="description">Dynamically defining predicate and bang methods:</p>
+
+		<syntax-code language="ruby">
+class FeatureFlags
+  def initialize
+    @enabled = {}
+  end
+
+  [:search, :billing, :reports].each do |feature|
+    define_method("#{feature}?") do
+      @enabled.fetch(feature, false)
+    end
+
+    define_method("enable_#{feature}!") do
+      @enabled[feature] = true
+    end
+  end
+end
+
+flags = FeatureFlags.new
+flags.enable_search!
+puts flags.search?
+		</syntax-code>
+	</div>
 	
 	<script type="module">
 		import Syntax from '../Syntax.js';
